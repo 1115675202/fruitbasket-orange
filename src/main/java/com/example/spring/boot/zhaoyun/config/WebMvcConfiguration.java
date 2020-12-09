@@ -1,9 +1,7 @@
 package com.example.spring.boot.zhaoyun.config;
 
-import com.example.spring.boot.zhaoyun.filter.AuthenticationInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -15,13 +13,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-	@Autowired
-	private AuthenticationInterceptor authenticationInterceptor;
-
 	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(authenticationInterceptor)
-				.addPathPatterns("/**")
-		;
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+//				.allowedOrigins("http://localhost")
+//				.allowedOriginPatterns("/**")
+				.allowedHeaders("*")
+				.allowedMethods("*")
+				.maxAge(3600)
+				.allowCredentials(true);
 	}
 }

@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
  * @date 2020/11/28
  */
 @RestControllerAdvice(annotations = {RestController.class})
-public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
+public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
 
 	@Autowired
 	private ObjectMapper objectMapper;

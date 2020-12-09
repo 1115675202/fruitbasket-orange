@@ -1,7 +1,5 @@
 package com.example.spring.boot.zhaoyun.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.example.spring.boot.zhaoyun.query.LoginQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -20,8 +18,6 @@ public class UserService {
 	private StringRedisTemplate stringRedisTemplate;
 
 	public String login(LoginQuery query) {
-		return JWT.create()
-				.withAudience(query.getIdentifier())
-				.sign(Algorithm.HMAC256(query.getCredential()));
+		return null;
 	}
 }
