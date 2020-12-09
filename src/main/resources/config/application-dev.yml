@@ -1,0 +1,9 @@
+spring:
+  devtools:
+    restart:
+      enabled: true #热部署是否生效
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
