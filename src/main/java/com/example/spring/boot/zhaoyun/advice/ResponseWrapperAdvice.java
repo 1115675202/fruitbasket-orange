@@ -1,6 +1,6 @@
 package com.example.spring.boot.zhaoyun.advice;
 
-import com.example.spring.boot.zhaoyun.response.BusinessException;
+import com.example.spring.boot.zhaoyun.exception.BusinessException;
 import com.example.spring.boot.zhaoyun.response.ResultVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

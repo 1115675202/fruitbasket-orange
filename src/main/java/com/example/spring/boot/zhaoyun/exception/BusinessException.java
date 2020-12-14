@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.response;
+package com.example.spring.boot.zhaoyun.exception;
 
 /**
  * 业务异常，不追踪堆栈信息

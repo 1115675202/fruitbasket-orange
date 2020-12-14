@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.vo;
+package com.example.spring.boot.zhaoyun.module.encrypt.pojo.query;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

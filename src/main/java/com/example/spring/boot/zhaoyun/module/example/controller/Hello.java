@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.controller;
+package com.example.spring.boot.zhaoyun.module.example.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

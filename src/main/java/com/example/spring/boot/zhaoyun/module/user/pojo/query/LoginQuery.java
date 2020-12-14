@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.query;
+package com.example.spring.boot.zhaoyun.module.user.pojo.query;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

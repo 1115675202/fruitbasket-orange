@@ -1,6 +1,6 @@
-package com.example.spring.boot.zhaoyun.api;
+package com.example.spring.boot.zhaoyun.module.example.api;
 
-import com.example.spring.boot.zhaoyun.controller.Hello;
+import com.example.spring.boot.zhaoyun.module.example.controller.Hello;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
