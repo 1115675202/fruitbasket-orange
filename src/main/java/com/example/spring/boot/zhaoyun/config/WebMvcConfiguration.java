@@ -13,14 +13,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
+
+
+	/**
+	 * 跨域请求
+	 *
+	 * @param registry
+	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-//				.allowedOrigins("http://localhost")
-//				.allowedOriginPatterns("/**")
+		registry
+				// 生效的请求路径
+				.addMapping("/**")
+				// 允许的请求来源（域名/IP+端口号）
+				.allowedOriginPatterns("/**")
+				// 允许的请求头
 				.allowedHeaders("*")
+				// 允许的 HTTP 请求方法
 				.allowedMethods("*")
+				// 本次预检请求的有效期
 				.maxAge(3600)
-				.allowCredentials(true);
+		;
 	}
 }

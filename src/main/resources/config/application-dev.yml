@@ -7,3 +7,8 @@ spring:
     host: localhost
     port: 6379
     password:
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true

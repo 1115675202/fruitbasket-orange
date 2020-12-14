@@ -13,7 +13,13 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class LoginQuery {
 
+	/**
+	 * 账户标识/账号
+	 */
 	private String identifier;
 
+	/**
+	 * 凭证/密码
+	 */
 	private String credential;
 }
