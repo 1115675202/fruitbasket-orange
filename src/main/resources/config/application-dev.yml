@@ -10,5 +10,6 @@ spring:
 
 springfox:
   documentation:
+    enabled: true
     swagger-ui:
-      enabled: true
+      enabled: ${springfox.documentation.enabled}

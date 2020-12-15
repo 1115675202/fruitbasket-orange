@@ -1,5 +1,6 @@
 package com.example.spring.boot.zhaoyun.advice;
 
+import com.example.spring.boot.zhaoyun.annotation.UnifyResponse;
 import com.example.spring.boot.zhaoyun.exception.BusinessException;
 import com.example.spring.boot.zhaoyun.response.ResultVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -22,8 +22,8 @@ import java.lang.reflect.Type;
  * @author LiuBing
  * @date 2020/11/28
  */
-@RestControllerAdvice(annotations = {RestController.class})
-public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
+@RestControllerAdvice(annotations = {UnifyResponse.class})
+public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 
 	@Autowired
 	private ObjectMapper objectMapper;

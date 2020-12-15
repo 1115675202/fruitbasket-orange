@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @date 2020/11/28
  */
 @RestControllerAdvice
-public class ExceptionAdvice {
+public class GlobalExceptionAdvice {
 
 	/**
 	 * 参数校验异常

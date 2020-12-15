@@ -15,6 +15,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class SwaggerConfiguration {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.OAS_30)
 				// true-开放
 				.enable(true)
 				// 组名
@@ -55,8 +56,8 @@ public class SwaggerConfiguration {
 				.paths(PathSelectors.any())
 				.build()
 				// OAuth安全API的Swagger UI配置
-				.securitySchemes(securitySchemes())
-				.securityContexts(securityContexts())
+//				.securitySchemes(securitySchemes())
+//				.securityContexts(securityContexts())
 				;
 	}
 
