@@ -32,15 +32,6 @@ import java.util.List;
 @Configuration
 public class SwaggerConfiguration {
 
-	@Value("${custom.swagger.oauth.client.client-id}")
-	public String clientId;
-
-	@Value("${custom.swagger.oauth.client.client-secret}")
-	public String clientSecret;
-
-	@Value("${custom.swagger.oauth.auth-server-url}")
-	public String authServer;
-
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.OAS_30)
@@ -55,9 +46,6 @@ public class SwaggerConfiguration {
 				// 过滤需要生成文档的请求路径，可以使用any()、none()、regex()或 ant()
 				.paths(PathSelectors.any())
 				.build()
-				// OAuth安全API的Swagger UI配置
-//				.securitySchemes(securitySchemes())
-//				.securityContexts(securityContexts())
 				;
 	}
 
@@ -70,60 +58,6 @@ public class SwaggerConfiguration {
 //                .termsOfServiceUrl("http://xxxx")
 //                .license("license")
 //                .licenseUrl("url")
-				.build();
-	}
-
-	/***
-	 * 认证配置
-	 **/
-	private List<SecurityScheme> securitySchemes() {
-		SecurityScheme securityScheme = new OAuthBuilder()
-				.name("oauth2").grantTypes(grantTypes()).scopes(Arrays.asList(scopes())).build();
-		return Collections.singletonList(securityScheme);
-	}
-
-	/**
-	 * swagger2 认证的安全上下文
-	 **/
-	private List<SecurityContext> securityContexts() {
-		List<SecurityReference> securityReferences = Collections
-				.singletonList(new SecurityReference("oauth2", scopes()));
-		SecurityContext securityContext = SecurityContext.builder()
-				.securityReferences(securityReferences).forPaths(PathSelectors.any()).build();
-		return Collections.singletonList(securityContext);
-	}
-
-
-	/**
-	 * 设置认证cope
-	 **/
-	private AuthorizationScope[] scopes() {
-		return new AuthorizationScope[]{
-				new AuthorizationScope("ALL", "All scope is trusted!")
-		};
-	}
-
-
-	/**
-	 * 认证方式，密码模式
-	 **/
-	List<GrantType> grantTypes() {
-		String tokenUrl = authServer + "/oauth/token";
-		List<GrantType> grantTypes = new ArrayList<>(1);
-		grantTypes.add(new ResourceOwnerPasswordCredentialsGrant(tokenUrl));
-		return grantTypes;
-	}
-
-	/**
-	 * swagger默认使用的客户端账户
-	 **/
-	@Bean
-	public SecurityConfiguration security() {
-		return SecurityConfigurationBuilder.builder()
-				.clientId(clientId)
-				.clientSecret(clientSecret)
-				.scopeSeparator("ALL")
-				.useBasicAuthenticationWithAccessCodeGrant(true)
 				.build();
 	}
 }

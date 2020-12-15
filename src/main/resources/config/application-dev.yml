@@ -2,11 +2,12 @@ spring:
   devtools:
     restart:
       enabled: true #热部署是否生效
-  redis:
-    database: 0
-    host: localhost
-    port: 6379
-    password:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
+    username: root
+    password: tianlian@123
 
 springfox:
   documentation:
