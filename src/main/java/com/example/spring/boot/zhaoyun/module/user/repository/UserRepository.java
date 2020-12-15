@@ -10,6 +10,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2020/12/15
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
-
-	User findUserByRealName(String realName);
 }

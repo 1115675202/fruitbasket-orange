@@ -2,8 +2,6 @@ spring:
   devtools:
     restart:
       enabled: true #热部署是否生效
-  jpa:
-    show-sql: true
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}

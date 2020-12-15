@@ -2,8 +2,6 @@ spring:
   devtools:
     restart:
       enabled: false #热部署是否生效
-  jpa:
-    show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
