@@ -5,9 +5,17 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
     username: root
     password: tianlian@123
+    druid:
+      db-type: mysql
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+          log-slow-sql: true
 
 springfox:
   documentation:

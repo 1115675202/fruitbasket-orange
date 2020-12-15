@@ -1,13 +1,13 @@
 package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
 
+import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * 用户
@@ -16,20 +16,23 @@ import java.time.LocalDateTime;
  * @date 2020/12/15
  */
 @Data
+@Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE user SET deleted = 1 WHERE id = ?")
-@Where(clause = "deleted = 0")
-public class User {
+public class User extends BaseDO {
 
-	@Id
-	private Integer id;
+	@Column(length = 50, nullable = false, unique = true)
+	private String realName;
 
 	@Column(nullable = false)
-	private Boolean deleted;
+	private Integer sex;
 
-	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false)
-	private LocalDateTime gmtCreate;
+	@Column(length = 20, nullable = false, unique = true)
+	private String idCardNo;
 
-	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
-	private LocalDateTime gmtModified;
+	@Column(nullable = false)
+	private LocalDate birthday;
+
+	@Column(nullable = false)
+	private String avatarLink;
 }

@@ -20,6 +20,7 @@
         <lombok.version>1.16.18</lombok.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <druid.version>1.2.4</druid.version>
+        <p6spy.version>3.8.0</p6spy.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>${p6spy.version}</version>
         </dependency>
     </dependencies>
 

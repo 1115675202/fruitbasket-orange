@@ -17,4 +17,5 @@ class ApplicationStarterTests {
 		String c = IOUtils.toString(Base64.decodeBase64("jzhd3v2q1u1um7foGsB-VYUa81qdbcTKNVJSCTBkqfU"), "UTF-8");
 	}
 
+
 }
