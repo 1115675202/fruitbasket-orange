@@ -17,8 +17,8 @@ import javax.persistence.Entity;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user_permission_operation SET deleted = 1 WHERE id = ?")
-public class UserPermissionOperation extends BaseDO {
+@SQLDelete(sql = "UPDATE user_menu_operation SET deleted = 1 WHERE id = ?")
+public class UserMenuOperation extends BaseDO {
 
 	/**
 	 * 操作/按钮代号
@@ -33,7 +33,7 @@ public class UserPermissionOperation extends BaseDO {
 	private String operationName;
 
 	/**
-	 * 接口/地址
+	 * 操作地址
 	 */
 	@Column(length = 100, nullable = false)
 	private String operationUrl;

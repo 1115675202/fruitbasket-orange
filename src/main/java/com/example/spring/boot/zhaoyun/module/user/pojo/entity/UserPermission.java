@@ -21,40 +21,16 @@ import javax.persistence.Entity;
 public class UserPermission extends BaseDO {
 
 	/**
-	 * 父权限
-	 */
-	@Column(nullable = false)
-	private Integer pid;
-
-	/**
-	 * 权限代号
-	 */
-	@Column(length = 20, nullable = false, unique = true)
-	private String permissionCode;
-
-	/**
-	 * 权限名称
-	 */
-	@Column(length = 20, nullable = false)
-	private String permissionName;
-
-	/**
 	 * 接口/地址
 	 */
 	@Column(length = 100, nullable = false)
 	private String permissionUrl;
 
 	/**
-	 * 权限层级
+	 * 权限类型
 	 */
 	@Column(nullable = false)
-	private Integer permissionLevel;
-
-	/**
-	 * 权限层级轨迹（格式如：/pid/pid/id）
-	 */
-	@Column(length = 50, nullable = false, unique = true)
-	private String permissionPath;
+	private Integer permissionType;
 
 	/**
 	 * 排序值

@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
- * 用户角色
+ * 菜单/菜单
  *
  * @author LiuBing
  * @date 2020/12/16
@@ -17,8 +17,8 @@ import javax.persistence.Entity;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user_role SET deleted = 1 WHERE id = ?")
-public class UserRole extends BaseDO {
+@SQLDelete(sql = "UPDATE user_menu SET deleted = 1 WHERE id = ?")
+public class UserMenu extends BaseDO {
 
 	/**
 	 * 父节点ID，0-无父节点
@@ -27,28 +27,34 @@ public class UserRole extends BaseDO {
 	private Integer pid;
 
 	/**
-	 * 角色代号
+	 * 菜单代号
 	 */
 	@Column(length = 20, nullable = false, unique = true)
-	private String roleCode;
+	private String menuCode;
 
 	/**
-	 * 角色名称
+	 * 菜单名称
 	 */
 	@Column(length = 20, nullable = false)
-	private String roleName;
+	private String menuName;
 
 	/**
-	 * 角色层级
+	 * 菜单地址
+	 */
+	@Column(length = 100, nullable = false)
+	private String menuUrl;
+
+	/**
+	 * 菜单层级
 	 */
 	@Column(nullable = false)
-	private Integer roleLevel;
+	private Integer menuLevel;
 
 	/**
-	 * 角色层级轨迹（格式如：/pid/pid/id）
+	 * 菜单层级轨迹（格式如：/pid/pid/id）
 	 */
 	@Column(length = 50, nullable = false, unique = true)
-	private String rolePath;
+	private String menuPath;
 
 	/**
 	 * 排序值
