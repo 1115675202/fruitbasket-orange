@@ -8,6 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户
@@ -36,6 +37,6 @@ public class User extends BaseDO {
 	@Column(nullable = false)
 	private String avatarLink;
 
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<UserAccount> userAccountList;
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, mappedBy = "user")
+	private Set<UserAccount> userAccounts;
 }

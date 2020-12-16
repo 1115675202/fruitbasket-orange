@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * 权限/菜单
@@ -43,4 +43,13 @@ public class UserPermission extends BaseDO {
 	 */
 	@Column(length = 100)
 	private String description;
+
+	@JoinTable(name = "role_permission_rel",
+	joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
+	inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+	@ManyToMany
+	@OneToOne(mappedBy = "")
+	@JoinColumn(name = "xx_id", unique = true)
+	@OneToOne(fetch = FetchType.LAZY)
+	private Set<UserRole> roles;
 }

@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * 权限/菜单下的操作/按钮
@@ -43,4 +42,8 @@ public class UserMenuOperation extends BaseDO {
 	 */
 	@Column(length = 100)
 	private String description;
+
+	@JoinColumn(name = "menu_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private UserMenu userMenu;
 }

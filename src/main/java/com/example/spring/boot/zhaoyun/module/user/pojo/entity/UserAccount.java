@@ -39,6 +39,6 @@ public class UserAccount extends BaseDO {
 	private String credential;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 }

@@ -3,10 +3,14 @@ package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 /**
  * 用户角色
@@ -61,4 +65,7 @@ public class UserRole extends BaseDO {
 	 */
 	@Column(length = 100)
 	private String description;
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<UserPermission> permissions;
 }
