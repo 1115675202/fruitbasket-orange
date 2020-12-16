@@ -1,5 +1,6 @@
 package com.example.spring.boot.zhaoyun.module.sys.api;
 
+import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigAM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,5 +19,5 @@ public interface SysApi {
 
 	@ApiOperation(value = "所有配置")
 	@GetMapping("configs")
-	ISysConfig listConfigs();
+	ISysConfigAM listConfigs();
 }

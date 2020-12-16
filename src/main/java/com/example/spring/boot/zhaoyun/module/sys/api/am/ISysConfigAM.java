@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.sys.api;
+package com.example.spring.boot.zhaoyun.module.sys.api.am;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author LiuBing
  * @date 2020/12/16
  */
-public interface ISysConfig {
+public interface ISysConfigAM {
 
 	/**
 	 * 配置键
