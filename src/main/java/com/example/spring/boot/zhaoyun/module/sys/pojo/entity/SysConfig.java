@@ -9,40 +9,27 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
- * 字典
- *
+ * 普通配置
  * @author LiuBing
  * @date 2020/12/16
  */
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE sys_dict SET deleted = 1 WHERE id = ?")
-public class SysDict extends BaseDO {
+@SQLDelete(sql = "UPDATE sys_config SET deleted = 1 WHERE id = ?")
+public class SysConfig extends BaseDO {
 
 	/**
-	 * 字典代号
+	 * 配置键
 	 */
-	@Column(length = 20, nullable = false)
-	private String dictCode;
+	@Column(length = 50, nullable = false, unique = true)
+	private String configKey;
 
 	/**
-	 * 字典选项值
+	 * 配置值
 	 */
-	@Column(length = 20, nullable = false)
-	private String optionValue;
-
-	/**
-	 * 字典选项名称
-	 */
-	@Column(length = 20, nullable = false)
-	private String optionName;
-
-	/**
-	 * 排序值
-	 */
-	@Column(nullable = false)
-	private Integer sortValue;
+	@Column(length = 100, nullable = false)
+	private String configValue;
 
 	/**
 	 * 备注

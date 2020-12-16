@@ -41,5 +41,6 @@ public class UserPermissionOperation extends BaseDO {
 	/**
 	 * 备注
 	 */
+	@Column(length = 100)
 	private String description;
 }

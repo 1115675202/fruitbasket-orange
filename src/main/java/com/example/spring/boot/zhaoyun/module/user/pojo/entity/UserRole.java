@@ -51,14 +51,14 @@ public class UserRole extends BaseDO {
 	private String rolePath;
 
 	/**
-	 * 备注
-	 */
-	@Column(length = 50)
-	private String description;
-
-	/**
 	 * 排序值
 	 */
 	@Column(nullable = false)
 	private Integer sortValue;
+
+	/**
+	 * 备注
+	 */
+	@Column(length = 100)
+	private String description;
 }

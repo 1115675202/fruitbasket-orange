@@ -57,13 +57,14 @@ public class UserPermission extends BaseDO {
 	private String permissionPath;
 
 	/**
-	 * 备注
-	 */
-	private String description;
-
-	/**
 	 * 排序值
 	 */
 	@Column(nullable = false)
 	private Integer sortValue;
+
+	/**
+	 * 备注
+	 */
+	@Column(length = 100)
+	private String description;
 }
