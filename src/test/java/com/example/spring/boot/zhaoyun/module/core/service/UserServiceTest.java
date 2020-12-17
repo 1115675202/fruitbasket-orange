@@ -40,7 +40,7 @@ class UserServiceTest {
 
 	@Test
 	void test2() {
-		User user = userRepository.findById(6).orElse(null);
+		User user = userRepository.findById(1).orElse(null);
 		System.out.println(user.getRealName());
 		System.out.println(user.getUserAccounts().size());
 	}

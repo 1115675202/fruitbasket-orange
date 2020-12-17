@@ -25,15 +25,14 @@ spring:
       date: yyyy-MM-dd HH:mm:ss
   jpa:
     database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       globally_quoted_identifiers: true
       use_query_cache: false
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
-    open-in-view: false
+    open-in-view: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     tomcat:
