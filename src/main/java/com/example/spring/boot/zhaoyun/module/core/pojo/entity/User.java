@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
@@ -7,7 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,13 +21,13 @@ import java.util.Set;
 @SQLDelete(sql = "UPDATE user SET deleted = 1 WHERE id = ?")
 public class User extends BaseDO {
 
-	@Column(length = 50, nullable = false, unique = true)
+	@Column(length = 50, nullable = false)
 	private Integer sex;
 
 	@Column(length = 20, nullable = false, unique = true)
 	private String realName;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String idCardNo;
 
 	@Column(nullable = false)
@@ -37,6 +36,9 @@ public class User extends BaseDO {
 	@Column(nullable = false)
 	private String avatarLink;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE}, mappedBy = "user")
 	private Set<UserAccount> userAccounts;
+
+	@ManyToMany(mappedBy = "users")
+	private Set<Role> roles;
 }

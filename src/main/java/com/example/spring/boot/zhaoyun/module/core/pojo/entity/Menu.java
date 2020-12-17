@@ -1,12 +1,12 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * 菜单/菜单
@@ -18,7 +18,7 @@ import javax.persistence.Entity;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE user_menu SET deleted = 1 WHERE id = ?")
-public class UserMenu extends BaseDO {
+public class Menu extends BaseDO {
 
 	/**
 	 * 父节点ID，0-无父节点
@@ -67,4 +67,13 @@ public class UserMenu extends BaseDO {
 	 */
 	@Column(length = 100)
 	private String description;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, mappedBy = "menu")
+	private Set<MenuOperation> menuOperations;
+
+	@JoinTable(name = "role_menu_rel",
+			joinColumns = {@JoinColumn(name = "menu_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+	@ManyToMany
+	private Set<Role> roles;
 }

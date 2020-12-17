@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
@@ -18,7 +18,7 @@ import java.util.Set;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE user_permission SET deleted = 1 WHERE id = ?")
-public class UserPermission extends BaseDO {
+public class Permission extends BaseDO {
 
 	/**
 	 * 接口/地址
@@ -45,11 +45,8 @@ public class UserPermission extends BaseDO {
 	private String description;
 
 	@JoinTable(name = "role_permission_rel",
-	joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
-	inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+			joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 	@ManyToMany
-	@OneToOne(mappedBy = "")
-	@JoinColumn(name = "xx_id", unique = true)
-	@OneToOne(fetch = FetchType.LAZY)
-	private Set<UserRole> roles;
+	private Set<Role> roles;
 }

@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE user_menu_operation SET deleted = 1 WHERE id = ?")
-public class UserMenuOperation extends BaseDO {
+public class MenuOperation extends BaseDO {
 
 	/**
 	 * 操作/按钮代号
@@ -45,5 +45,5 @@ public class UserMenuOperation extends BaseDO {
 
 	@JoinColumn(name = "menu_id")
 	@ManyToOne(fetch = FetchType.LAZY)
-	private UserMenu userMenu;
+	private Menu menu;
 }

@@ -1,15 +1,11 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -22,7 +18,7 @@ import java.util.Set;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE user_role SET deleted = 1 WHERE id = ?")
-public class UserRole extends BaseDO {
+public class Role extends BaseDO {
 
 	/**
 	 * 父节点ID，0-无父节点
@@ -66,6 +62,15 @@ public class UserRole extends BaseDO {
 	@Column(length = 100)
 	private String description;
 
+	@JoinTable(name = "user_role_rel",
+			joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+	@ManyToMany
+	private Set<User> users;
+
 	@ManyToMany(mappedBy = "roles")
-	private Set<UserPermission> permissions;
+	private Set<Menu> menus;
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<Permission> permissions;
 }

@@ -1,6 +1,6 @@
-package com.example.spring.boot.zhaoyun.module.user.api;
+package com.example.spring.boot.zhaoyun.module.core.api;
 
-import com.example.spring.boot.zhaoyun.module.user.pojo.query.LoginQuery;
+import com.example.spring.boot.zhaoyun.module.core.pojo.query.LoginQuery;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 

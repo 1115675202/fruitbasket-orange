@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.user.pojo.entity;
+package com.example.spring.boot.zhaoyun.module.core.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
 import lombok.Data;
@@ -38,7 +38,7 @@ public class UserAccount extends BaseDO {
 	@Column(nullable = false)
 	private String credential;
 
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 }
