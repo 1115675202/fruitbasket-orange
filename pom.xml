@@ -21,6 +21,7 @@
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <druid.version>1.2.4</druid.version>
         <p6spy.version>3.8.0</p6spy.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>
@@ -97,7 +98,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

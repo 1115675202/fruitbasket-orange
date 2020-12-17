@@ -2,6 +2,7 @@ package com.example.spring.boot.zhaoyun.module.sys.controller;
 
 import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigAM;
 import com.example.spring.boot.zhaoyun.module.sys.api.SysApi;
+import com.example.spring.boot.zhaoyun.module.sys.pojo.entity.SysConfig;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,6 +16,6 @@ public class SysController implements SysApi {
 
 	@Override
 	public ISysConfigAM listConfigs() {
-		return null;
+		return new SysConfig();
 	}
 }
