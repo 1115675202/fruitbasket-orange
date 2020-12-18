@@ -1,6 +1,7 @@
 package com.example.spring.boot.zhaoyun.config;
 
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 @Configuration
 public class SwaggerConfiguration {
+
+	@Value("${custom.api-version}")
+	public String apiVersion;
 
 	@Bean
 	public Docket api() {
@@ -45,6 +49,7 @@ public class SwaggerConfiguration {
 		return new ApiInfoBuilder()
 				.title("XX模块")
 				.description("XX模块描述")
+				.version(apiVersion)
 //                .contact(new Contact("名字", "网址", "邮箱"))
 //                服务条款网址
 //                .termsOfServiceUrl("http://xxxx")

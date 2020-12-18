@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path:
+    context-path: /${custom.api-version}
     encoding:
       force: true
       enabled: true
@@ -71,6 +71,7 @@ logging:
     root: INFO
 
 custom:
+  api-version: v1
   encoding: UTF-8
   datasource:
     url-param: serverTimezone=UTC&useUnicode=true&characterEncoding=${custom.encoding}&useSSL=false&serverTimezone=Asia/Shanghai
