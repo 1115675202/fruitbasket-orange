@@ -1,7 +1,6 @@
 package com.example.spring.boot.zhaoyun.module.sys.api;
 
-import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigVO;
-import com.example.spring.boot.zhaoyun.module.sys.pojo.vo.SysConfigVO;
+import com.example.spring.boot.zhaoyun.module.sys.api.ivo.ISysConfigVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;

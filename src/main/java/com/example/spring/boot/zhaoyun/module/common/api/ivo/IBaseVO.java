@@ -1,4 +1,4 @@
-package com.example.spring.boot.zhaoyun.module.common.api.am;
+package com.example.spring.boot.zhaoyun.module.common.api.ivo;
 
 import io.swagger.annotations.ApiModelProperty;
 

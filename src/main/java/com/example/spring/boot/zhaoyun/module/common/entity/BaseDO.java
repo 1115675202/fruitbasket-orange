@@ -25,7 +25,7 @@ public class BaseDO {
 	private Integer id;
 
 	@Column(nullable = false)
-	private Boolean deleted = Boolean.FALSE;
+	private Boolean deleted;
 
 	@CreatedDate
 	@Column(nullable = false)
@@ -34,4 +34,8 @@ public class BaseDO {
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime gmtModified;
+
+	public BaseDO() {
+		this.deleted = Boolean.FALSE;;
+	}
 }

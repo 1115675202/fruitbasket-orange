@@ -1,6 +1,6 @@
-package com.example.spring.boot.zhaoyun.module.sys.api.am;
+package com.example.spring.boot.zhaoyun.module.sys.api.ivo;
 
-import com.example.spring.boot.zhaoyun.module.common.api.am.IBaseVO;
+import com.example.spring.boot.zhaoyun.module.common.api.ivo.IBaseVO;
 import io.swagger.annotations.ApiModelProperty;
 
 /**

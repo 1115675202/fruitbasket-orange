@@ -1,12 +1,10 @@
 package com.example.spring.boot.zhaoyun.module.sys.service;
 
-import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigVO;
+import com.example.spring.boot.zhaoyun.module.sys.api.ivo.ISysConfigVO;
 import com.example.spring.boot.zhaoyun.module.sys.pojo.entity.SysConfig;
 import com.example.spring.boot.zhaoyun.module.sys.pojo.vo.SysConfigVO;
 import com.example.spring.boot.zhaoyun.module.sys.repository.SysConfigRepository;
-import com.example.spring.boot.zhaoyun.module.sys.repository.SysDictRepository;
 import com.example.spring.boot.zhaoyun.util.BeanCopyUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

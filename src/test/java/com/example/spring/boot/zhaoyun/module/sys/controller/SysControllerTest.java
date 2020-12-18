@@ -34,8 +34,7 @@ class SysControllerTest {
 		MvcResult mvcResult = mockMvc.perform(
 				MockMvcRequestBuilders
 						.get("/sys/configs")
-						.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-						.param("id", "1"))
+						.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andReturn();

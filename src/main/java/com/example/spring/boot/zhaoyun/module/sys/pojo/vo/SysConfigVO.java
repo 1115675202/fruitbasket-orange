@@ -1,6 +1,6 @@
 package com.example.spring.boot.zhaoyun.module.sys.pojo.vo;
 
-import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigVO;
+import com.example.spring.boot.zhaoyun.module.sys.api.ivo.ISysConfigVO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
