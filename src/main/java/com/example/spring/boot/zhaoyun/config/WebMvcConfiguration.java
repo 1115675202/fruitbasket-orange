@@ -15,6 +15,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	/**
+	 * 添加静态资源文件，方法一访问路径前缀，方法二资源路径
+	 *
+	 * @param registry
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+		registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
+	}
+
+	/**
 	 * 跨域请求
 	 *
 	 * @param registry
