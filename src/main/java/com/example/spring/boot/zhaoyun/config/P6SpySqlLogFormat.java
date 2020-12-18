@@ -15,7 +15,7 @@ public class P6SpySqlLogFormat implements MessageFormattingStrategy {
 	 * @param connectionId
 	 * @param now          执行时间
 	 * @param elapsed      花费时间（毫秒）
-	 * @param category
+	 * @param category     执行类型 error,info,batch,debug,statement,commit,rollback,result,resultset.
 	 * @param prepared     预提交SQL
 	 * @param sql          待参SQL
 	 * @param url          数据库连接地址

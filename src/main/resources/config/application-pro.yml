@@ -1,7 +1,14 @@
+server:
+  shutdown: graceful
+
 spring:
   devtools:
     restart:
-      enabled: false #热部署是否生效
+      # 热部署是否生效
+      enabled: false
+  # 优雅停机等待时间
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}

@@ -1,7 +1,13 @@
+server:
+  shutdown: immediate
+
 spring:
   devtools:
     restart:
-      enabled: true #热部署是否生效
+      # 热部署是否生效
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://49.232.79.173:3306/zhaoyun?${custom.datasource.url-param}
