@@ -35,7 +35,7 @@ spring:
     open-in-view: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    tomcat:
+    druid:
       # 用来检测连接是否有效的sql
       validation-query: SELECT 1
       # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测
@@ -57,14 +57,15 @@ spring:
       min-idle: 5
       # 获取连接时最大等待时间，单位毫秒
       max-wait: 3000
-    druid:
       # 配置监控统计拦截的filters，去掉后监控界面sql无法统计
-      filters: stat,wall
+      filters: stat
       # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
-      druid.connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-  r2dbc:
-    pool:
-      validation-query:
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: druid
+        login-password: 123456
 
 logging:
   level:

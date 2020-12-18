@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
     username: root
-    password: 1pTVg0ld@1909
+    password: tianlian@123
 
 springfox:
   documentation:
