@@ -1,11 +1,19 @@
 package com.example.spring.boot.zhaoyun.module.sys.service;
 
+import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigVO;
+import com.example.spring.boot.zhaoyun.module.sys.pojo.entity.SysConfig;
+import com.example.spring.boot.zhaoyun.module.sys.pojo.vo.SysConfigVO;
+import com.example.spring.boot.zhaoyun.module.sys.repository.SysConfigRepository;
+import com.example.spring.boot.zhaoyun.module.sys.repository.SysDictRepository;
+import com.example.spring.boot.zhaoyun.util.BeanCopyUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import static com.example.spring.boot.zhaoyun.constant.ConfigConsts.CONFIG_CACHE_OPEN;
 
@@ -18,13 +26,32 @@ import static com.example.spring.boot.zhaoyun.constant.ConfigConsts.CONFIG_CACHE
 @Service
 public class SysConfigService {
 
+	@Autowired
+	private SysConfigRepository sysConfigR;
+
 	/**
-	 * 游戏配置缓存
+	 * 配置缓存
 	 */
 	private static final Map<String, String> configCache;
 
 	/**
-	 * 加载游戏全局配置到缓存
+	 * 所有配置列表
+	 *
+	 * @return
+	 */
+	public List<ISysConfigVO> listAllSysConfig() {
+		List<SysConfig> sysConfigList = sysConfigR.findAllById(new ArrayList<Integer>(){{add(1);}});
+		if (sysConfigList.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		return BeanCopyUtils
+				.instantiateCopy(sysConfigList, SysConfigVO.class)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * 加载配置到缓存
 	 */
 	public void reloadConfig() {
 		if (!CONFIG_CACHE_OPEN) {

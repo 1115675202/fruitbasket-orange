@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 @Where(clause = "deleted = 0")
 public class BaseDO {
 

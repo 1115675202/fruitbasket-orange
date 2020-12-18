@@ -1,5 +1,6 @@
 package com.example.spring.boot.zhaoyun.module.sys.api.am;
 
+import com.example.spring.boot.zhaoyun.module.common.api.am.IBaseVO;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -8,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author LiuBing
  * @date 2020/12/16
  */
-public interface ISysConfigAM {
+public interface ISysConfigVO extends IBaseVO {
 
 	/**
 	 * 配置键

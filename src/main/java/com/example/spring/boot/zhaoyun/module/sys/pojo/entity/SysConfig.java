@@ -1,7 +1,7 @@
 package com.example.spring.boot.zhaoyun.module.sys.pojo.entity;
 
 import com.example.spring.boot.zhaoyun.module.common.entity.BaseDO;
-import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigAM;
+import com.example.spring.boot.zhaoyun.module.sys.api.am.ISysConfigVO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
@@ -18,7 +18,7 @@ import javax.persistence.Entity;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE sys_config SET deleted = 1 WHERE id = ?")
-public class SysConfig extends BaseDO implements ISysConfigAM {
+public class SysConfig extends BaseDO implements ISysConfigVO {
 
 	/**
 	 * 配置键
