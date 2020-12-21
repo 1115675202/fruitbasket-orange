@@ -19,12 +19,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	 *
 	 * @param registry
 	 */
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-		registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
-	}
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//
+//		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+//		registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
+//	}
 
 	/**
 	 * 跨域请求

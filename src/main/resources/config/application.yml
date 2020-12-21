@@ -23,7 +23,6 @@ spring:
   mvc:
     format:
       date: yyyy-MM-dd HH:mm:ss
-#    static-path-pattern: /static/**
   jpa:
     database: MYSQL
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
