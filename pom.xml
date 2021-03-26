@@ -8,11 +8,11 @@
         <version>2.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>spring-boot-zhaoyun</artifactId>
+    <groupId>com.fruitbasket</groupId>
+    <artifactId>orange</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rest</name>
-    <description>Demo project for Spring Boot</description>
+    <description>For quickly develop all-in-one applications.</description>
 
     <properties>
         <java.version>1.8</java.version>
