@@ -10,7 +10,7 @@ server:
     uri-encoding: UTF-8
 spring:
   application:
-    name: zhaoyun
+    name: orange
   profiles:
     active: dev
   jackson:
@@ -33,6 +33,7 @@ spring:
       globally_quoted_identifiers: true
       use_query_cache: false
     open-in-view: true
+    show-sql: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

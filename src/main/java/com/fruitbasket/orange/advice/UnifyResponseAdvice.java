@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -18,14 +19,14 @@ import java.lang.reflect.Type;
 
 /**
  * 统一响应
+ * 用 @RestController 标记的控制器 或者 @UnifyResponse 标记的控制器方法返回结果会进行包装
  *
  * @author LiuBing
  * @date 2020/11/28
  */
-@RestControllerAdvice(annotations = {UnifyResponse.class})
+@RestControllerAdvice(annotations = {RestController.class, UnifyResponse.class})
 public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 
-	@Autowired
 	private ObjectMapper objectMapper;
 
 	/**
@@ -77,5 +78,9 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 		} catch (JsonProcessingException e) {
 			throw new BusinessException("");
 		}
+	}
+
+	public UnifyResponseAdvice(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
 	}
 }

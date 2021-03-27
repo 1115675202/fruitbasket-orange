@@ -15,7 +15,7 @@ public class BeanCopyUtils {
 
 	/**
 	 * 创建同样数量的 targetClass 对象，并将 sourceList 拷贝到 targetClass 中
-	 * 由于要实例化 targetClass，需要提 targetClass 供空构造函数
+	 * 由于要实例化 targetClass，需要 targetClass 提供空构造函数
 	 *
 	 * @param sourceList  源数据列表
 	 * @param targetClass 目标类型

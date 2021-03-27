@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static com.fruitbasket.orange.constant.ConfigConsts.CONFIG_CACHE_OPEN;
+import static com.fruitbasket.orange.constant.ConfigConstants.CONFIG_CACHE_OPEN;
 
 /**
  * 系统配置

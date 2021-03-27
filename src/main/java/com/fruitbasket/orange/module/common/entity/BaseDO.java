@@ -36,6 +36,6 @@ public class BaseDO {
 	private LocalDateTime gmtModified;
 
 	public BaseDO() {
-		this.deleted = Boolean.FALSE;;
+		this.deleted = Boolean.FALSE;
 	}
 }

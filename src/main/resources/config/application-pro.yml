@@ -11,12 +11,12 @@ spring:
     timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zhaoyun?${custom.datasource.url-param}
+    url: jdbc:mysql://localhost:3306/orange?${custom.datasource.url-param}
     username: root
-    password: tianlian@123
+    password: pwd888888
 
 springfox:
   documentation:
-    enabled: false
+    enabled: true
     swagger-ui:
       enabled: ${springfox.documentation.enabled}

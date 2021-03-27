@@ -10,7 +10,7 @@ spring:
     timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://49.232.79.173:3306/zhaoyun?${custom.datasource.url-param}
+    url: jdbc:p6spy:mysql://localhost:3306/orange?${custom.datasource.url-param}
     username: root
     password: pwd888888
 

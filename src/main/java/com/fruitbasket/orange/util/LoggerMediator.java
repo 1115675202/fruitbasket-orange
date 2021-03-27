@@ -7,7 +7,8 @@ import org.slf4j.Marker;
 import java.util.function.Supplier;
 
 /**
- * 优化日志输出，主要目的是打印前判断日志输出级别是否打开，避免没必要的拼接字符串操作
+ * 日志虽然会按级别输出，但是参数可能会进行字符串拼接运算，浪费开销
+ * 解决办法：打印前判断日志输出级别是否打开，避免没必要的拼接字符串操作
  *
  * @author LiuBing
  * @date 2020/11/6

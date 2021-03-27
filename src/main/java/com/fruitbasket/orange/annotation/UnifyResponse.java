@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 返回结果包装
+ * 加上此注解的controller方法返回结果将会被包装
  *
  * @author LiuBing
  * @date 2020/12/15
