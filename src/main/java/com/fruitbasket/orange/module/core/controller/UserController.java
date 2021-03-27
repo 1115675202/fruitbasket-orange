@@ -19,6 +19,11 @@ public class UserController {
 
 	private UserService userService;
 
+	/**
+	 * 登录接口
+	 * @param query 登录查询
+	 * @return
+	 */
 	@PostMapping("login")
 	public String login(@RequestBody LoginQuery query) {
 		return userService.login(query);

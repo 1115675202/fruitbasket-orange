@@ -1,6 +1,5 @@
 package com.fruitbasket.orange.module.sys.pojo.vo;
 
-import com.fruitbasket.orange.module.sys.api.ivo.ISysConfigVO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class SysConfigVO implements ISysConfigVO {
+public class SysConfigVO {
 
 	/**
 	 * 主键

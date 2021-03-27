@@ -2,8 +2,9 @@ package com.fruitbasket.orange.module.sys.service;
 
 import com.fruitbasket.orange.module.sys.pojo.entity.SysConfig;
 import com.fruitbasket.orange.module.sys.pojo.vo.SysConfigVO;
-import com.fruitbasket.orange.module.sys.repository.SysConfigRepository;
+import com.fruitbasket.orange.module.sys.repository.SysConfigRep;
 import com.fruitbasket.orange.util.BeanCopyUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,11 @@ import static com.fruitbasket.orange.constant.ConfigConstants.CONFIG_CACHE_OPEN;
  * @author LiuBing
  * @date 2020/12/16
  */
+@Slf4j
 @Service
 public class SysConfigService {
 
-	@Autowired
-	private SysConfigRepository sysConfigR;
+	private SysConfigRep sysConfigR;
 
 	/**
 	 * 配置缓存
@@ -108,5 +109,9 @@ public class SysConfigService {
 
 	static {
 		configCache = new ConcurrentHashMap<>();
+	}
+
+	public SysConfigService(SysConfigRep sysConfigR) {
+		this.sysConfigR = sysConfigR;
 	}
 }

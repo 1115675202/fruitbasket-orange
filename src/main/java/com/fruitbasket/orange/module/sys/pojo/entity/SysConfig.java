@@ -1,8 +1,8 @@
 package com.fruitbasket.orange.module.sys.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
-import com.fruitbasket.orange.module.sys.api.ivo.ISysConfigVO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
@@ -18,7 +18,7 @@ import javax.persistence.Entity;
 @Accessors(chain = true)
 @Entity
 @SQLDelete(sql = "UPDATE sys_config SET deleted = 1 WHERE id = ?")
-public class SysConfig extends BaseDO implements ISysConfigVO {
+public class SysConfig extends BaseDO {
 
 	/**
 	 * 配置键

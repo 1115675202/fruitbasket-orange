@@ -1,15 +1,9 @@
 package com.fruitbasket.orange.module.core.service;
 
-import com.fruitbasket.orange.module.core.pojo.entity.User;
-import com.fruitbasket.orange.module.core.pojo.entity.UserAccount;
-import com.fruitbasket.orange.module.core.repository.UserAccountRepository;
-import com.fruitbasket.orange.module.core.repository.UserMenuRepository;
-import com.fruitbasket.orange.module.core.repository.UserRepository;
-import org.junit.jupiter.api.Test;
+import com.fruitbasket.orange.module.core.repository.UserAccountRep;
+import com.fruitbasket.orange.module.core.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
 
 @SpringBootTest
 class UserServiceTest {
@@ -18,13 +12,13 @@ class UserServiceTest {
 	private UserService userService;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRep userRep;
 
 	@Autowired
-	private UserMenuRepository userMenuRepository;
+	private UserMenuRep userMenuRep;
 
 	@Autowired
-	private UserAccountRepository userAccountRepository;
+	private UserAccountRep userAccountRep;
 
 
 //	@Test

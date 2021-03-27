@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author LiuBing
  * @date 2020/12/15
  */
-public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
+public interface UserAccountRep extends JpaRepository<UserAccount, Integer> {
 }

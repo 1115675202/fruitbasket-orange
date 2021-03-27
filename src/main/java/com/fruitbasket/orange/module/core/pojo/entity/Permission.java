@@ -20,33 +20,51 @@ import java.util.Set;
 @SQLDelete(sql = "UPDATE user_permission SET deleted = 1 WHERE id = ?")
 public class Permission extends BaseDO {
 
-	/**
-	 * 接口/地址
-	 */
-	@Column(length = 100, nullable = false)
-	private String permissionUrl;
+    /**
+     * 父节点ID，0-无父节点
+     */
+    @Column(nullable = false)
+    private Integer pid;
 
-	/**
-	 * 权限类型
-	 */
-	@Column(nullable = false)
-	private Integer permissionType;
+    /**
+     * 权限代号
+     */
+    @Column(nullable = false)
+    private String permissionCode;
 
-	/**
-	 * 排序值
-	 */
-	@Column(nullable = false)
-	private Integer sortValue;
+    /**
+     * 接口/地址
+     */
+    @Column(length = 100, nullable = false)
+    private String permissionUrl;
 
-	/**
-	 * 备注
-	 */
-	@Column(length = 100)
-	private String description;
+    /**
+     * 排序值
+     */
+    @Column(nullable = false)
+    private Integer sortValue;
 
-	@JoinTable(name = "role_permission_rel",
-			joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
-			inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-	@ManyToMany
-	private Set<Role> roles;
+    /**
+     * 备注
+     */
+    @Column(length = 100)
+    private String description;
+
+    /**
+     * 菜单层级
+     */
+    @Column(nullable = false)
+    private Integer level;
+
+    /**
+     * 面包屑（格式如：/pid/pid/id）
+     */
+    @Column(length = 50, nullable = false, unique = true)
+    private String breadcrumbs;
+
+    @JoinTable(name = "role_permission_rel",
+            joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ManyToMany
+    private Set<Role> roles;
 }
