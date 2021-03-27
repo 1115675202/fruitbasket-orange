@@ -1,9 +1,10 @@
 package com.fruitbasket.orange.module.sys.controller;
 
-import com.fruitbasket.orange.module.sys.api.SysApi;
-import com.fruitbasket.orange.module.sys.api.ivo.ISysConfigVO;
+import com.fruitbasket.orange.module.sys.pojo.vo.SysConfigVO;
 import com.fruitbasket.orange.module.sys.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,14 +15,18 @@ import java.util.List;
  * @author LiuBing
  * @date 2020/12/16
  */
+@RequestMapping("sys")
 @RestController
-public class SysController implements SysApi {
+public class SysController {
 
-	@Autowired
 	private SysConfigService sysConfigS;
 
-	@Override
-	public List<ISysConfigVO> listConfigs() {
+	@GetMapping("configs")
+	public List<SysConfigVO> listConfigs() {
 		return sysConfigS.listAllSysConfig();
+	}
+
+	public SysController(SysConfigService sysConfigS) {
+		this.sysConfigS = sysConfigS;
 	}
 }

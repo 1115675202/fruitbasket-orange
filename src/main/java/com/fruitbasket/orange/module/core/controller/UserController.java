@@ -1,10 +1,10 @@
 package com.fruitbasket.orange.module.core.controller;
 
-import com.fruitbasket.orange.module.core.api.UserApi;
 import com.fruitbasket.orange.module.core.pojo.query.LoginQuery;
 import com.fruitbasket.orange.module.core.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author LiuBing
  * @date 2020/12/9
  */
+@RequestMapping("user")
 @RestController
-public class UserController implements UserApi {
+public class UserController {
 
-	@Autowired
 	private UserService userService;
 
-	@Override()
+	@PostMapping("login")
 	public String login(@RequestBody LoginQuery query) {
 		return userService.login(query);
+	}
+
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 }

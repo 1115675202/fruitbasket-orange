@@ -1,6 +1,5 @@
 package com.fruitbasket.orange.module.sys.service;
 
-import com.fruitbasket.orange.module.sys.api.ivo.ISysConfigVO;
 import com.fruitbasket.orange.module.sys.pojo.entity.SysConfig;
 import com.fruitbasket.orange.module.sys.pojo.vo.SysConfigVO;
 import com.fruitbasket.orange.module.sys.repository.SysConfigRepository;
@@ -9,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,7 @@ public class SysConfigService {
 	 *
 	 * @return
 	 */
-	public List<ISysConfigVO> listAllSysConfig() {
+	public List<SysConfigVO> listAllSysConfig() {
 		List<SysConfig> sysConfigList = sysConfigR.findAllById(new ArrayList<Integer>(){{add(1);}});
 		if (sysConfigList.isEmpty()) {
 			return Collections.emptyList();
