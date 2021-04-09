@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-	private UserRep userRep;
+	private final UserRep userRep;
 
 	public String login(LoginQuery query) {
 		log.info("asd", 1);

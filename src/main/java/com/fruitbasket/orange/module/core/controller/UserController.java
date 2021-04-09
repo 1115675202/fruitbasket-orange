@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-	private UserService userService;
+	private final UserService userService;
 
 	/**
 	 * 登录接口

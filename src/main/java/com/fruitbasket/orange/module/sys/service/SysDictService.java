@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysDictService {
 
-	private SysDictRep sysDictRep;
+	private final SysDictRep sysDictRep;
 
 	public SysDictService(SysDictRep sysDictRep) {
 		this.sysDictRep = sysDictRep;

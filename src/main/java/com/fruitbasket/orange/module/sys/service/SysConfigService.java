@@ -28,7 +28,7 @@ import static com.fruitbasket.orange.constant.ConfigConstants.CONFIG_CACHE_OPEN;
 @Service
 public class SysConfigService {
 
-	private SysConfigRep sysConfigR;
+	private final SysConfigRep sysConfigR;
 
 	/**
 	 * 配置缓存

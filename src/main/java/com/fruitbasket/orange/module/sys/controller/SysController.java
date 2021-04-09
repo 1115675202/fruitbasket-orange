@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 public class SysController {
 
-	private SysConfigService sysConfigS;
+	private final SysConfigService sysConfigS;
 
 	@GetMapping("configs")
 	public List<SysConfigVO> listConfigs() {
