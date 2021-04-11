@@ -27,10 +27,10 @@ public class Permission extends BaseDO {
     private Integer pid;
 
     /**
-     * 权限代号
+     * 权限名称
      */
     @Column(nullable = false)
-    private String permissionCode;
+    private String permissionName;
 
     /**
      * 接口/地址

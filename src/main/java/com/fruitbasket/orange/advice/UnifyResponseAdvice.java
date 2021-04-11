@@ -1,11 +1,10 @@
 package com.fruitbasket.orange.advice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.annotation.UnifyResponse;
 import com.fruitbasket.orange.exception.BusinessException;
 import com.fruitbasket.orange.response.ResultVO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -27,7 +26,7 @@ import java.lang.reflect.Type;
 @RestControllerAdvice(annotations = {RestController.class, UnifyResponse.class})
 public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
 	/**
 	 * 判断是否拦截处理
@@ -39,10 +38,7 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 	@Override
 	public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
 		Type type = methodParameter.getGenericParameterType();
-		if (ResultVO.class.equals(type)) {
-			return false;
-		}
-		return true;
+		return !ResultVO.class.equals(type);
 	}
 
 	/**

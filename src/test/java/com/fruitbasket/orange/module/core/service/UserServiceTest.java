@@ -14,8 +14,8 @@ class UserServiceTest {
 	@Autowired
 	private UserRep userRep;
 
-	@Autowired
-	private UserMenuRep userMenuRep;
+//	@Autowired
+//	private UserMenuRep userMenuRep;
 
 	@Autowired
 	private UserAccountRep userAccountRep;

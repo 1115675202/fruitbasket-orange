@@ -1,11 +1,16 @@
 package com.fruitbasket.orange.module.core.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.module.core.pojo.query.LoginQuery;
+import com.fruitbasket.orange.module.core.pojo.vo.PermissionVO;
 import com.fruitbasket.orange.module.core.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户
@@ -16,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 @RestController
 public class UserController {
+
+	private final ObjectMapper objectMapper;
 
 	private final UserService userService;
 
@@ -29,7 +36,14 @@ public class UserController {
 		return userService.login(query);
 	}
 
-	public UserController(UserService userService) {
+	@GetMapping("test")
+	public List<PermissionVO> test() throws JsonProcessingException {
+		return objectMapper.readValue("[{\"id\":1,\"permissionName\":\"系统\",\"permissionUrl\":\"\",\"children\":[{\"id\":2,\"permissionName\":\"用户\",\"permissionUrl\":\"user\"},{\"id\":3,\"permissionName\":\"权限\",\"permissionUrl\":\"role\"}]},{\"id\":4,\"permissionName\":\"模块\",\"permissionUrl\":\"user\"}]"
+				, new TypeReference<List<PermissionVO>>() { });
+	}
+
+	public UserController(ObjectMapper objectMapper, UserService userService) {
+		this.objectMapper = objectMapper;
 		this.userService = userService;
 	}
 }
