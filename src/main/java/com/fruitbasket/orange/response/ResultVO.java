@@ -40,31 +40,31 @@ public class ResultVO<T> {
 	}
 
 	public static <T> ResultVO<T> build(ResponseCodeEnum responseStatus, T data) {
-		return new ResultVO(responseStatus, data);
+		return new ResultVO<>(responseStatus, data);
 	}
 
 	public static <T> ResultVO<T> success() {
-		return new ResultVO(ResponseCodeEnum.SUCCESS, null);
+		return new ResultVO<>(ResponseCodeEnum.SUCCESS, null);
 	}
 
 	public static <T> ResultVO<T> failure() {
-		return new ResultVO(ResponseCodeEnum.FAILURE, null);
+		return new ResultVO<>(ResponseCodeEnum.FAILURE, null);
 	}
 
 	public static <T> ResultVO<T> error() {
-		return new ResultVO(ResponseCodeEnum.ERROR, null);
+		return new ResultVO<>(ResponseCodeEnum.ERROR, null);
 	}
 
 	public static <T> ResultVO<T> successOf(T data) {
-		return new ResultVO(ResponseCodeEnum.SUCCESS, data);
+		return new ResultVO<>(ResponseCodeEnum.SUCCESS, data);
 	}
 
 	public static <T> ResultVO<T> failureOf(T data) {
-		return new ResultVO(ResponseCodeEnum.FAILURE, data);
+		return new ResultVO<>(ResponseCodeEnum.FAILURE, data);
 	}
 
 	public static <T> ResultVO<T> errorOf(T data) {
-		return new ResultVO(ResponseCodeEnum.ERROR, data);
+		return new ResultVO<>(ResponseCodeEnum.ERROR, data);
 	}
 
 	public String getCode() {

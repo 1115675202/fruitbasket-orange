@@ -19,8 +19,8 @@ public class BeanCopyUtils {
 	 *
 	 * @param sourceList  源数据列表
 	 * @param targetClass 目标类型
-	 * @param <S>
-	 * @param <T>
+	 * @param <S> 源类型
+	 * @param <T> 目标类型
 	 * @return targetClass 操作流
 	 */
 	public static <S, T> Stream<T> instantiateCopy(List<S> sourceList, Class<T> targetClass) {

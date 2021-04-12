@@ -2,7 +2,6 @@ package com.fruitbasket.orange.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -16,8 +15,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	/**
 	 * 跨域请求
-	 *
-	 * @param registry
 	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {

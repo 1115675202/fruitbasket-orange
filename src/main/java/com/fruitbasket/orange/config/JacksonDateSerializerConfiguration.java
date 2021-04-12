@@ -37,7 +37,7 @@ public class JacksonDateSerializerConfiguration {
 	 * 3 个 Converter 是接收时间时，String 转换 成 对应时间类型
 	 * 用 lambda 会导致泛型丢失，springMVC 添加 Convert 的时候无法识别具体的类型
 	 *
-	 * @return
+	 * @return 时间转换器
 	 */
 	@Bean
 	public Converter<String, LocalDateTime> localDateTimeConvert() {
@@ -70,9 +70,7 @@ public class JacksonDateSerializerConfiguration {
 	}
 
 	/**
-	 * 返回格式
-	 *
-	 * @return
+	 * @return Jackson 返回格式
 	 */
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
