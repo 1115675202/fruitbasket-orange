@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.annotation.UnifyResponse;
 import com.fruitbasket.orange.exception.BusinessException;
-import com.fruitbasket.orange.response.ResultVO;
+import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -38,7 +38,7 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 	@Override
 	public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
 		Type type = methodParameter.getGenericParameterType();
-		return !ResultVO.class.equals(type);
+		return !ResponseVO.class.equals(type);
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 		if (data instanceof String) {
 			return stringResponseConvert(data);
 		}
-		return ResultVO.successOf(data);
+		return ResponseVO.successOf(data);
 //		String str = null;
 //		try {
 //			str = new ResponseEncodeHandler(stringResponseConvert(data)).secretKeyStr("WW7Inwxq1rPPRMFSdJbD/3h270Qd5XrJmETeboDSy8g=").encodData().getEncodedData();
@@ -70,7 +70,7 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 	 */
 	private String stringResponseConvert(Object data) {
 		try {
-			return objectMapper.writeValueAsString(ResultVO.successOf(data));
+			return objectMapper.writeValueAsString(ResponseVO.successOf(data));
 		} catch (JsonProcessingException e) {
 			throw new BusinessException("");
 		}

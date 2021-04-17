@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.advice;
 
 import com.fruitbasket.orange.response.ResponseCodeEnum;
-import com.fruitbasket.orange.response.ResultVO;
+import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -25,7 +25,7 @@ public class GlobalExceptionAdvice {
 	 * 参数校验异常
 	 **/
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	public ResultVO<List<String>> transformMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+	public ResponseVO<List<String>> transformMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		return convertFrom(e.getBindingResult());
 	}
 
@@ -33,7 +33,7 @@ public class GlobalExceptionAdvice {
 	 * 参数校验异常
 	 **/
 	@ExceptionHandler(value = BindException.class)
-	public ResultVO<List<String>> transformBindingResult(BindException e) {
+	public ResponseVO<List<String>> transformBindingResult(BindException e) {
 		return convertFrom(e.getBindingResult());
 	}
 
@@ -45,13 +45,13 @@ public class GlobalExceptionAdvice {
 //		return ResultVO.build(ResponseCodeEnum.CLIENT_ERROR, e.getMessage());
 //	}
 
-	private ResultVO<List<String>> convertFrom(BindingResult bindingResult) {
+	private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {
 			return null;
 		}
 
 		List<String> errorMessageList = bindingResult.getAllErrors()
 				.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-		return ResultVO.build(ResponseCodeEnum.CLIENT_ERROR, errorMessageList);
+		return ResponseVO.of(ResponseCodeEnum.CLIENT_ERROR, errorMessageList);
 	}
 }
