@@ -1,5 +1,6 @@
 package com.fruitbasket.orange.module.core.pojo.vo;
 
+import com.fruitbasket.orange.module.core.pojo.entity.Permission;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

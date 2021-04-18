@@ -62,9 +62,9 @@ public class Role extends BaseDO {
     @Column(length = 100)
     private String description;
 
-    @JoinTable(name = "user_role_rel",
-            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+//    @JoinTable(name = "user_role_rel",
+//            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     @ManyToMany
     private Set<User> users;
 

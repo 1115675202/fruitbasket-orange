@@ -20,6 +20,8 @@ import java.util.Set;
 @SQLDelete(sql = "UPDATE user_permission SET deleted = 1 WHERE id = ?")
 public class Permission extends BaseDO {
 
+    public static final Integer ROOT_ID = 0;
+
     /**
      * 父节点ID，0-无父节点
      */
@@ -62,9 +64,9 @@ public class Permission extends BaseDO {
     @Column(length = 50, nullable = false, unique = true)
     private String breadcrumbs;
 
-    @JoinTable(name = "role_permission_rel",
-            joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+//    @JoinTable(name = "role_permission_rel",
+//            joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     @ManyToMany
     private Set<Role> roles;
 }

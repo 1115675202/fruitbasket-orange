@@ -8,7 +8,7 @@ package com.fruitbasket.orange.response;
  */
 public enum ResponseCodeEnum {
 
-	SUCCESS("00000", "处理成功"),
+	SUCCESS("00000", "OK"),
 	CLIENT_ERROR("A0001", "客户端错误"),
 	FAILURE("A0002", "处理失败"),
 	ERROR("A0003", "服务器异常"),

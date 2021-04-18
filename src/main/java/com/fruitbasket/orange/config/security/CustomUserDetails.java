@@ -10,6 +10,8 @@ import java.util.Collection;
 
 /**
  * 自定义登陆后返回的用户详细信息
+ * Spring安全3 @PreAuthorize(“hasRole(‘ROLE_XYZ’)”)
+ * 与@PreAuthorize(“hasAuthority(‘ROLE_XYZ’)”与@PreAuthorize(“hasAuthority(‘ROLE_XYZ’)”)相同。
  *
  * @author LiuBing
  * @date 2021/4/17
@@ -20,9 +22,15 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
     /**
+     * 用户表主键
+     */
+    private Integer userId;
+
+    /**
      * 用户名
      */
     private String username;
+
     /**
      * 密码
      */
