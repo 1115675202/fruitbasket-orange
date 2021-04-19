@@ -1,0 +1,5 @@
+//    @JoinTable(name = "role_permission_rel",
+//            joinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+
+//	@JoinColumn(name = "user_id")

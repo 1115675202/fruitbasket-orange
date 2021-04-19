@@ -1,12 +1,15 @@
 package com.fruitbasket.orange.config.security;
 
+import com.fruitbasket.orange.module.core.pojo.entity.Permission;
+import com.fruitbasket.orange.module.core.pojo.entity.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 自定义登陆后返回的用户详细信息
@@ -36,10 +39,10 @@ public class CustomUserDetails implements UserDetails {
      */
     private String password;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+    /**
+     * 权限/角色
+     */
+    List<GrantedAuthority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -59,5 +62,19 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    /**
+     * 加载权限和角色，用来鉴权
+     *
+     * @param roles       角色
+     * @param permissions 权限
+     * @return this
+     */
+    public CustomUserDetails loadAuthoritiesBy(List<Role> roles, List<Permission> permissions) {
+        authorities = new LinkedList<>();
+        roles.forEach(role -> authorities.add(role::getRoleName));
+        permissions.forEach(permission -> authorities.add(permission::getPermissionName));
+        return this;
     }
 }

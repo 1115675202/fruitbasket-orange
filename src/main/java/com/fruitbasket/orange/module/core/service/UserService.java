@@ -2,7 +2,7 @@ package com.fruitbasket.orange.module.core.service;
 
 import com.fruitbasket.orange.config.security.CustomUserDetails;
 import com.fruitbasket.orange.module.core.pojo.entity.Permission;
-import com.fruitbasket.orange.module.core.pojo.entity.User;
+import com.fruitbasket.orange.module.core.pojo.entity.UserAccount;
 import com.fruitbasket.orange.module.core.pojo.vo.MenuTreeNodeVO;
 import com.fruitbasket.orange.module.core.repository.UserAccountRep;
 import com.fruitbasket.orange.module.core.repository.UserRep;
@@ -22,31 +22,38 @@ import java.util.List;
 @Service
 public class UserService {
 
-	private final UserRep userRep;
+    private final UserRep userRep;
 
-	private final UserAccountRep userAccountRep;
+    private final UserAccountRep userAccountRep;
 
-	private final PermissionService permissionService;
+    private final RoleService roleService;
 
-	public User getUserBy(String username) {
+    private final PermissionService permissionService;
 
+    /**
+     * @param username 账户标识/账号
+     * @return 账户及用户信息
+     */
+    public UserAccount getUserAccountBy(String username) {
+        return userAccountRep.getUserAccountByIdentifier(username);
+    }
 
+    /**
+     * @return 菜单树形数据
+     */
+    public List<MenuTreeNodeVO> getMenuTree() {
+        List<Permission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
+        return MenuTreeNodeVO.treeOf(permissions);
+    }
 
-		return null;
-	}
+    public CustomUserDetails getLoginInfo() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 
-	public List<MenuTreeNodeVO> getPermissionTree() {
-		List<Permission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
-		return MenuTreeNodeVO.treeOf(permissions);
-	}
-
-	public CustomUserDetails getLoginInfo() {
-		return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	}
-
-	public UserService(UserRep userRep, UserAccountRep userAccountRep, PermissionService permissionService) {
-		this.userRep = userRep;
-		this.userAccountRep = userAccountRep;
-		this.permissionService = permissionService;
-	}
+    public UserService(UserRep userRep, UserAccountRep userAccountRep, RoleService roleService, PermissionService permissionService) {
+        this.userRep = userRep;
+        this.userAccountRep = userAccountRep;
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+    }
 }

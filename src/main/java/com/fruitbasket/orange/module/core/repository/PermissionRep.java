@@ -1,5 +1,6 @@
 package com.fruitbasket.orange.module.core.repository;
 
+import com.fruitbasket.orange.dict.PermissionType;
 import com.fruitbasket.orange.module.core.pojo.entity.Permission;
 import com.fruitbasket.orange.module.core.pojo.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,7 @@ public interface PermissionRep extends JpaRepository<Permission, Integer> {
      * @return 权限列表
      */
     List<Permission> queryAllByRolesInOrderBySortValueDesc(List<Role> roles);
+
+
+    List<Permission> queryAllByRolesInAndPermissionTypeIn(List<Role> roles, List<PermissionType> types);
 }

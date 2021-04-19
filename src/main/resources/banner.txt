@@ -5,5 +5,4 @@
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
 ${AnsiColor.GREEN} :: Spring Boot ::        ${AnsiColor.WHITE}${spring-boot.formatted-version}
-接口文档： http://localhost:${server.port}${server.servlet.context-path}/swagger-ui/
 druid SQL 监控： http://localhost:${server.port}${server.servlet.context-path}/druid/

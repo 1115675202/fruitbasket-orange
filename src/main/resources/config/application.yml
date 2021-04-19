@@ -32,6 +32,7 @@ spring:
     properties:
       globally_quoted_identifiers: true
       use_query_cache: false
+    # 保证与数据库的 session 连接保持到 controller 返回，避免 jpa 懒加载 LAZY session 失效问题
     open-in-view: true
     show-sql: true
   datasource:

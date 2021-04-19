@@ -108,7 +108,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return (request, response, authentication) -> {
             response.setContentType("application/json;charset=utf-8");
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.successOf(authentication)));
+            out.write(objectMapper.writeValueAsString(ResponseVO.success()));
             out.close();
         };
     }
@@ -121,7 +121,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, "登陆失败")));
+            out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, e.getMessage())));
             out.close();
         };
     }

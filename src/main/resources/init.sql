@@ -4,7 +4,7 @@ INSERT INTO `orange`.`role`(`id`, `deleted`, `gmt_create`, `gmt_modified`, `desc
 
 INSERT INTO `orange`.`user`(`id`, `deleted`, `gmt_create`, `gmt_modified`, `avatar_link`, `birthday`, `id_card_no`, `real_name`, `sex`) VALUES (1, b'0', '2021-04-18 16:48:52', '2021-04-18 16:48:54', '/', '2021-04-18', '0', 'admin', 1);
 
-INSERT INTO `orange`.`user_account`(`id`, `deleted`, `gmt_create`, `gmt_modified`, `credential`, `identifier`, `identity_type`, `user_id`) VALUES (1, b'1', '2021-04-18 16:40:10', '2021-04-18 16:40:12', 'admin', 'admin', 1, 1);
+INSERT INTO `orange`.`user_account`(`id`, `deleted`, `gmt_create`, `gmt_modified`, `credential`, `identifier`, `identity_type`, `user_id`) VALUES (1, b'0', '2021-04-18 16:40:10', '2021-04-18 16:40:12', 'admin', 'admin', 0, 1);
 
-INSERT INTO `orange`.`role_permissions`(`permission_id`, `role_id`) VALUES (1, 1);
+INSERT INTO `orange`.`permission_roles`(`permissions_id`, `roles_id`) VALUES (1, 1);
 INSERT INTO `orange`.`role_users`(`roles_id`, `users_id`) VALUES (1, 1);

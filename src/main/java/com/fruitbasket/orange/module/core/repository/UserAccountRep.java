@@ -10,4 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2020/12/15
  */
 public interface UserAccountRep extends JpaRepository<UserAccount, Integer> {
+
+    /**
+     * @param identifier 账号
+     * @return 账户信息
+     */
+    UserAccount getUserAccountByIdentifier(String identifier);
 }

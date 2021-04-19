@@ -1,13 +1,20 @@
 package com.fruitbasket.orange.module.core.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
+import com.fruitbasket.orange.dict.SexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
+
+import static javax.persistence.CascadeType.*;
 
 /**
  * 用户
@@ -21,24 +28,45 @@ import java.util.Set;
 @SQLDelete(sql = "UPDATE user SET deleted = 1 WHERE id = ?")
 public class User extends BaseDO {
 
-	@Column(length = 50, nullable = false)
-	private Integer sex;
+    /**
+     * 性别
+     */
+    @Column(nullable = false)
+    private SexEnum sex;
 
-	@Column(length = 20, nullable = false, unique = true)
-	private String realName;
+    /**
+     * 真实姓名
+     */
+    @Column(nullable = false, unique = true, length = 50)
+    private String realName;
 
-	@Column(nullable = false, unique = true)
-	private String idCardNo;
+    /**
+     * 身份证号
+     */
+    @Column(nullable = false, unique = true, length = 50)
+    private String idCardNo;
 
-	@Column(nullable = false)
-	private LocalDate birthday;
+    /**
+     * 生日
+     */
+    @Column(nullable = false)
+    private LocalDate birthday;
 
-	@Column(nullable = false)
-	private String avatarLink;
+    /**
+     * 头像链接
+     */
+    @Column(nullable = false, length = 100)
+    private String avatarLink = "";
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE}, mappedBy = "user")
-	private Set<UserAccount> userAccounts;
+    /**
+     * 关联的账号列表，如本地账号、微博账号
+     */
+    @OneToMany(mappedBy = "user", cascade = ALL)
+    private List<UserAccount> userAccounts;
 
-	@ManyToMany(mappedBy = "users")
-	private Set<Role> roles;
+    /**
+     * 权限列表
+     */
+    @ManyToMany(mappedBy = "users", cascade = ALL)
+    private List<Role> roles;
 }

@@ -5,7 +5,7 @@ spring:
   devtools:
     restart:
       # 热部署是否生效
-      enabled: true
+      enabled: false
   lifecycle:
     timeout-per-shutdown-phase: 30s
   datasource:

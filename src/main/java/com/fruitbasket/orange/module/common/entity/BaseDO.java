@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static java.lang.Boolean.FALSE;
+
 /**
  * @author LiuBing
  * @date 2020/12/15
@@ -24,17 +26,13 @@ public class BaseDO {
 	private Integer id;
 
 	@Column(nullable = false)
-	private Boolean deleted;
+	private Boolean deleted = FALSE;
 
 	@CreatedDate
 	@Column(nullable = false)
-	private LocalDateTime gmtCreate;
+	private LocalDateTime gmtCreate = LocalDateTime.now();
 
 	@LastModifiedDate
 	@Column(nullable = false)
-	private LocalDateTime gmtModified;
-
-	public BaseDO() {
-		this.deleted = Boolean.FALSE;
-	}
+	private LocalDateTime gmtModified = LocalDateTime.now();
 }
