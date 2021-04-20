@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.module.core.pojo.entity;
+package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import com.fruitbasket.orange.dict.IdentityType;
@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import static com.fruitbasket.orange.dict.IdentityType.CURRENT_SYSTEM;
-import static javax.persistence.CascadeType.ALL;
 
 /**
  * 账户
@@ -22,8 +21,8 @@ import static javax.persistence.CascadeType.ALL;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user_account SET deleted = 1 WHERE id = ?")
-public class UserAccount extends BaseDO {
+@SQLDelete(sql = "UPDATE rbac_user_account SET deleted = 1 WHERE id = ?")
+public class RbacUserAccount extends BaseDO {
 
 	/**
 	 * 账户标识/账号
@@ -44,5 +43,5 @@ public class UserAccount extends BaseDO {
 	private IdentityType identityType = CURRENT_SYSTEM;
 
 	@ManyToOne
-	private User user;
+	private RbacUser user;
 }

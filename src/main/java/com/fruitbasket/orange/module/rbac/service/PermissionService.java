@@ -1,9 +1,9 @@
-package com.fruitbasket.orange.module.core.service;
+package com.fruitbasket.orange.module.rbac.service;
 
 import com.fruitbasket.orange.dict.PermissionType;
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
-import com.fruitbasket.orange.module.core.repository.PermissionRep;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
+import com.fruitbasket.orange.module.rbac.repository.PermissionRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -27,13 +27,13 @@ public class PermissionService {
 
     private final RoleService roleService;
 
-    public List<Permission> listPermissionsBy(Integer userId) {
-        List<Role> roles = roleService.listRolesOf(userId);
+    public List<RbacPermission> listPermissionsBy(Integer userId) {
+        List<RbacRole> roles = roleService.listRolesOf(userId);
         return CollectionUtils.isEmpty(roles) ? emptyList() :
                 roles.stream().flatMap(role -> role.getPermissions().stream()).collect(toList());
     }
 
-    public List<Permission> listPermissionsBy(List<Role> roles, List<PermissionType> types) {
+    public List<RbacPermission> listPermissionsBy(List<RbacRole> roles, List<PermissionType> types) {
         return CollectionUtils.isEmpty(roles) ? emptyList() :
                 permissionRep.queryAllByRolesInAndPermissionTypeIn(roles, types);
     }

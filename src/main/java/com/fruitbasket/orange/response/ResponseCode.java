@@ -6,7 +6,7 @@ package com.fruitbasket.orange.response;
  * @author LiuBing
  * @date 2020/11/25
  */
-public enum ResponseCodeEnum {
+public enum ResponseCode {
 
 	SUCCESS("00000", "OK"),
 	CLIENT_ERROR("A0001", "客户端错误"),
@@ -35,7 +35,7 @@ public enum ResponseCodeEnum {
 		return message;
 	}
 
-	ResponseCodeEnum(String code, String message) {
+	ResponseCode(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}

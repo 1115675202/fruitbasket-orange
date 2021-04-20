@@ -2,17 +2,15 @@ package com.fruitbasket.orange.initialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fruitbasket.orange.dict.SexEnum;
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
-import com.fruitbasket.orange.module.core.pojo.entity.User;
-import com.fruitbasket.orange.module.core.pojo.entity.UserAccount;
-import com.fruitbasket.orange.module.core.repository.UserRep;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
+import com.fruitbasket.orange.module.rbac.repository.UserRep;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,17 +33,17 @@ public class CustomApplicationRunner implements ApplicationRunner {
 
     private void initDefaultTestData() throws JsonProcessingException {
         if (userRep.count() > 0) return;
-        UserAccount userAccount = objectMapper.readValue("{\n" +
+        RbacUserAccount userAccount = objectMapper.readValue("{\n" +
                 "  \"identifier\": \"admin\",\n" +
                 "  \"credential\": \"admin\"\n" +
-                "}", UserAccount.class);
-        User user = objectMapper.readValue("{\n" +
+                "}", RbacUserAccount.class);
+        RbacUser user = objectMapper.readValue("{\n" +
                 "  \"sex\": \"WOMAN\",\n" +
                 "  \"realName\": \"admin\",\n" +
                 "  \"idCardNo\": \"430321000000000000\",\n" +
                 "  \"birthday\": \"2021-04-19\",\n" +
                 "  \"avatarLink\": \"/\"\n" +
-                "}", User.class);
+                "}", RbacUser.class);
         userAccount.setUser(user);
         user.setRoles(roles());
         user.getRoles().forEach(role -> role.setUsers(Arrays.asList(user)));
@@ -53,8 +51,8 @@ public class CustomApplicationRunner implements ApplicationRunner {
         userRep.save(user);
     }
 
-    private List<Role> roles() throws JsonProcessingException {
-        Role role = objectMapper.readValue("{\n" +
+    private List<RbacRole> roles() throws JsonProcessingException {
+        RbacRole role = objectMapper.readValue("{\n" +
                 "  \"roleName\": \"ADMIN\",\n" +
                 "  \"roleShowName\": \"管理员\",\n" +
                 "  \"sortValue\": 0,\n" +
@@ -62,16 +60,16 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "  \"deleted\": false,\n" +
                 "  \"gmtCreate\": \"2021-04-19 18:37:06\",\n" +
                 "  \"gmtModified\": \"2021-04-19 18:37:06\"\n" +
-                "}", Role.class);
-        List<Permission> permissions = permissions();
+                "}", RbacRole.class);
+        List<RbacPermission> permissions = permissions();
         role.setPermissions(permissions);
-        List<Role> ret = Arrays.asList(role);
+        List<RbacRole> ret = Arrays.asList(role);
         permissions.forEach(permission -> permission.setRoles(ret));
         return ret;
     }
 
-    private List<Permission> permissions() throws JsonProcessingException {
-        List<Permission> ret = new ArrayList<>();
+    private List<RbacPermission> permissions() throws JsonProcessingException {
+        List<RbacPermission> ret = new ArrayList<>();
         ret.add(objectMapper.readValue("{\n" +
                 "        \"pid\": 0,\n" +
                 "        \"permissionName\": \"SYS\",\n" +
@@ -80,7 +78,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"\",\n" +
                 "        \"permissionLevel\": 1\n" +
-                "}", Permission.class));
+                "}", RbacPermission.class));
 
         ret.add(objectMapper.readValue("{\n" +
                 "        \"pid\": 1,\n" +
@@ -90,7 +88,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
                 "        \"permissionLevel\": 2\n" +
-                "}", Permission.class));
+                "}", RbacPermission.class));
 
         ret.add(objectMapper.readValue("{\n" +
                 "        \"pid\": 1,\n" +
@@ -100,7 +98,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
                 "        \"permissionLevel\": 2\n" +
-                "}", Permission.class));
+                "}", RbacPermission.class));
 
         ret.add(objectMapper.readValue("{\n" +
                 "        \"pid\": 1,\n" +
@@ -110,7 +108,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
                 "        \"permissionLevel\": 2\n" +
-                "}", Permission.class));
+                "}", RbacPermission.class));
         return ret;
     }
 

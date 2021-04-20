@@ -20,8 +20,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
-import static com.fruitbasket.orange.response.ResponseCodeEnum.ACCESS_DENIED;
-import static com.fruitbasket.orange.response.ResponseCodeEnum.LOGIN_ERROR;
+import static com.fruitbasket.orange.response.ResponseCode.ACCESS_DENIED;
+import static com.fruitbasket.orange.response.ResponseCode.LOGIN_ERROR;
 
 /**
  * 登陆认证配置

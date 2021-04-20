@@ -1,6 +1,6 @@
 package com.fruitbasket.orange.config.security;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
@@ -73,13 +73,13 @@ public class CustomUserDetails implements UserDetails {
      * @param roles 角色
      * @return this
      */
-    public CustomUserDetails loadAuthoritiesBy(List<Role> roles) {
+    public CustomUserDetails loadAuthoritiesBy(List<RbacRole> roles) {
         if (roles.isEmpty()) {
             this.authorities = emptySet();
             return this;
         }
         this.authorities = new HashSet<>(capacity(roles.size()));
-        roles.stream().map(Role::getRoleName)
+        roles.stream().map(RbacRole::getRoleName)
                 .forEach(roleName -> this.authorities.add(() -> roleName));
         return this;
     }

@@ -1,6 +1,6 @@
 package com.fruitbasket.orange.advice;
 
-import com.fruitbasket.orange.response.ResponseCodeEnum;
+import com.fruitbasket.orange.response.ResponseCode;
 import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -52,6 +52,6 @@ public class GlobalExceptionAdvice {
 
 		List<String> errorMessageList = bindingResult.getAllErrors()
 				.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-		return ResponseVO.of(ResponseCodeEnum.CLIENT_ERROR, errorMessageList);
+		return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessageList);
 	}
 }

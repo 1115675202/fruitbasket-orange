@@ -1,6 +1,6 @@
-package com.fruitbasket.orange.module.core.pojo.vo;
+package com.fruitbasket.orange.module.rbac.pojo.vo;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.beans.BeanUtils;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import static com.fruitbasket.orange.module.core.pojo.entity.Permission.ROOT_ID;
+import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -54,12 +54,12 @@ public class MenuTreeNodeVO {
      * @param permissions 权限列表
      * @return 权限树形结构
      */
-    public static List<MenuTreeNodeVO> treeOf(List<Permission> permissions) {
+    public static List<MenuTreeNodeVO> treeOf(List<RbacPermission> permissions) {
         if (CollectionUtils.isEmpty(permissions)) {
             return emptyList();
         }
 
-        Map<Integer, List<Permission>> map = permissions.stream().collect(groupingBy(Permission::getPid, toList()));
+        Map<Integer, List<RbacPermission>> map = permissions.stream().collect(groupingBy(RbacPermission::getPid, toList()));
 
         MenuTreeNodeVO root = new MenuTreeNodeVO().setId(ROOT_ID);
         Queue<MenuTreeNodeVO> queue = new LinkedList<>();

@@ -1,11 +1,10 @@
 package com.fruitbasket.orange.config.security;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
-import com.fruitbasket.orange.module.core.pojo.entity.UserAccount;
-import com.fruitbasket.orange.module.core.service.PermissionService;
-import com.fruitbasket.orange.module.core.service.RoleService;
-import com.fruitbasket.orange.module.core.service.UserService;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
+import com.fruitbasket.orange.module.rbac.service.PermissionService;
+import com.fruitbasket.orange.module.rbac.service.RoleService;
+import com.fruitbasket.orange.module.rbac.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.fruitbasket.orange.dict.PermissionType.API;
-import static java.util.Arrays.asList;
 import static java.util.Objects.isNull;
 
 /**
@@ -46,10 +43,10 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserAccount ua = userService.getUserAccountBy(s);
+        RbacUserAccount ua = userService.getUserAccountBy(s);
         if (isNull(ua))
             throw new UsernameNotFoundException("user not found.");
-        List<Role> roles = roleService.listRolesOf(ua.getUser().getId());
+        List<RbacRole> roles = roleService.listRolesOf(ua.getUser().getId());
         return new CustomUserDetails()
                 .setUserId(ua.getUser().getId())
                 .setUsername(ua.getIdentifier())

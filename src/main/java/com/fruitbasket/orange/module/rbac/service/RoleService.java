@@ -1,8 +1,8 @@
-package com.fruitbasket.orange.module.core.service;
+package com.fruitbasket.orange.module.rbac.service;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
-import com.fruitbasket.orange.module.core.pojo.entity.User;
-import com.fruitbasket.orange.module.core.repository.RoleRep;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
+import com.fruitbasket.orange.module.rbac.repository.RoleRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,8 @@ public class RoleService {
      * @param userId 用户ID
      * @return 用户所有角色
      */
-    public List<Role> listRolesOf(Integer userId) {
-        User user = new User();
+    public List<RbacRole> listRolesOf(Integer userId) {
+        RbacUser user = new RbacUser();
         user.setId(userId);
         return roleRep.queryAllByUsersIsOrderBySortValueDesc(user);
     }
@@ -35,7 +35,7 @@ public class RoleService {
      * @param requestUrl 请求地址
      * @return 能访问该地址的角色
      */
-    public List<Role> listBeAuthorizedRolesOf(String requestUrl) {
+    public List<RbacRole> listBeAuthorizedRolesOf(String requestUrl) {
         return Collections.emptyList();
     }
 

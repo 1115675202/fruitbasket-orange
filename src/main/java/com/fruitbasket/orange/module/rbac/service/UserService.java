@@ -1,11 +1,11 @@
-package com.fruitbasket.orange.module.core.service;
+package com.fruitbasket.orange.module.rbac.service;
 
 import com.fruitbasket.orange.config.security.CustomUserDetails;
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
-import com.fruitbasket.orange.module.core.pojo.entity.UserAccount;
-import com.fruitbasket.orange.module.core.pojo.vo.MenuTreeNodeVO;
-import com.fruitbasket.orange.module.core.repository.UserAccountRep;
-import com.fruitbasket.orange.module.core.repository.UserRep;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
+import com.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
+import com.fruitbasket.orange.module.rbac.repository.UserAccountRep;
+import com.fruitbasket.orange.module.rbac.repository.UserRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class UserService {
      * @param username 账户标识/账号
      * @return 账户及用户信息
      */
-    public UserAccount getUserAccountBy(String username) {
+    public RbacUserAccount getUserAccountBy(String username) {
         return userAccountRep.getUserAccountByIdentifier(username);
     }
 
@@ -42,7 +42,7 @@ public class UserService {
      * @return 菜单树形数据
      */
     public List<MenuTreeNodeVO> getMenuTree() {
-        List<Permission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
+        List<RbacPermission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
         return MenuTreeNodeVO.treeOf(permissions);
     }
 

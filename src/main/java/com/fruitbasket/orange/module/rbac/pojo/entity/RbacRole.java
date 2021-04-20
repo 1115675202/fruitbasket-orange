@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.module.core.pojo.entity;
+package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
@@ -21,8 +21,8 @@ import static javax.persistence.CascadeType.*;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user_role SET deleted = 1 WHERE id = ?")
-public class Role extends BaseDO {
+@SQLDelete(sql = "UPDATE rbac_role SET deleted = 1 WHERE id = ?")
+public class RbacRole extends BaseDO {
 
     /**
      * 角色名称
@@ -49,8 +49,8 @@ public class Role extends BaseDO {
     private String description;
 
     @ManyToMany
-    private List<User> users;
+    private List<RbacUser> users;
 
     @ManyToMany(mappedBy = "roles", cascade = ALL)
-    private List<Permission> permissions;
+    private List<RbacPermission> permissions;
 }

@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.module.core.pojo.entity;
+package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.dict.PermissionType;
 import com.fruitbasket.orange.module.common.entity.BaseDO;
@@ -22,8 +22,8 @@ import static javax.persistence.CascadeType.ALL;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user_permission SET deleted = 1 WHERE id = ?")
-public class Permission extends BaseDO {
+@SQLDelete(sql = "UPDATE rbac_permission SET deleted = 1 WHERE id = ?")
+public class RbacPermission extends BaseDO {
 
     public static final Integer ROOT_ID = 0;
 
@@ -82,5 +82,5 @@ public class Permission extends BaseDO {
     private String breadcrumbs;
 
     @ManyToMany(cascade = ALL)
-    private List<Role> roles;
+    private List<RbacRole> roles;
 }

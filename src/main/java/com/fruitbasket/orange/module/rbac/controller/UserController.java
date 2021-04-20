@@ -1,9 +1,9 @@
-package com.fruitbasket.orange.module.core.controller;
+package com.fruitbasket.orange.module.rbac.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.config.security.CustomUserDetails;
-import com.fruitbasket.orange.module.core.pojo.vo.MenuTreeNodeVO;
-import com.fruitbasket.orange.module.core.service.UserService;
+import com.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
+import com.fruitbasket.orange.module.rbac.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

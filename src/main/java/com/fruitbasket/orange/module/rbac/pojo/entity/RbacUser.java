@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.module.core.pojo.entity;
+package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import com.fruitbasket.orange.dict.SexEnum;
@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
 
@@ -25,8 +24,8 @@ import static javax.persistence.CascadeType.*;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE user SET deleted = 1 WHERE id = ?")
-public class User extends BaseDO {
+@SQLDelete(sql = "UPDATE rbac_user SET deleted = 1 WHERE id = ?")
+public class RbacUser extends BaseDO {
 
     /**
      * 性别
@@ -62,11 +61,11 @@ public class User extends BaseDO {
      * 关联的账号列表，如本地账号、微博账号
      */
     @OneToMany(mappedBy = "user", cascade = ALL)
-    private List<UserAccount> userAccounts;
+    private List<RbacUserAccount> userAccounts;
 
     /**
      * 权限列表
      */
     @ManyToMany(mappedBy = "users", cascade = ALL)
-    private List<Role> roles;
+    private List<RbacRole> roles;
 }

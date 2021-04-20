@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.config.security;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Role;
-import com.fruitbasket.orange.module.core.service.RoleService;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
+import com.fruitbasket.orange.module.rbac.service.RoleService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -37,9 +37,9 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         FilterInvocation invocation = (FilterInvocation) o;
         String requestUrl = invocation.getRequestUrl();
 
-        List<Role> roles = roleService.listBeAuthorizedRolesOf(requestUrl);
+        List<RbacRole> roles = roleService.listBeAuthorizedRolesOf(requestUrl);
         return roles.isEmpty() ? NO_USER_ALLOW :
-                roles.stream().map(Role::getRoleName).map(SecurityConfig::new).collect(toSet());
+                roles.stream().map(RbacRole::getRoleName).map(SecurityConfig::new).collect(toSet());
     }
 
     @Override

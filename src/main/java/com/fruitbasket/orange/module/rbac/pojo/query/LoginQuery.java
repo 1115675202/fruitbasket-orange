@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.module.core.pojo.query;
+package com.fruitbasket.orange.module.rbac.pojo.query;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

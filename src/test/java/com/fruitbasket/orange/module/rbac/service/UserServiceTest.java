@@ -1,7 +1,7 @@
-package com.fruitbasket.orange.module.core.service;
+package com.fruitbasket.orange.module.rbac.service;
 
-import com.fruitbasket.orange.module.core.repository.UserAccountRep;
-import com.fruitbasket.orange.module.core.repository.UserRep;
+import com.fruitbasket.orange.module.rbac.repository.UserAccountRep;
+import com.fruitbasket.orange.module.rbac.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
