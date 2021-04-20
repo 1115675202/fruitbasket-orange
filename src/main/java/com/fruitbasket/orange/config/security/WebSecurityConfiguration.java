@@ -5,13 +5,14 @@ import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -31,38 +32,56 @@ import static com.fruitbasket.orange.response.ResponseCodeEnum.LOGIN_ERROR;
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String CONTENT_TYPE_JSON = "application/json;charset=utf-8";
+
     private final ObjectMapper objectMapper;
 
     private final CustomUserDetailsService customUserDetailsService;
 
     private final CustomPasswordEncoder customPasswordEncoder;
 
+    private final CustomAccessDecisionManager customAccessDecisionManager;
+
+    private final CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource;
+
+    @Override
+    public void configure(WebSecurity web) {
+        // 放行的请求
+        web.ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/static/**");
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(customPasswordEncoder);
+    }
+
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authenticationProvider(authenticationProvider())
-                .httpBasic()
+                .authorizeRequests()
+                .withObjectPostProcessor(customObjectPostProcessor())
+                .and().httpBasic()
                 // 未登录
                 .authenticationEntryPoint(authenticationEntryPoint())
-                .and()
-                .authorizeRequests()
-                // 必须授权的范围
-                .anyRequest().authenticated()
-                .and()
-                // 使用自带的登录
-                .formLogin()
-                .permitAll()
+
+                .and().formLogin()
                 // 登录失败
                 .failureHandler(authenticationFailureHandler())
                 // 登录成功
                 .successHandler(authenticationSuccessHandler())
-                .and()
+                .permitAll()
+
+                .and().exceptionHandling()
                 // 无访问权限
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-                .and().logout()
-                // 登出成功
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .permitAll();
+                .accessDeniedHandler(accessDeniedHandler())
+        ;
+
+        // 登出
+        http.logout().permitAll().logoutSuccessHandler(logoutSuccessHandler());
 
         // 开启跨域访问
         http.cors().disable();
@@ -70,20 +89,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-        // 对于在 header 里面增加 token 等类似情况，放行所有 OPTIONS 请求。
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-    }
-
     /**
      * @return 登出成功
      */
+    @Bean
     LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, e) -> {
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(CONTENT_TYPE_JSON);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.successOf("登出成功")));
+            out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
             out.close();
         };
     }
@@ -91,9 +105,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * @return 无访问权限
      */
+    @Bean
     AccessDeniedHandler accessDeniedHandler() {
         return (request, response, e) -> {
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(CONTENT_TYPE_JSON);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(ACCESS_DENIED)));
@@ -104,11 +119,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * @return 登陆成功响应扩展点
      */
+    @Bean
     AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(CONTENT_TYPE_JSON);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.success()));
+            out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
             out.close();
         };
     }
@@ -116,9 +132,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * @return 登陆失败响应扩展点
      */
+    @Bean
     AuthenticationFailureHandler authenticationFailureHandler() {
         return (request, response, e) -> {
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(CONTENT_TYPE_JSON);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, e.getMessage())));
@@ -129,9 +146,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * @return 未登录响应扩展点
      */
+    @Bean
     AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(CONTENT_TYPE_JSON);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, "未登录")));
@@ -140,22 +158,29 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * @return 登陆认证器，用自定义的类进行覆盖
+     * @return 访问决策器配置
      */
-    @Bean
-    AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(customUserDetailsService);
-        authenticationProvider.setPasswordEncoder(customPasswordEncoder);
-        return authenticationProvider;
+    ObjectPostProcessor<FilterSecurityInterceptor> customObjectPostProcessor() {
+        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
+            @Override
+            public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                o.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
+                o.setAccessDecisionManager(customAccessDecisionManager);
+                return o;
+            }
+        };
     }
 
     public WebSecurityConfiguration(
             ObjectMapper objectMapper,
             CustomUserDetailsService customUserDetailsService,
-            CustomPasswordEncoder customPasswordEncoder) {
+            CustomPasswordEncoder customPasswordEncoder,
+            CustomAccessDecisionManager customAccessDecisionManager,
+            CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource) {
         this.objectMapper = objectMapper;
         this.customUserDetailsService = customUserDetailsService;
         this.customPasswordEncoder = customPasswordEncoder;
+        this.customAccessDecisionManager = customAccessDecisionManager;
+        this.customFilterInvocationSecurityMetadataSource = customFilterInvocationSecurityMetadataSource;
     }
 }

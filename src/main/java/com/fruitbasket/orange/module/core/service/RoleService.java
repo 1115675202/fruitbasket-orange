@@ -6,6 +6,7 @@ import com.fruitbasket.orange.module.core.repository.RoleRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,15 +22,21 @@ public class RoleService {
     private final RoleRep roleRep;
 
     /**
-     * 查询用户所有角色
-     *
      * @param userId 用户ID
-     * @return 角色列表
+     * @return 用户所有角色
      */
-    public List<Role> listRolesBy(Integer userId) {
+    public List<Role> listRolesOf(Integer userId) {
         User user = new User();
         user.setId(userId);
         return roleRep.queryAllByUsersIsOrderBySortValueDesc(user);
+    }
+
+    /**
+     * @param requestUrl 请求地址
+     * @return 能访问该地址的角色
+     */
+    public List<Role> listBeAuthorizedRolesOf(String requestUrl) {
+        return Collections.emptyList();
     }
 
     public RoleService(RoleRep roleRep) {

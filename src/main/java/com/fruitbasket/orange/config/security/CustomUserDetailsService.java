@@ -49,13 +49,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserAccount ua = userService.getUserAccountBy(s);
         if (isNull(ua))
             throw new UsernameNotFoundException("user not found.");
-        List<Role> roles = roleService.listRolesBy(ua.getUser().getId());
-        List<Permission> permissions = permissionService.listPermissionsBy(roles, asList(API));
+        List<Role> roles = roleService.listRolesOf(ua.getUser().getId());
         return new CustomUserDetails()
                 .setUserId(ua.getUser().getId())
                 .setUsername(ua.getIdentifier())
                 .setPassword(ua.getCredential())
-                .loadAuthoritiesBy(roles, permissions);
+                .loadAuthoritiesBy(roles);
     }
 
     public CustomUserDetailsService(

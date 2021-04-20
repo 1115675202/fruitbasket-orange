@@ -55,8 +55,8 @@ public class CustomApplicationRunner implements ApplicationRunner {
 
     private List<Role> roles() throws JsonProcessingException {
         Role role = objectMapper.readValue("{\n" +
-                "  \"roleName\": \"\",\n" +
-                "  \"roleShowName\": \"\",\n" +
+                "  \"roleName\": \"ADMIN\",\n" +
+                "  \"roleShowName\": \"管理员\",\n" +
                 "  \"sortValue\": 0,\n" +
                 "  \"description\": \"\",\n" +
                 "  \"deleted\": false,\n" +

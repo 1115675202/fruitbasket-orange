@@ -1,6 +1,5 @@
 package com.fruitbasket.orange.config.security;
 
-import com.fruitbasket.orange.module.core.pojo.entity.Permission;
 import com.fruitbasket.orange.module.core.pojo.entity.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -8,8 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+
+import static com.fruitbasket.orange.util.MapUtils.capacity;
+import static java.util.Collections.emptySet;
 
 /**
  * 自定义登陆后返回的用户详细信息
@@ -42,7 +45,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * 权限/角色
      */
-    List<GrantedAuthority> authorities;
+    Collection<GrantedAuthority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -65,16 +68,19 @@ public class CustomUserDetails implements UserDetails {
     }
 
     /**
-     * 加载权限和角色，用来鉴权
+     * 加载角色，用来鉴权
      *
-     * @param roles       角色
-     * @param permissions 权限
+     * @param roles 角色
      * @return this
      */
-    public CustomUserDetails loadAuthoritiesBy(List<Role> roles, List<Permission> permissions) {
-        authorities = new LinkedList<>();
-        roles.forEach(role -> authorities.add(role::getRoleName));
-        permissions.forEach(permission -> authorities.add(permission::getPermissionName));
+    public CustomUserDetails loadAuthoritiesBy(List<Role> roles) {
+        if (roles.isEmpty()) {
+            this.authorities = emptySet();
+            return this;
+        }
+        this.authorities = new HashSet<>(capacity(roles.size()));
+        roles.stream().map(Role::getRoleName)
+                .forEach(roleName -> this.authorities.add(() -> roleName));
         return this;
     }
 }

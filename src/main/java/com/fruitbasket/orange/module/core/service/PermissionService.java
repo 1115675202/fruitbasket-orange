@@ -28,7 +28,7 @@ public class PermissionService {
     private final RoleService roleService;
 
     public List<Permission> listPermissionsBy(Integer userId) {
-        List<Role> roles = roleService.listRolesBy(userId);
+        List<Role> roles = roleService.listRolesOf(userId);
         return CollectionUtils.isEmpty(roles) ? emptyList() :
                 roles.stream().flatMap(role -> role.getPermissions().stream()).collect(toList());
     }
