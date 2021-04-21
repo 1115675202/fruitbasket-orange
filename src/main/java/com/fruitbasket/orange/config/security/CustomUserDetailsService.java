@@ -29,8 +29,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final RoleService roleService;
 
-    private final PermissionService permissionService;
-
     /**
      * 这个方法是 spring security 调用的，跟一般的 controller 不一样
      * 不会因为配置 open-in-view: true 而将数据库 session 保持不断开
@@ -56,10 +54,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public CustomUserDetailsService(
             UserService userService,
-            RoleService roleService,
-            PermissionService permissionService) {
+            RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.permissionService = permissionService;
     }
 }
