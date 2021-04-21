@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * 验证请求访问权限
+ * OncePerRequestFilter 能保证只被调用一次
+ * 直接实现 Filter 会被调用两次，虽然有其他解决方案，但是这种相对简单
  *
  * @author LiuBing
  * @date 2021/4/21
