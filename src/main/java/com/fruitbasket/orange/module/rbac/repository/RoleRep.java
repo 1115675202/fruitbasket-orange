@@ -20,5 +20,5 @@ public interface RoleRep extends JpaRepository<RbacRole, Integer> {
      * @param user 用户信息
      * @return 角色列表
      */
-    List<RbacRole> queryAllByUsersIsOrderBySortValueDesc(RbacUser user);
+    List<RbacRole> findAllByUsersIsOrderBySortValueDesc(RbacUser user);
 }

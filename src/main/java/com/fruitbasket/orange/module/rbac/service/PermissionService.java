@@ -35,7 +35,7 @@ public class PermissionService {
 
     public List<RbacPermission> listPermissionsBy(List<RbacRole> roles, List<PermissionType> types) {
         return CollectionUtils.isEmpty(roles) ? emptyList() :
-                permissionRep.queryAllByRolesInAndPermissionTypeIn(roles, types);
+                permissionRep.findAllByRolesInAndPermissionTypeIn(roles, types);
     }
 
     public PermissionService(PermissionRep permissionRep, RoleService roleService) {

@@ -50,7 +50,10 @@ public class UserService {
         return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public UserService(UserRep userRep, UserAccountRep userAccountRep, RoleService roleService, PermissionService permissionService) {
+    public UserService(UserRep userRep,
+                       UserAccountRep userAccountRep,
+                       RoleService roleService,
+                       PermissionService permissionService) {
         this.userRep = userRep;
         this.userAccountRep = userAccountRep;
         this.roleService = roleService;

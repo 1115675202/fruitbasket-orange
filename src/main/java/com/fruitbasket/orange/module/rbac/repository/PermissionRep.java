@@ -21,8 +21,8 @@ public interface PermissionRep extends JpaRepository<RbacPermission, Integer> {
      * @param roles 角色列表
      * @return 权限列表
      */
-    List<RbacPermission> queryAllByRolesInOrderBySortValueDesc(List<RbacRole> roles);
+    List<RbacPermission> findAllByRolesInOrderBySortValueDesc(List<RbacRole> roles);
 
 
-    List<RbacPermission> queryAllByRolesInAndPermissionTypeIn(List<RbacRole> roles, List<PermissionType> types);
+    List<RbacPermission> findAllByRolesInAndPermissionTypeIn(List<RbacRole> roles, List<PermissionType> types);
 }
