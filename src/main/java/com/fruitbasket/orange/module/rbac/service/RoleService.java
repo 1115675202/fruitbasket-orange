@@ -6,8 +6,7 @@ import com.fruitbasket.orange.module.rbac.repository.RoleRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 权限
@@ -35,8 +34,10 @@ public class RoleService {
      * @param requestUrl 请求地址
      * @return 能访问该地址的角色
      */
-    public List<RbacRole> listBeAuthorizedRolesOf(String requestUrl) {
-        return Collections.emptyList();
+    public Set<String> listBeAuthorizedRoleNamesOf(String requestUrl) {
+        return new HashSet<String>() {{
+            add("ADMIN");
+        }};
     }
 
     public RoleService(RoleRep roleRep) {

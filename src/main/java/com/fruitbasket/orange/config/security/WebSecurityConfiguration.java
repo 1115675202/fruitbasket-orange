@@ -5,14 +5,12 @@ import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -40,16 +38,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final CustomPasswordEncoder customPasswordEncoder;
 
-    private final CustomAccessDecisionManager customAccessDecisionManager;
-
-    private final CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource;
-
     @Override
     public void configure(WebSecurity web) {
         // 放行的请求
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/static/**");
+                .antMatchers("/static/**", "/user/menu/tree");
     }
 
     @Override
@@ -63,7 +57,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .withObjectPostProcessor(customObjectPostProcessor())
+//                .withObjectPostProcessor(customObjectPostProcessor())
+                .anyRequest().authenticated()
                 .and().httpBasic()
                 // 未登录
                 .authenticationEntryPoint(authenticationEntryPoint())
@@ -157,30 +152,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         };
     }
 
-    /**
-     * @return 访问决策器配置
-     */
-    ObjectPostProcessor<FilterSecurityInterceptor> customObjectPostProcessor() {
-        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
-            @Override
-            public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                o.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
-                o.setAccessDecisionManager(customAccessDecisionManager);
-                return o;
-            }
-        };
-    }
-
     public WebSecurityConfiguration(
             ObjectMapper objectMapper,
             CustomUserDetailsService customUserDetailsService,
-            CustomPasswordEncoder customPasswordEncoder,
-            CustomAccessDecisionManager customAccessDecisionManager,
-            CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource) {
+            CustomPasswordEncoder customPasswordEncoder) {
         this.objectMapper = objectMapper;
         this.customUserDetailsService = customUserDetailsService;
         this.customPasswordEncoder = customPasswordEncoder;
-        this.customAccessDecisionManager = customAccessDecisionManager;
-        this.customFilterInvocationSecurityMetadataSource = customFilterInvocationSecurityMetadataSource;
     }
 }
