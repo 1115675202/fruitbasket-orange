@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
+ * 验证请求访问权限
+ *
  * @author LiuBing
  * @date 2021/4/21
  */
@@ -30,7 +32,8 @@ public class CustomSecurityInterceptor extends OncePerRequestFilter {
     private final RoleService roleService;
 
     /**
-     * 验证是否有访问权限
+     * 如果接口有指定角色，则只有这些角色可访问
+     * 如果接口未指定角色，则都可以访问
      *
      * @param request
      * @param response
