@@ -12,4 +12,7 @@ public class ConfigConstants {
 	 * true：缓存并使用全局配置
 	 */
 	public static final boolean CONFIG_CACHE_OPEN = false;
+
+	private ConfigConstants() {
+	}
 }
