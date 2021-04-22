@@ -43,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 放行的请求
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/static/**", "/user/menu/tree");
+                .antMatchers("/static/**");
     }
 
     @Override
