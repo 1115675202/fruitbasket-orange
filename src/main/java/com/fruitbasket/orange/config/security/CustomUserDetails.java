@@ -45,7 +45,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * 权限/角色
      */
-    Collection<GrantedAuthority> authorities;
+    private Collection<GrantedAuthority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {

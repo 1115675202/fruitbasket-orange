@@ -2,7 +2,6 @@ package com.fruitbasket.orange.module.sys.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 

@@ -1,6 +1,5 @@
 package com.fruitbasket.orange.module.rbac.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.config.security.CustomUserDetails;
 import com.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
 import com.fruitbasket.orange.module.rbac.service.UserService;
@@ -19,8 +18,6 @@ import java.util.List;
 @RequestMapping("user")
 @RestController
 public class UserController {
-
-    private final ObjectMapper objectMapper;
 
     private final UserService userService;
 
@@ -42,8 +39,7 @@ public class UserController {
         return userService.getMenuTree();
     }
 
-    public UserController(ObjectMapper objectMapper, UserService userService) {
-        this.objectMapper = objectMapper;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 }

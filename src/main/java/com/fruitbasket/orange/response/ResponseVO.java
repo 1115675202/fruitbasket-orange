@@ -23,17 +23,17 @@ public class ResponseVO<T> {
      */
     private T data;
 
-    public static final ResponseVO SUCCESS = new ResponseVO<>(ResponseCode.SUCCESS, null);
+    public static final ResponseVO<?> SUCCESS = new ResponseVO<>(ResponseCode.SUCCESS, null);
 
-    public static final ResponseVO FAILURE = new ResponseVO<>(ResponseCode.FAILURE, null);
+    public static final ResponseVO<?> FAILURE = new ResponseVO<>(ResponseCode.FAILURE, null);
 
-    public static final ResponseVO ERROR = new ResponseVO<>(ResponseCode.ERROR, null);
+    public static final ResponseVO<?> ERROR = new ResponseVO<>(ResponseCode.ERROR, null);
 
     public static <T> ResponseVO<T> of(ResponseCode responseStatus, T data) {
         return new ResponseVO<>(responseStatus, data);
     }
 
-    public static ResponseVO of(ResponseCode responseStatus) {
+    public static ResponseVO<Object> of(ResponseCode responseStatus) {
         return new ResponseVO<>(responseStatus, null);
     }
 

@@ -26,57 +26,46 @@ import java.lang.reflect.Type;
 @RestControllerAdvice(annotations = {RestController.class, UnifyResponse.class})
 public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
 
-	private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-	/**
-	 * 判断是否拦截处理
-	 *
-	 * @param methodParameter
-	 * @param aClass
-	 * @return true/false-执行/不执行 beforeBodyWrite
-	 */
-	@Override
-	public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-		Type type = methodParameter.getGenericParameterType();
-		return !ResponseVO.class.equals(type);
-	}
+    /**
+     * 判断是否拦截处理
+     *
+     * @param methodParameter
+     * @param aClass
+     * @return true/false-执行/不执行 beforeBodyWrite
+     */
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+        Type type = methodParameter.getGenericParameterType();
+        return !ResponseVO.class.equals(type);
+    }
 
-	/**
-	 * 返回前包装数据
-	 */
-	@Override
-	public Object beforeBodyWrite(Object data, MethodParameter methodParameter, MediaType mediaType,
-								  Class<? extends HttpMessageConverter<?>> aClass,
-								  ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-		if (data instanceof String) {
-			return stringResponseConvert(data);
-		}
-		return ResponseVO.successOf(data);
-//		String str = null;
-//		try {
-//			str = new ResponseEncodeHandler(stringResponseConvert(data)).secretKeyStr("WW7Inwxq1rPPRMFSdJbD/3h270Qd5XrJmETeboDSy8g=").encodData().getEncodedData();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println(str);
-//		return str;
-	}
+    /**
+     * 返回前包装数据
+     */
+    @Override
+    public Object beforeBodyWrite(Object data, MethodParameter methodParameter, MediaType mediaType,
+                                  Class<? extends HttpMessageConverter<?>> aClass,
+                                  ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        return data instanceof String ? stringResponseConvert(data) : ResponseVO.successOf(data);
+    }
 
-	/**
-	 * String 类型需要特殊处理，否则会抛出异常 java.lang.ClassCastException
-	 *
-	 * @param data
-	 * @return 包装后的 JSON 数据
-	 */
-	private String stringResponseConvert(Object data) {
-		try {
-			return objectMapper.writeValueAsString(ResponseVO.successOf(data));
-		} catch (JsonProcessingException e) {
-			throw new BusinessException("");
-		}
-	}
+    /**
+     * String 类型需要特殊处理，否则会抛出异常 java.lang.ClassCastException
+     *
+     * @param data
+     * @return 包装后的 JSON 数据
+     */
+    private String stringResponseConvert(Object data) {
+        try {
+            return objectMapper.writeValueAsString(ResponseVO.successOf(data));
+        } catch (JsonProcessingException e) {
+            throw new BusinessException("");
+        }
+    }
 
-	public UnifyResponseAdvice(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
+    public UnifyResponseAdvice(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 }

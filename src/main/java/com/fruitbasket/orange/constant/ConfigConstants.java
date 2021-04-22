@@ -6,10 +6,10 @@ package com.fruitbasket.orange.constant;
  * @author LiuBing
  * @date 2020/12/16
  */
-public interface ConfigConstants {
+public class ConfigConstants {
 
 	/**
 	 * true：缓存并使用全局配置
 	 */
-	boolean CONFIG_CACHE_OPEN = false;
+	public static final boolean CONFIG_CACHE_OPEN = false;
 }

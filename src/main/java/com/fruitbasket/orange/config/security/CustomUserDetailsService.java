@@ -2,7 +2,6 @@ package com.fruitbasket.orange.config.security;
 
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
-import com.fruitbasket.orange.module.rbac.service.PermissionService;
 import com.fruitbasket.orange.module.rbac.service.RoleService;
 import com.fruitbasket.orange.module.rbac.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +36,9 @@ public class CustomUserDetailsService implements UserDetailsService {
      *
      * @param s 账号
      * @return 用户登录详细信息
-     * @throws UsernameNotFoundException 无法根据账号找到用户
      */
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         RbacUserAccount ua = userService.getUserAccountBy(s);
         if (isNull(ua))
             throw new UsernameNotFoundException("user not found.");

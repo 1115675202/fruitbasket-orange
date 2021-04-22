@@ -23,7 +23,7 @@ public class CustomJpaEntityListener {
      * 新增数据前
      */
     @PrePersist
-    public void prePersist(Object object) throws IllegalArgumentException {
+    public void prePersist(Object object) {
         ReflectUtil.setFieldValue(object, "deleted", FALSE);
     }
 
@@ -31,7 +31,8 @@ public class CustomJpaEntityListener {
      * 更新数据前
      */
     @PreUpdate
-    public void preUpdate(Object object) throws IllegalArgumentException {
+    public void preUpdate(Object object) {
+        // do something
     }
 
 
@@ -39,15 +40,16 @@ public class CustomJpaEntityListener {
      * 新增数据后
      */
     @PostPersist
-    public void postPersist(Object object) throws IllegalArgumentException {
-
+    public void postPersist(Object object) {
+        // do something
     }
 
     /**
      * 更新数据后
      */
     @PostUpdate
-    public void postUpdate(Object object) throws IllegalArgumentException {
+    public void postUpdate(Object object) {
+        // do something
     }
 }
 

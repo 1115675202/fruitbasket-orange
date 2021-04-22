@@ -15,4 +15,7 @@ public class MapUtils {
     public static final int capacity(int elementCount) {
         return elementCount * 4 / 3 + 1;
     }
+
+    private MapUtils() {
+    }
 }

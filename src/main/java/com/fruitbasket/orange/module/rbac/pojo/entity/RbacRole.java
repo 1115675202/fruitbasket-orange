@@ -1,7 +1,6 @@
 package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

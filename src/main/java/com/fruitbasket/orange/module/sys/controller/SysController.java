@@ -2,7 +2,6 @@ package com.fruitbasket.orange.module.sys.controller;
 
 import com.fruitbasket.orange.module.sys.pojo.vo.SysConfigVO;
 import com.fruitbasket.orange.module.sys.service.SysConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
