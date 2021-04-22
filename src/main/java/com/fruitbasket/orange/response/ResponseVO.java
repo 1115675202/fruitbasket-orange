@@ -33,7 +33,7 @@ public class ResponseVO<T> {
         return new ResponseVO<>(responseStatus, data);
     }
 
-    public static ResponseVO<Object> of(ResponseCode responseStatus) {
+    public static <T> ResponseVO<T> of(ResponseCode responseStatus) {
         return new ResponseVO<>(responseStatus, null);
     }
 
