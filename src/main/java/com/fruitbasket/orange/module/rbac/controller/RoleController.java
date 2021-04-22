@@ -1,14 +1,16 @@
 package com.fruitbasket.orange.module.rbac.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fruitbasket.orange.module.common.vo.PageVO;
+import com.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.RoleModifyQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
-import com.fruitbasket.orange.module.rbac.pojo.vo.RoleVO;
+import com.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
 import com.fruitbasket.orange.module.rbac.service.RoleService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 /**
  * 用户
@@ -20,21 +22,47 @@ import java.util.List;
 @RestController
 public class RoleController {
 
-    private final ObjectMapper objectMapper;
-
     private final RoleService roleService;
 
     /**
-     * @return 登录信息
+     * @return 一页权限信息
      */
     @GetMapping("list")
-    public List<RoleVO> listRoles(RolePageableQuery query) {
-        return roleService.listRoles(query);
+    public PageVO<RolePageVO> listPageRoles(@Valid RolePageableQuery query) {
+        return roleService.listPageRoles(query);
     }
 
+    /**
+     * 添加一个角色
+     * @param query 角色信息
+     * @return 生成的角色信息
+     */
+    @PostMapping
+    public RolePageVO addRole(@RequestBody RoleAddQuery query) {
+        return roleService.save(query);
+    }
 
-    public RoleController(ObjectMapper objectMapper, RoleService roleService) {
-        this.objectMapper = objectMapper;
+    /**
+     * 根据角色 ID 删除多个角色
+     * @param ids -
+     * @return 删除数量
+     */
+    @DeleteMapping
+    public Integer deleteRole(@RequestBody @Valid @NotEmpty(message = "角色ID：不能为空") Set<Integer> ids) {
+        return roleService.deleteRoleIdIn(ids);
+    }
+
+    /**
+     * 修改角色信息
+     * @param query 角色信息
+     * @return 修改后的角色信息
+     */
+    @PutMapping
+    public RolePageVO updateRole(@RequestBody @Valid RoleModifyQuery query) {
+        return roleService.updateRole(query);
+    }
+
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
 }

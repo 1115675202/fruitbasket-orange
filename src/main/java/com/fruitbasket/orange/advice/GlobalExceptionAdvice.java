@@ -1,5 +1,6 @@
 package com.fruitbasket.orange.advice;
 
+import com.fruitbasket.orange.exception.BusinessException;
 import com.fruitbasket.orange.response.ResponseCode;
 import com.fruitbasket.orange.response.ResponseVO;
 import org.springframework.validation.BindException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,19 +39,20 @@ public class GlobalExceptionAdvice {
 		return convertFrom(e.getBindingResult());
 	}
 
-//	/**
-//	 * 参数校验异常
-//	 **/
-//	@ExceptionHandler(value = ConstraintViolationException.class)
-//	public ResultVO<String> transformConstraintViolationException(ConstraintViolationException e) {
-//		return ResultVO.build(ResponseCodeEnum.CLIENT_ERROR, e.getMessage());
-//	}
+	/**
+	 * 业务处理异常
+	 **/
+	@ExceptionHandler(value = BusinessException.class)
+	public ResponseVO<List<String>> transformBindingResult(BusinessException e) {
+		return ResponseVO.failureOf(Arrays.asList(e.getMessage()));
+	}
 
+	/**
+	 * 参数校验异常信息转换
+	 * @param bindingResult -
+	 * @return 接口返回对象
+	 */
 	private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
-		if (!bindingResult.hasErrors()) {
-			return null;
-		}
-
 		List<String> errorMessageList = bindingResult.getAllErrors()
 				.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
 		return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessageList);

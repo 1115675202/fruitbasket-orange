@@ -3,9 +3,8 @@ package com.fruitbasket.orange.module.sys.service;
 import com.fruitbasket.orange.module.sys.pojo.entity.SysConfig;
 import com.fruitbasket.orange.module.sys.pojo.vo.SysConfigVO;
 import com.fruitbasket.orange.module.sys.repository.SysConfigRep;
-import com.fruitbasket.orange.util.BeanCopyUtils;
+import com.fruitbasket.orange.util.CustomBeanUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -46,7 +45,7 @@ public class SysConfigService {
 			return Collections.emptyList();
 		}
 
-		return BeanCopyUtils
+		return CustomBeanUtils
 				.instantiateCopy(sysConfigList, SysConfigVO.class)
 				.collect(Collectors.toList());
 	}

@@ -13,7 +13,17 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class DataTimeVO {
+public class DataBaseVO {
+
+    /**
+     * 唯一 ID
+     */
+    private Integer id;
+
+    /**
+     * true-已删除
+     */
+    private Boolean deleted;
 
     /**
      * 创建时间

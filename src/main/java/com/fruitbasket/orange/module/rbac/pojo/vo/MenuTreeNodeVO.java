@@ -1,9 +1,9 @@
 package com.fruitbasket.orange.module.rbac.pojo.vo;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
@@ -74,7 +74,7 @@ public class MenuTreeNodeVO {
                 List<MenuTreeNodeVO> children = map.getOrDefault(node.getId(), emptyList()).stream()
                         .map(permission -> {
                             MenuTreeNodeVO child = new MenuTreeNodeVO();
-                            BeanUtils.copyProperties(permission, child);
+                            BeanUtil.copyProperties(permission, child);
                             return child;
                         }).peek(queue::offer).collect(toList());
                 node.setChildren(children);

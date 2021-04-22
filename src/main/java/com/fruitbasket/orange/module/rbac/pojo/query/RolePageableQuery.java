@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 权限分页查询
+ * 角色分页查询
  *
  * @author LiuBing
  * @date 2021/4/21
@@ -13,6 +13,11 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class RolePageableQuery extends PageableQuery {
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
 
     /**
      * 显示在界面上的名称

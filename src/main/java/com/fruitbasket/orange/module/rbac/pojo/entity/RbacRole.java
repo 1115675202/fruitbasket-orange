@@ -2,14 +2,20 @@ package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLDeleteAll;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
+import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
+import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
 import static javax.persistence.CascadeType.*;
 
 /**
@@ -18,11 +24,16 @@ import static javax.persistence.CascadeType.*;
  * @author LiuBing
  * @date 2020/12/16
  */
-@Data
+@Getter
+@Setter
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE rbac_role SET deleted = 1 WHERE id = ?")
+@Where(clause = NOT_DELETE_CONDITION)
+@SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
+@SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 public class RbacRole extends BaseDO {
+
+    static final String TABLE_NAME = "rbac_role";
 
     /**
      * 角色名称

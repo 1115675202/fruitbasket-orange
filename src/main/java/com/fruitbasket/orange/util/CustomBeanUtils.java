@@ -1,8 +1,9 @@
 package com.fruitbasket.orange.util;
 
-import org.springframework.beans.BeanUtils;
+import cn.hutool.core.bean.copier.CopyOptions;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -11,7 +12,12 @@ import java.util.stream.Stream;
  * @author LiuBing
  * @date 2020/12/18
  */
-public class BeanCopyUtils {
+public class CustomBeanUtils {
+
+	/**
+	 * hutool 拷贝对象时忽略 null 值
+	 */
+	public static final CopyOptions IGNORE_NULL_COPY_OPTION = CopyOptions.create().setIgnoreNullValue(true);
 
 	/**
 	 * 创建同样数量的 targetClass 对象，并将 sourceList 拷贝到 targetClass 中
@@ -30,12 +36,12 @@ public class BeanCopyUtils {
 
 		return sourceList.stream()
 				.map(source -> {
-					T target = BeanUtils.instantiateClass(targetClass);
-					BeanUtils.copyProperties(source, target);
+					T target = org.springframework.beans.BeanUtils.instantiateClass(targetClass);
+					org.springframework.beans.BeanUtils.copyProperties(source, target);
 					return target;
 				});
 	}
 
-	private BeanCopyUtils() {
+	private CustomBeanUtils() {
 	}
 }
