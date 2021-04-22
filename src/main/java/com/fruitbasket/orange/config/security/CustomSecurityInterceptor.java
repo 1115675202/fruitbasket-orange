@@ -37,22 +37,23 @@ public class CustomSecurityInterceptor extends OncePerRequestFilter {
      * 如果接口有指定角色，则只有这些角色可访问
      * 如果接口未指定角色，则都可以访问
      *
-     * @param request
-     * @param response
-     * @param filterChain
-     * @throws ServletException
-     * @throws IOException
+     * @param request -
+     * @param response -
+     * @param filterChain -
+     * @throws ServletException -
+     * @throws IOException -
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         FilterInvocation filterInvocation = new FilterInvocation(request, response, filterChain);
-        CustomUserDetails authentication = userService.getLoginInfo();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         Set<String> roles = roleService.listBeAuthorizedRoleNamesOf(filterInvocation.getRequestUrl());
         if (!roles.isEmpty()) {
-            boolean isAnyBeAuthorizedRole = authorities.stream().map(GrantedAuthority::getAuthority).anyMatch(roles::contains);
+            CustomUserDetails authentication = userService.getLoginInfo();
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            boolean isAnyBeAuthorizedRole = authorities.stream()
+                    .map(GrantedAuthority::getAuthority).anyMatch(roles::contains);
             if (!isAnyBeAuthorizedRole) {
                 throw new AccessDeniedException(ACCESS_DENIED_MSG);
             }
