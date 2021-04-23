@@ -1,8 +1,7 @@
 package com.fruitbasket.orange.module.common.entity;
 
 import com.fruitbasket.orange.config.CustomJpaEntityListener;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author LiuBing
  * @date 2020/12/15
  */
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class, CustomJpaEntityListener.class})

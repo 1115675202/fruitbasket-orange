@@ -41,9 +41,9 @@ public class UserService {
     /**
      * @return 菜单树形数据
      */
-    public List<MenuTreeNodeVO> getMenuTree() {
+    public List<MenuTreeNodeVO> getMenuTrees() {
         List<RbacPermission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
-        return MenuTreeNodeVO.treeOf(permissions);
+        return MenuTreeNodeVO.treeOf(permissions).getChildren();
     }
 
     public CustomUserDetails getLoginInfo() {

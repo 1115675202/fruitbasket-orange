@@ -34,9 +34,9 @@ public class UserController {
      *
      * @return 包含菜单、api等权限信息
      */
-    @GetMapping("menu/tree")
-    public List<MenuTreeNodeVO> getMenuTree() {
-        return userService.getMenuTree();
+    @GetMapping("menu/trees")
+    public List<MenuTreeNodeVO> getMenuTrees() {
+        return userService.getMenuTrees();
     }
 
     public UserController(UserService userService) {

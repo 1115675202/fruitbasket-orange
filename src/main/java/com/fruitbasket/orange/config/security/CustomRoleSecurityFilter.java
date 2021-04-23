@@ -25,7 +25,7 @@ import java.util.Set;
  * @date 2021/4/21
  */
 @Component
-public class CustomSecurityInterceptor extends OncePerRequestFilter {
+public class CustomRoleSecurityFilter extends OncePerRequestFilter {
 
     private static final String ACCESS_DENIED_MSG = "access denied";
 
@@ -62,7 +62,7 @@ public class CustomSecurityInterceptor extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    public CustomSecurityInterceptor(UserService userService, RoleService roleService) {
+    public CustomRoleSecurityFilter(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }

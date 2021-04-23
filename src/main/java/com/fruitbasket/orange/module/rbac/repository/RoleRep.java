@@ -36,9 +36,10 @@ public interface RoleRep extends JpaRepository<RbacRole, Integer> {
     (String roleName, String roleShowName, Pageable pageable);
 
     /**
-     * 根据 ID 删除角色
-     * @param ids -
+     * 根据 ID 删除
+     *
+     * @param ids ID 列表
      * @return 删除数量
      */
-    Integer deleteByIdIn(Set<Integer> ids);
+    long deleteByIdIn(Set<Integer> ids);
 }

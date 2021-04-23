@@ -28,7 +28,7 @@ public class RolePageVO extends DataBaseVO {
     /**
      * 排序值
      */
-    private Byte sortValue;
+    private Integer sortValue;
 
     /**
      * 备注

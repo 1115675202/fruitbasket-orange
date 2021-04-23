@@ -34,7 +34,7 @@ public class RoleAddQuery {
     /**
      * 排序值
      */
-    private Byte sortValue;
+    private Integer sortValue;
 
     /**
      * 备注

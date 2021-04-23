@@ -1,8 +1,7 @@
 package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
-import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.ALL;
 
 /**
  * 用户角色
@@ -23,8 +22,7 @@ import static javax.persistence.CascadeType.*;
  * @author LiuBing
  * @date 2020/12/16
  */
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @Entity
 @Where(clause = NOT_DELETE_CONDITION)
@@ -33,6 +31,11 @@ import static javax.persistence.CascadeType.*;
 public class RbacRole extends BaseDO {
 
     static final String TABLE_NAME = "rbac_role";
+
+    /**
+     * 默认排序值
+     */
+    public static final Integer DEFAULT_SORT_VALUE = 0;
 
     /**
      * 角色名称
@@ -50,7 +53,7 @@ public class RbacRole extends BaseDO {
      * 排序值
      */
     @Column(nullable = false)
-    private Byte sortValue;
+    private Integer sortValue;
 
     /**
      * 备注

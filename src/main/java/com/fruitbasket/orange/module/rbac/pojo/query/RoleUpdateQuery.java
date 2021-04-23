@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Accessors(chain = true)
-public class RoleModifyQuery {
+public class RoleUpdateQuery {
 
     /**
      * 角色 ID
@@ -37,7 +37,7 @@ public class RoleModifyQuery {
     /**
      * 排序值
      */
-    private Byte sortValue;
+    private Integer sortValue;
 
     /**
      * 备注

@@ -2,7 +2,7 @@ package com.fruitbasket.orange.module.rbac.controller;
 
 import com.fruitbasket.orange.module.common.vo.PageVO;
 import com.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
-import com.fruitbasket.orange.module.rbac.pojo.query.RoleModifyQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
 import com.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
 import com.fruitbasket.orange.module.rbac.service.RoleService;
@@ -48,7 +48,7 @@ public class RoleController {
      * @return 删除数量
      */
     @DeleteMapping
-    public Integer deleteRole(@RequestBody @Valid @NotEmpty(message = "角色ID：不能为空") Set<Integer> ids) {
+    public Long deleteRole(@RequestBody @Valid @NotEmpty(message = "角色ID：不能为空") Set<Integer> ids) {
         return roleService.deleteRoleIdIn(ids);
     }
 
@@ -58,7 +58,7 @@ public class RoleController {
      * @return 修改后的角色信息
      */
     @PutMapping
-    public RolePageVO updateRole(@RequestBody @Valid RoleModifyQuery query) {
+    public RolePageVO updateRole(@RequestBody @Valid RoleUpdateQuery query) {
         return roleService.updateRole(query);
     }
 

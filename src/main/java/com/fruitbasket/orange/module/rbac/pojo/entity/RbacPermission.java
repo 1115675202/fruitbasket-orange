@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
+import static com.fruitbasket.orange.dict.PermissionType.MENU;
 import static javax.persistence.CascadeType.ALL;
 
 /**
@@ -25,7 +26,26 @@ import static javax.persistence.CascadeType.ALL;
 @SQLDelete(sql = "UPDATE rbac_permission SET deleted = 1 WHERE id = ?")
 public class RbacPermission extends BaseDO {
 
+    /**
+     * 最上级 ID / 顶级权限的 pid
+     */
     public static final Integer ROOT_ID = 0;
+
+    /**
+     * 权限初始层级
+     */
+    public static final Integer FIRST_LEVEL = 1;
+
+    /**
+     * 默认排序值
+     */
+    public static final Integer DEFAULT_SORT_VALUE = 0;
+
+    /**
+     * 根权限/顶级权限，只是为了业务代码实现简单
+     */
+    public static final RbacPermission ROOT_PERMISSION = new RbacPermission()
+            .setPid(ROOT_ID).setPermissionLevel(FIRST_LEVEL).setPermissionType(MENU).setBreadcrumbs("");
 
     /**
      * 父节点ID，0-无父节点
@@ -40,7 +60,7 @@ public class RbacPermission extends BaseDO {
     private String permissionName;
 
     /**
-     * 显示在界面上的名称
+     * 权限显示名称
      */
     @Column(nullable = false)
     private String permissionShowName;
@@ -61,19 +81,19 @@ public class RbacPermission extends BaseDO {
      * 排序值
      */
     @Column(nullable = false)
-    private Byte sortValue = 0;
-
-    /**
-     * 菜单层级，从 1 开始
-     */
-    @Column(nullable = false)
-    private Byte permissionLevel;
+    private Integer sortValue;
 
     /**
      * 备注
      */
     @Column(length = 100)
     private String description;
+
+    /**
+     * 菜单层级，从 1 开始
+     */
+    @Column(nullable = false)
+    private Integer permissionLevel;
 
     /**
      * 面包屑（格式如：/pid/pid/pid）
@@ -83,4 +103,24 @@ public class RbacPermission extends BaseDO {
 
     @ManyToMany(cascade = ALL)
     private List<RbacRole> roles;
+
+    /**
+     * 根据父权限生成面包屑
+     *
+     * @param parent -
+     * @return 面包屑
+     */
+    public static String breadcrumbsBy(RbacPermission parent) {
+        return parent.getBreadcrumbs() + "/" + parent.getPid();
+    }
+
+    /**
+     * 根据父层级生成自己的层级
+     *
+     * @param parentLevel -
+     * @return 层级
+     */
+    public static Integer permissionLevelBy(Integer parentLevel) {
+        return ++parentLevel;
+    }
 }
