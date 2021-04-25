@@ -10,9 +10,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 
 /**
  * 全局异常捕获
@@ -23,38 +29,57 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
 
-	/**
-	 * 参数校验异常
-	 **/
-	@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	public ResponseVO<List<String>> transformMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-		return convertFrom(e.getBindingResult());
-	}
+    /**
+     * 参数校验异常
+     **/
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public ResponseVO<List<String>> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+        return convertFrom(e.getBindingResult());
+    }
 
-	/**
-	 * 参数校验异常
-	 **/
-	@ExceptionHandler(value = BindException.class)
-	public ResponseVO<List<String>> transformBindingResult(BindException e) {
-		return convertFrom(e.getBindingResult());
-	}
+    /**
+     * 参数校验异常，校验注解写在实体类中的这种
+     **/
+    @ExceptionHandler(value = BindException.class)
+    public ResponseVO<List<String>> bindException(BindException e) {
+        return convertFrom(e.getBindingResult());
+    }
 
-	/**
-	 * 业务处理异常
-	 **/
-	@ExceptionHandler(value = BusinessException.class)
-	public ResponseVO<List<String>> transformBindingResult(BusinessException e) {
-		return ResponseVO.failureOf(Arrays.asList(e.getMessage()));
-	}
+    /**
+     * 参数校验异常，校验注解写在方法中的这种
+     **/
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseVO<List<String>> constraintViolationException(ConstraintViolationException e) {
+        List<String> errorMessages = e.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage).collect(toList());
+        return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessages);
+    }
 
-	/**
-	 * 参数校验异常信息转换
-	 * @param bindingResult -
-	 * @return 接口返回对象
-	 */
-	private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
-		List<String> errorMessageList = bindingResult.getAllErrors()
-				.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-		return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessageList);
-	}
+    /**
+     * 业务处理异常
+     **/
+    @ExceptionHandler(value = BusinessException.class)
+    public ResponseVO<List<String>> businessException(BusinessException e) {
+        return ResponseVO.failureOf(singletonList(e.getMessage()));
+    }
+
+    /**
+     * 其他异常
+     **/
+    @ExceptionHandler(value = Exception.class)
+    public ResponseVO<List<String>> otherException(Exception e) {
+        return ResponseVO.failureOf(singletonList(e.getMessage()));
+    }
+
+    /**
+     * 参数校验异常信息转换
+     *
+     * @param bindingResult -
+     * @return 接口返回对象
+     */
+    private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
+        List<String> errorMessages = bindingResult.getAllErrors()
+                .stream().map(ObjectError::getDefaultMessage).collect(toList());
+        return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessages);
+    }
 }

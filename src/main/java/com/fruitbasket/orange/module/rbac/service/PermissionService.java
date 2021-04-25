@@ -40,20 +40,27 @@ public class PermissionService {
     /**
      * 列出用户拥有的权限
      *
-     * @param userId 用户 ID
+     * @param userId 用户ID
      * @return 权限列表
      */
-    public List<RbacPermission> listPermissionsBy(Integer userId) {
+    public List<RbacPermission> listPermissionsByUserId(Integer userId) {
         List<RbacRole> roles = roleService.listRolesOf(userId);
         return CollectionUtils.isEmpty(roles) ? emptyList() :
                 roles.stream().flatMap(role -> role.getPermissions().stream()).collect(toList());
     }
 
     /**
-     * @return 权限列表数据
+     * @return 树形权限数据
      */
-    public List<PermissionVO> treeOfPermissions() {
-        return PermissionVO.treeOf(permissionRep.findAll()).getChildren();
+    public List<PermissionVO> treeOfAllPermissions() {
+        return PermissionVO.treeOf(listAllPermissions()).getChildren();
+    }
+
+    /**
+     * @return 所有权限数据
+     */
+    public List<RbacPermission> listAllPermissions() {
+        return permissionRep.findAll();
     }
 
     /**
@@ -113,6 +120,16 @@ public class PermissionService {
         BeanUtil.copyProperties(query, permission, IGNORE_NULL_COPY_OPTION);
         permissionRep.save(permission);
         return PermissionVO.of(permission);
+    }
+
+    /**
+     * 根据权限ID查询
+     *
+     * @param permissionIds 权限ID
+     * @return 权限列表
+     */
+    public List<RbacPermission> listPermissionsByUserId(Set<Integer> permissionIds) {
+        return permissionRep.findAllById(permissionIds);
     }
 
     public PermissionService(PermissionRep permissionRep, RoleService roleService) {

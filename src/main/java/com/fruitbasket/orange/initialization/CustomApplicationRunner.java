@@ -10,9 +10,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author LiuBing
@@ -42,11 +42,11 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "  \"avatarLink\": \"/\"\n" +
                 "}", RbacUser.class);
         user.setRoles(roles());
-        user.getRoles().forEach(role -> role.setUsers(Collections.singletonList(user)));
+        user.getRoles().forEach(role -> role.setUsers(Collections.singleton(user)));
         userRep.save(user);
     }
 
-    private List<RbacRole> roles() throws JsonProcessingException {
+    private Set<RbacRole> roles() throws JsonProcessingException {
         RbacRole role = objectMapper.readValue("{\n" +
                 "  \"roleName\": \"ADMIN\",\n" +
                 "  \"roleShowName\": \"管理员\",\n" +
@@ -56,15 +56,15 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "  \"gmtCreate\": \"2021-04-19 18:37:06\",\n" +
                 "  \"gmtModified\": \"2021-04-19 18:37:06\"\n" +
                 "}", RbacRole.class);
-        List<RbacPermission> permissions = permissions();
+        Set<RbacPermission> permissions = permissions();
         role.setPermissions(permissions);
-        List<RbacRole> ret = Collections.singletonList(role);
+        Set<RbacRole> ret = Collections.singleton(role);
         permissions.forEach(permission -> permission.setRoles(ret));
         return ret;
     }
 
-    private List<RbacPermission> permissions() throws JsonProcessingException {
-        List<RbacPermission> ret = new ArrayList<>();
+    private Set<RbacPermission> permissions() throws JsonProcessingException {
+        Set<RbacPermission> ret = new HashSet<>();
         ret.add(objectMapper.readValue("{\n" +
                 "        \"pid\": 0,\n" +
                 "        \"permissionName\": \"SYS\",\n" +

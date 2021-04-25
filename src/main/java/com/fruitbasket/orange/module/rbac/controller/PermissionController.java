@@ -4,6 +4,7 @@ import com.fruitbasket.orange.module.rbac.pojo.query.PermissionAddQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
 import com.fruitbasket.orange.module.rbac.pojo.vo.PermissionVO;
 import com.fruitbasket.orange.module.rbac.service.PermissionService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import java.util.Set;
  * @author LiuBing
  * @date 2020/12/9
  */
+@Validated
 @RequestMapping("permission")
 @RestController
 public class PermissionController {
@@ -30,7 +32,7 @@ public class PermissionController {
      */
     @GetMapping("tree")
     public List<PermissionVO> treeOfPermissions() {
-        return permissionService.treeOfPermissions();
+        return permissionService.treeOfAllPermissions();
     }
 
     /**

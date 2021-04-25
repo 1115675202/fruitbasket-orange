@@ -7,12 +7,11 @@ import com.fruitbasket.orange.module.common.vo.PageVO;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
-import com.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
-import com.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
-import com.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
+import com.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
 import com.fruitbasket.orange.module.rbac.pojo.vo.UserPageVO;
 import com.fruitbasket.orange.module.rbac.repository.UserRep;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,9 +65,9 @@ public class UserService {
     /**
      * @return 菜单树形数据
      */
-    public List<MenuTreeNodeVO> getMenuTrees() {
-        List<RbacPermission> permissions = permissionService.listPermissionsBy(getLoginInfo().getUserId());
-        return MenuTreeNodeVO.treeOf(permissions).getChildren();
+    public List<PermissionTreeNodeVO> getMenuTrees() {
+        List<RbacPermission> permissions = permissionService.listPermissionsByUserId(getLoginInfo().getUserId());
+        return PermissionTreeNodeVO.treeOf(permissions).getChildren();
     }
 
     /**
@@ -134,5 +134,26 @@ public class UserService {
         Pageable pageable = PageRequest.of(query.getPageNumber(), query.getPageSize());
         Page<RbacUser> page = userRep.findAllByRealNameContains(query.getRealName(), pageable);
         return PageVO.of(page, UserPageVO::of);
+    }
+
+    /**
+     * 绑定角色
+     *
+     * @param query 绑定信息
+     */
+    @Transactional
+    public void bindingRoles(UserBindRolesQuery query) {
+        RbacUser user = userRep.findById(query.getUserId())
+                .orElseThrow(() -> new BusinessException("用户信息不存在"));
+
+        Set<RbacRole> roles = new HashSet<>(roleService.listRolesOf(query.getRoleIds()));
+        if (roles.size() < query.getRoleIds().size()) {
+            roles.forEach(role ->
+                    query.getRoleIds().remove(role.getId()));
+            throw new BusinessException("角色信息不存在：roleIds" + query.getRoleIds());
+        }
+
+        user.setRoles(roles);
+        userRep.save(user);
     }
 }

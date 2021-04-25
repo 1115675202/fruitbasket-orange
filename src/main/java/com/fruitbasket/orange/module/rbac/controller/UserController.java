@@ -3,11 +3,13 @@ package com.fruitbasket.orange.module.rbac.controller;
 import com.fruitbasket.orange.config.security.CustomUserDetails;
 import com.fruitbasket.orange.module.common.vo.PageVO;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
-import com.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
+import com.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
 import com.fruitbasket.orange.module.rbac.pojo.vo.UserPageVO;
 import com.fruitbasket.orange.module.rbac.service.UserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +23,7 @@ import java.util.Set;
  * @author LiuBing
  * @date 2020/12/9
  */
+@Validated
 @RequestMapping("user")
 @RestController
 public class UserController {
@@ -41,7 +44,7 @@ public class UserController {
      * @return 包含菜单、api等权限信息
      */
     @GetMapping("menu/trees")
-    public List<MenuTreeNodeVO> getMenuTrees() {
+    public List<PermissionTreeNodeVO> getMenuTrees() {
         return userService.getMenuTrees();
     }
 
@@ -63,7 +66,7 @@ public class UserController {
      * @return 删除数量
      */
     @DeleteMapping("multi")
-    public long deleteUsersIdIn(@RequestBody @Valid @NotEmpty(message = "用户ID：不能为空") Set<Integer> ids) {
+    public long deleteUsersIdIn(@RequestBody @NotEmpty(message = "用户ID：不能为空") Set<Integer> ids) {
         return userService.deleteUsersIdIn(ids);
     }
 
@@ -84,6 +87,16 @@ public class UserController {
     @GetMapping("multi")
     public PageVO<UserPageVO> listPageUsers(@Valid UserPageableQuery query) {
         return userService.listPageUsers(query);
+    }
+
+    /**
+     * 给用户绑定角色
+     *
+     * @param query 绑定信息
+     */
+    @PostMapping("roles")
+    public void bindingRoles(@RequestBody @Valid UserBindRolesQuery query) {
+        userService.bindingRoles(query);
     }
 
     public UserController(UserService userService) {

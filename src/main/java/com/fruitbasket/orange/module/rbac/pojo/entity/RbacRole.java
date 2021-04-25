@@ -2,6 +2,7 @@ package com.fruitbasket.orange.module.rbac.pojo.entity;
 
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -10,7 +11,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.List;
+import java.util.Set;
 
 import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
@@ -24,6 +25,7 @@ import static javax.persistence.CascadeType.ALL;
  */
 @Data
 @Accessors(chain = true)
+@EqualsAndHashCode(exclude = "permissions")
 @Entity
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
@@ -44,7 +46,7 @@ public class RbacRole extends BaseDO {
     private String roleName;
 
     /**
-     * 显示在界面上的名称
+     * 角色显示名称
      */
     @Column(length = 50, nullable = false)
     private String roleShowName;
@@ -61,9 +63,9 @@ public class RbacRole extends BaseDO {
     @Column(length = 100)
     private String description;
 
-    @ManyToMany
-    private List<RbacUser> users;
-
     @ManyToMany(mappedBy = "roles", cascade = ALL)
-    private List<RbacPermission> permissions;
+    private Set<RbacUser> users;
+
+    @ManyToMany(cascade = ALL)
+    private Set<RbacPermission> permissions;
 }

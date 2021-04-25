@@ -3,6 +3,7 @@ package com.fruitbasket.orange.module.rbac.pojo.entity;
 import com.fruitbasket.orange.dict.SexEnum;
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -12,7 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
@@ -26,6 +27,7 @@ import static javax.persistence.CascadeType.ALL;
  */
 @Data
 @Accessors(chain = true)
+@EqualsAndHashCode(exclude = "roles")
 @Entity
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
@@ -79,6 +81,6 @@ public class RbacUser extends BaseDO {
     /**
      * 权限列表
      */
-    @ManyToMany(mappedBy = "users", cascade = ALL)
-    private List<RbacRole> roles;
+    @ManyToMany(cascade = ALL)
+    private Set<RbacRole> roles;
 }

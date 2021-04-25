@@ -27,7 +27,7 @@ public class PermissionUpdateQuery {
     private String permissionName;
 
     /**
-     * 显示在界面上的名称
+     * 权限显示名称
      */
     private String permissionShowName;
 

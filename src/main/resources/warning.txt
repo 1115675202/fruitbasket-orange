@@ -3,3 +3,10 @@
 //            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 
 //	@JoinColumn(name = "user_id")
+
+lombok @EqualsAndHashCode 自动生了 equas() hashCode() ，如果两个对象各有属性包含了彼此，则 equas() 内会调用到对方的 equas()，从而导致死循环，栈内存溢出
+比如：jpa 在多对多查询时 双方使用 Set 容器保存对方对象，从而调用 equas() 造成问题
+解决办法：
+    1、@EqualsAndHashCode(exclude = {}) 但是 exclude 排除掉本对象中的对方属性，equas() 则不会调用对方的 equas()
+    2、自行重写 equasAndHashCode()
+    3、@Data 包含了 @EqualsAndHashCode，同样情况下也会出现问题。可以使用 @EqualsAndHashCode 覆盖，或者 不适用 @Data 用独立的注解

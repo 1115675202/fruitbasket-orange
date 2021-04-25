@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.CollectionUtils;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
 import static java.util.Collections.emptyList;
@@ -40,7 +37,7 @@ public class PermissionVO extends DataBaseVO {
     private String permissionName;
 
     /**
-     * 显示在界面上的名称
+     * 权限显示名称
      */
     private String permissionShowName;
 
@@ -65,7 +62,7 @@ public class PermissionVO extends DataBaseVO {
     private String description;
 
     /**
-     * 子菜单/权限
+     * 子权限
      */
     private List<PermissionVO> children;
 
@@ -75,8 +72,8 @@ public class PermissionVO extends DataBaseVO {
      * @param permissions 权限列表
      * @return 权限树形
      */
-    public static PermissionVO treeOf(List<RbacPermission> permissions) {
-        PermissionVO root = new PermissionVO();
+    public static PermissionVO treeOf(Collection<RbacPermission> permissions) {
+        PermissionVO root = new PermissionVO().setChildren(emptyList());
         root.setId(ROOT_ID);
 
         if (CollectionUtils.isEmpty(permissions)) return root;
@@ -90,14 +87,13 @@ public class PermissionVO extends DataBaseVO {
             for (int i = 0, n = queue.size(); i < n; i++) {
                 PermissionVO node = queue.poll();
                 if (isNull(node)) continue;
-                List<PermissionVO> children = map.getOrDefault(node.getId(), emptyList()).stream()
-                        .map(permission -> BeanUtil.copyProperties(permission, PermissionVO.class))
+                List<PermissionVO> children = map.getOrDefault(node.getId(), emptyList())
+                        .stream().map(PermissionVO::of)
                         .peek(queue::offer).collect(toList());
                 node.setChildren(children);
             }
         }
 
-        if (isNull(root.children)) root.children = emptyList();
         return root;
     }
 

@@ -3,6 +3,7 @@ package com.fruitbasket.orange.module.rbac.pojo.entity;
 import com.fruitbasket.orange.dict.PermissionType;
 import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -11,7 +12,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.List;
+import java.util.Set;
 
 import static com.fruitbasket.orange.dict.PermissionType.MENU;
 import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
@@ -26,6 +27,7 @@ import static javax.persistence.CascadeType.ALL;
  */
 @Data
 @Accessors(chain = true)
+@EqualsAndHashCode(exclude = "roles")
 @Entity
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
@@ -109,8 +111,8 @@ public class RbacPermission extends BaseDO {
     @Column(length = 100, nullable = false)
     private String breadcrumbs;
 
-    @ManyToMany(cascade = ALL)
-    private List<RbacRole> roles;
+    @ManyToMany(mappedBy = "permissions",cascade = ALL)
+    private Set<RbacRole> roles;
 
     /**
      * 根据父权限生成面包屑

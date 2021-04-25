@@ -3,6 +3,7 @@ package com.fruitbasket.orange.module.common.entity;
 import com.fruitbasket.orange.config.CustomJpaEntityListener;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,6 +25,7 @@ public class BaseDO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NaturalId
 	private Integer id;
 
 	/**

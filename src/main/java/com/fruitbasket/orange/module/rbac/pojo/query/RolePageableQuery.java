@@ -20,7 +20,7 @@ public class RolePageableQuery extends PageableQuery {
     private String roleName;
 
     /**
-     * 显示在界面上的名称
+     * 角色显示名称
      */
     private String roleShowName;
 }

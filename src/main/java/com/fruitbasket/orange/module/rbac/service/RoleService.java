@@ -3,15 +3,19 @@ package com.fruitbasket.orange.module.rbac.service;
 import cn.hutool.core.bean.BeanUtil;
 import com.fruitbasket.orange.exception.BusinessException;
 import com.fruitbasket.orange.module.common.vo.PageVO;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import com.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
-import com.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.RoleBindPermissionsQuery;
 import com.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
+import com.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
+import com.fruitbasket.orange.module.rbac.pojo.vo.RoleDetailVO;
 import com.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
 import com.fruitbasket.orange.module.rbac.repository.RoleRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,8 +44,11 @@ public class RoleService {
 
     private final RoleRep roleRep;
 
-    public RoleService(RoleRep roleRep) {
+    private final PermissionService permissionService;
+
+    public RoleService(RoleRep roleRep, @Lazy PermissionService permissionService) {
         this.roleRep = roleRep;
+        this.permissionService = permissionService;
     }
 
     /**
@@ -107,12 +114,12 @@ public class RoleService {
     /**
      * 根据 ID 删除
      *
-     * @param ids -
+     * @param roleIds -
      * @return 删除数量
      */
     @Transactional
-    public long deleteRolesIdIn(Set<Integer> ids) {
-        return roleRep.deleteByIdIn(ids);
+    public long deleteRolesIdIn(Set<Integer> roleIds) {
+        return roleRep.deleteByIdIn(roleIds);
     }
 
     /**
@@ -135,5 +142,50 @@ public class RoleService {
         BeanUtil.copyProperties(query, role, IGNORE_NULL_COPY_OPTION);
         roleRep.save(role);
         return RolePageVO.of(role);
+    }
+
+    /**
+     * 根据角色ID查询角色
+     *
+     * @param roleIds 角色ID
+     * @return 角色列表
+     */
+    public List<RbacRole> listRolesOf(Set<Integer> roleIds) {
+        return roleRep.findAllById(roleIds);
+    }
+
+    /**
+     * 角色绑定权限
+     *
+     * @param query 绑定信息
+     */
+    @Transactional
+    public void bindingPermissions(RoleBindPermissionsQuery query) {
+        RbacRole role = roleRep.findById(query.getRoleId())
+                .orElseThrow(() -> new BusinessException("角色信息不存在"));
+
+        Set<RbacPermission> permissions = new HashSet<>(permissionService.listPermissionsByUserId(query.getPermissionIds()));
+        if (permissions.size() < query.getPermissionIds().size()) {
+            permissions.forEach(permission ->
+                    query.getPermissionIds().remove(permission.getId()));
+            throw new BusinessException("权限信息不存在：permissionIds" + query.getPermissionIds());
+        }
+
+        role.setPermissions(permissions);
+        roleRep.save(role);
+    }
+
+    /**
+     * 获取角色详情信息
+     *
+     * @param roleId 角色ID
+     * @return -
+     */
+    public RoleDetailVO getRoleDetail(Integer roleId) {
+        RbacRole role = roleRep.findById(roleId)
+                .orElseThrow(() -> new BusinessException("角色信息不存在"));
+
+        List<RbacPermission> allPermissions = permissionService.listAllPermissions();
+        return RoleDetailVO.of(role, allPermissions);
     }
 }

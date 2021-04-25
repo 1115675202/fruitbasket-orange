@@ -4,6 +4,7 @@ import com.fruitbasket.orange.dict.SexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,14 +23,14 @@ public class UserAddQuery {
     /**
      * 账号
      */
-    @NotEmpty(message = "账号[username]：不能为空")
+    @NotBlank(message = "账号[username]：不能为空")
     @Size(min = 8, max = 20, message = "账号[username]：长度为 8 ~ 20")
     private String username;
 
     /**
      * 密码
      */
-    @NotEmpty(message = "密码[password]：不能为空")
+    @NotBlank(message = "密码[password]：不能为空")
     @Size(min = 8, max = 20, message = "密码[password]：长度为 8 ~ 20")
     private String password;
 
@@ -41,7 +42,7 @@ public class UserAddQuery {
     /**
      * 真实姓名
      */
-    @NotEmpty(message = "真实姓名[realName]：不能为空")
+    @NotBlank(message = "真实姓名[realName]：不能为空")
     @Size(min = 1, max = 50, message = "真实姓名[realName]：长度为 1 ~ 50")
     private String realName;
 

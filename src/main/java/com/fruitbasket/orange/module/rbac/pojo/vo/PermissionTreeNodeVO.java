@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.CollectionUtils;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
 import static java.util.Collections.emptyList;
@@ -25,7 +22,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Data
 @Accessors(chain = true)
-public class MenuTreeNodeVO {
+public class PermissionTreeNodeVO {
 
     /**
      * ID
@@ -43,38 +40,42 @@ public class MenuTreeNodeVO {
     private String permissionUrl;
 
     /**
-     * 子菜单/权限
+     * 子权限
      */
-    private List<MenuTreeNodeVO> children;
+    private List<PermissionTreeNodeVO> children;
 
     /**
      * 将权限列表按层级关系实例化成树形
      *
      * @param permissions 权限列表
-     * @return 权限树形结构
+     * @return 顶级 Root 节点
      */
-    public static MenuTreeNodeVO treeOf(List<RbacPermission> permissions) {
-        MenuTreeNodeVO root = new MenuTreeNodeVO().setId(ROOT_ID);
+    public static PermissionTreeNodeVO treeOf(Collection<RbacPermission> permissions) {
+        PermissionTreeNodeVO root = new PermissionTreeNodeVO()
+                .setId(ROOT_ID).setChildren(emptyList());
 
         if (CollectionUtils.isEmpty(permissions)) return root;
 
         Map<Integer, List<RbacPermission>> map = permissions.stream()
                 .collect(groupingBy(RbacPermission::getPid, toList()));
-        Queue<MenuTreeNodeVO> queue = new LinkedList<>();
+        Queue<PermissionTreeNodeVO> queue = new LinkedList<>();
         queue.offer(root);
 
         while (!queue.isEmpty()) {
             for (int i = 0, n = queue.size(); i < n; i++) {
-                MenuTreeNodeVO node = queue.poll();
+                PermissionTreeNodeVO node = queue.poll();
                 if (isNull(node)) continue;
-                List<MenuTreeNodeVO> children = map.getOrDefault(node.getId(), emptyList()).stream()
-                        .map(permission -> BeanUtil.copyProperties(permission, MenuTreeNodeVO.class))
+                List<PermissionTreeNodeVO> children = map.getOrDefault(node.getId(), emptyList())
+                        .stream().map(PermissionTreeNodeVO::of)
                         .peek(queue::offer).collect(toList());
                 node.setChildren(children);
             }
         }
 
-        if (isNull(root.children)) root.children = emptyList();
         return root;
+    }
+
+    public static PermissionTreeNodeVO of(RbacPermission permission) {
+        return BeanUtil.copyProperties(permission, PermissionTreeNodeVO.class);
     }
 }
