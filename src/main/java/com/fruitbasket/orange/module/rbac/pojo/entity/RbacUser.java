@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.module.rbac.pojo.entity;
 
-import com.fruitbasket.orange.module.common.entity.BaseDO;
 import com.fruitbasket.orange.dict.SexEnum;
+import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
@@ -9,11 +9,10 @@ import org.hibernate.annotations.SQLDelete;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
 
-import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.ALL;
 
 /**
  * 用户
@@ -28,40 +27,46 @@ import static javax.persistence.CascadeType.*;
 public class RbacUser extends BaseDO {
 
     /**
+     * 账号
+     */
+    @Column(length = 20, nullable = false, unique = true)
+    private String username;
+
+    /**
+     * 密码
+     */
+    @Column(length = 20, nullable = false)
+    private String password;
+
+    /**
      * 性别
      */
-    @Column(nullable = false)
+    @Column
     private SexEnum sex;
 
     /**
      * 真实姓名
      */
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(length = 50)
     private String realName;
 
     /**
      * 身份证号
      */
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(unique = true, length = 50)
     private String idCardNo;
 
     /**
      * 生日
      */
-    @Column(nullable = false)
+    @Column
     private LocalDate birthday;
 
     /**
      * 头像链接
      */
-    @Column(nullable = false, length = 100)
-    private String avatarLink = "";
-
-    /**
-     * 关联的账号列表，如本地账号、微博账号
-     */
-    @OneToMany(mappedBy = "user", cascade = ALL)
-    private List<RbacUserAccount> userAccounts;
+    @Column(length = 100)
+    private String avatarLink;
 
     /**
      * 权限列表

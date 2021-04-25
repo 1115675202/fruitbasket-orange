@@ -100,4 +100,8 @@ public class PermissionVO extends DataBaseVO {
         if (isNull(root.children)) root.children = emptyList();
         return root;
     }
+
+    public static PermissionVO of(RbacPermission permission) {
+        return BeanUtil.copyProperties(permission, PermissionVO.class);
+    }
 }

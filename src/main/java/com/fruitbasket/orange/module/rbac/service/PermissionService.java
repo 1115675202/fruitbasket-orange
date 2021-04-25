@@ -90,7 +90,7 @@ public class PermissionService {
      * @return 删除数量
      */
     @Transactional
-    public long deletePermissionIdIn(Set<Integer> ids) {
+    public long deletePermissionsIdIn(Set<Integer> ids) {
         return permissionRep.deleteByIdIn(ids);
     }
 
@@ -112,7 +112,7 @@ public class PermissionService {
 
         BeanUtil.copyProperties(query, permission, IGNORE_NULL_COPY_OPTION);
         permissionRep.save(permission);
-        return BeanUtil.copyProperties(permission, PermissionVO.class);
+        return PermissionVO.of(permission);
     }
 
     public PermissionService(PermissionRep permissionRep, RoleService roleService) {

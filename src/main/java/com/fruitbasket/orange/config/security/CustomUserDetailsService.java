@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.config.security;
 
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
-import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
+import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import com.fruitbasket.orange.module.rbac.service.RoleService;
 import com.fruitbasket.orange.module.rbac.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,14 +39,13 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String s) {
-        RbacUserAccount ua = userService.getUserAccountBy(s);
-        if (isNull(ua))
-            throw new UsernameNotFoundException("user not found.");
-        List<RbacRole> roles = roleService.listRolesOf(ua.getUser().getId());
+        RbacUser user = userService.getUserBy(s);
+        if (isNull(user)) throw new UsernameNotFoundException("user not found.");
+        List<RbacRole> roles = roleService.listRolesOf(user.getId());
         return new CustomUserDetails()
-                .setUserId(ua.getUser().getId())
-                .setUsername(ua.getIdentifier())
-                .setPassword(ua.getCredential())
+                .setUserId(user.getId())
+                .setUsername(user.getUsername())
+                .setPassword(user.getPassword())
                 .loadAuthoritiesBy(roles);
     }
 

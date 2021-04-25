@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
-import com.fruitbasket.orange.module.rbac.pojo.entity.RbacUserAccount;
 import com.fruitbasket.orange.module.rbac.repository.UserRep;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,21 +32,17 @@ public class CustomApplicationRunner implements ApplicationRunner {
 
     private void initDefaultTestData() throws JsonProcessingException {
         if (userRep.count() > 0) return;
-        RbacUserAccount userAccount = objectMapper.readValue("{\n" +
-                "  \"identifier\": \"admin\",\n" +
-                "  \"credential\": \"admin\"\n" +
-                "}", RbacUserAccount.class);
         RbacUser user = objectMapper.readValue("{\n" +
+                "  \"username\": \"admin\",\n" +
+                "  \"password\": \"admin\",\n" +
                 "  \"sex\": \"WOMAN\",\n" +
                 "  \"realName\": \"admin\",\n" +
                 "  \"idCardNo\": \"430321000000000000\",\n" +
                 "  \"birthday\": \"2021-04-19\",\n" +
                 "  \"avatarLink\": \"/\"\n" +
                 "}", RbacUser.class);
-        userAccount.setUser(user);
         user.setRoles(roles());
-        user.getRoles().forEach(role -> role.setUsers(Arrays.asList(user)));
-        user.setUserAccounts(Arrays.asList(userAccount));
+        user.getRoles().forEach(role -> role.setUsers(Collections.singletonList(user)));
         userRep.save(user);
     }
 
@@ -63,7 +58,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "}", RbacRole.class);
         List<RbacPermission> permissions = permissions();
         role.setPermissions(permissions);
-        List<RbacRole> ret = Arrays.asList(role);
+        List<RbacRole> ret = Collections.singletonList(role);
         permissions.forEach(permission -> permission.setRoles(ret));
         return ret;
     }
@@ -77,6 +72,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionLink\": \"/\",\n" +
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"\",\n" +
+                "        \"sortValue\": \"0\",\n" +
                 "        \"permissionLevel\": 1\n" +
                 "}", RbacPermission.class));
 
@@ -87,6 +83,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionLink\": \"/user\",\n" +
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
+                "        \"sortValue\": \"0\",\n" +
                 "        \"permissionLevel\": 2\n" +
                 "}", RbacPermission.class));
 
@@ -97,6 +94,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionLink\": \"/role\",\n" +
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
+                "        \"sortValue\": \"0\",\n" +
                 "        \"permissionLevel\": 2\n" +
                 "}", RbacPermission.class));
 
@@ -107,6 +105,7 @@ public class CustomApplicationRunner implements ApplicationRunner {
                 "        \"permissionLink\": \"/permission\",\n" +
                 "        \"permissionType\": \"MENU\",\n" +
                 "        \"breadcrumbs\": \"/0\",\n" +
+                "        \"sortValue\": \"0\",\n" +
                 "        \"permissionLevel\": 2\n" +
                 "}", RbacPermission.class));
         return ret;

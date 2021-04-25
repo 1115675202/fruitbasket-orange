@@ -25,7 +25,7 @@ public class RoleController {
     private final RoleService roleService;
 
     /**
-     * @return 一页权限信息
+     * @return 一页信息
      */
     @GetMapping("list")
     public PageVO<RolePageVO> listPageRoles(@Valid RolePageableQuery query) {
@@ -48,8 +48,8 @@ public class RoleController {
      * @return 删除数量
      */
     @DeleteMapping
-    public Long deleteRole(@RequestBody @Valid @NotEmpty(message = "角色ID：不能为空") Set<Integer> ids) {
-        return roleService.deleteRoleIdIn(ids);
+    public long deleteRolesIdIn(@RequestBody @Valid @NotEmpty(message = "角色ID：不能为空") Set<Integer> ids) {
+        return roleService.deleteRolesIdIn(ids);
     }
 
     /**

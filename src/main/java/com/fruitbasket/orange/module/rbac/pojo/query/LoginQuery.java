@@ -14,12 +14,12 @@ import lombok.experimental.Accessors;
 public class LoginQuery {
 
 	/**
-	 * 账户标识/账号
+	 * 账号
 	 */
-	private String identifier;
+	private String username;
 
 	/**
-	 * 凭证/密码
+	 * 密码
 	 */
-	private String credential;
+	private String password;
 }

@@ -77,7 +77,7 @@ public class RoleService {
     }
 
     /**
-     * 分页查询权限
+     * 分页查询
      *
      * @param query 分页以及检索参数
      * @return 分页信息
@@ -111,7 +111,7 @@ public class RoleService {
      * @return 删除数量
      */
     @Transactional
-    public long deleteRoleIdIn(Set<Integer> ids) {
+    public long deleteRolesIdIn(Set<Integer> ids) {
         return roleRep.deleteByIdIn(ids);
     }
 

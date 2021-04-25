@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * 自定义密码/凭证编码器
+ * 自定义密码编码器
  *
  * @author LiuBing
  * @date 2021/4/17
