@@ -5,6 +5,8 @@ import com.fruitbasket.orange.module.common.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLDeleteAll;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import javax.persistence.ManyToMany;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
+import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
 import static javax.persistence.CascadeType.ALL;
 
 /**
@@ -23,8 +27,12 @@ import static javax.persistence.CascadeType.ALL;
 @Data
 @Accessors(chain = true)
 @Entity
-@SQLDelete(sql = "UPDATE rbac_user SET deleted = 1 WHERE id = ?")
+@Where(clause = NOT_DELETE_CONDITION)
+@SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
+@SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 public class RbacUser extends BaseDO {
+
+    static final String TABLE_NAME = "rbac_user";
 
     /**
      * 账号
@@ -47,7 +55,7 @@ public class RbacUser extends BaseDO {
     /**
      * 真实姓名
      */
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String realName;
 
     /**

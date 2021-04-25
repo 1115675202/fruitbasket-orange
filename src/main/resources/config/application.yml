@@ -17,9 +17,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss  #日期格式化
     # ALWAYS 默认
     # NON_DEFAULT 属性为默认值
-    # NON_EMPTY 属性为 空（""） 或者为 NULL，
-    # NON_NULL 属性为NULL 不序列化,就是为null的字段不参加序列化
-    default-property-inclusion: NON_EMPTY
+    # NON_EMPTY 为"" 或者 NULL，不序列化
+    # NON_NULL 为 NULL 不序列化
+    default-property-inclusion: ALWAYS
   mvc:
     format:
       date: yyyy-MM-dd HH:mm:ss

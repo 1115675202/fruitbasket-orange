@@ -50,7 +50,7 @@ public class PermissionController {
      * @param ids -
      * @return 删除数量
      */
-    @DeleteMapping
+    @DeleteMapping("multi")
     public long deletePermissionsIdIn(@RequestBody @Valid @NotEmpty(message = "权限ID：不能为空") Set<Integer> ids) {
         return permissionService.deletePermissionsIdIn(ids);
     }

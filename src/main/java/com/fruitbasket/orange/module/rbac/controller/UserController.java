@@ -62,7 +62,7 @@ public class UserController {
      * @param ids -
      * @return 删除数量
      */
-    @DeleteMapping
+    @DeleteMapping("multi")
     public long deleteUsersIdIn(@RequestBody @Valid @NotEmpty(message = "用户ID：不能为空") Set<Integer> ids) {
         return userService.deleteUsersIdIn(ids);
     }
@@ -81,7 +81,7 @@ public class UserController {
     /**
      * @return 一页信息
      */
-    @GetMapping("list")
+    @GetMapping("multi")
     public PageVO<UserPageVO> listPageUsers(@Valid UserPageableQuery query) {
         return userService.listPageUsers(query);
     }
