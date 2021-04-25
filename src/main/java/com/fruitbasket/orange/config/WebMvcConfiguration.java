@@ -22,11 +22,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 				// 生效的请求路径
 				.addMapping("/**")
 				// 允许的请求来源（域名/IP+端口号）
+				.allowedOrigins("http://localhost:8080")
 //				.allowedOriginPatterns("/**")
 				// 允许的请求头
 				.allowedHeaders("*")
 				// 允许的 HTTP 请求方法
 				.allowedMethods("*")
+				// 是否发送Cookie信息
+				.allowCredentials(true)
 				// 本次预检请求的有效期
 				.maxAge(3600)
 		;

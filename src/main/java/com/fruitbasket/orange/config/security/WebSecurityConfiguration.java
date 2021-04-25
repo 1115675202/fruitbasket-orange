@@ -55,7 +55,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .withObjectPostProcessor(customObjectPostProcessor())
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 // 未登录
