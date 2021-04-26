@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 
 import static com.fruitbasket.orange.response.ResponseCode.ACCESS_DENIED;
 import static com.fruitbasket.orange.response.ResponseCode.LOGIN_ERROR;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * 登陆认证配置
@@ -29,8 +30,6 @@ import static com.fruitbasket.orange.response.ResponseCode.LOGIN_ERROR;
  */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    private static final String CONTENT_TYPE_JSON = "application/json;charset=utf-8";
 
     private final ObjectMapper objectMapper;
 
@@ -87,7 +86,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, e) -> {
-            response.setContentType(CONTENT_TYPE_JSON);
+            response.setContentType(APPLICATION_JSON_VALUE);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
             out.close();
@@ -100,7 +99,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     AccessDeniedHandler accessDeniedHandler() {
         return (request, response, e) -> {
-            response.setContentType(CONTENT_TYPE_JSON);
+            response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(ACCESS_DENIED)));
@@ -109,12 +108,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * @return 登陆成功响应扩展点
+     * @return 登录成功响应扩展点
      */
     @Bean
     AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-            response.setContentType(CONTENT_TYPE_JSON);
+            response.setContentType(APPLICATION_JSON_VALUE);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
             out.close();
@@ -127,7 +126,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     AuthenticationFailureHandler authenticationFailureHandler() {
         return (request, response, e) -> {
-            response.setContentType(CONTENT_TYPE_JSON);
+            response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, e.getMessage())));
@@ -141,7 +140,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
-            response.setContentType(CONTENT_TYPE_JSON);
+            response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
             out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, "未登录")));
