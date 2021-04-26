@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fruitbasket.orange.response.ResponseVO;
+import com.fruitbasket.orange.config.response.ResponseVO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
-import static com.fruitbasket.orange.response.ResponseCode.ACCESS_DENIED;
-import static com.fruitbasket.orange.response.ResponseCode.LOGIN_ERROR;
+import static com.fruitbasket.orange.config.response.ResponseCode.ACCESS_DENIED;
+import static com.fruitbasket.orange.config.response.ResponseCode.LOGIN_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**

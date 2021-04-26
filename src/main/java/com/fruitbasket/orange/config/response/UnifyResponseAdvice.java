@@ -1,10 +1,8 @@
-package com.fruitbasket.orange.advice;
+package com.fruitbasket.orange.config.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fruitbasket.orange.annotation.UnifyResponse;
-import com.fruitbasket.orange.exception.BusinessException;
-import com.fruitbasket.orange.response.ResponseVO;
+import com.fruitbasket.orange.config.exception.BusinessException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -88,9 +88,9 @@ public class PermissionVO extends DataBaseVO {
                 PermissionVO node = queue.poll();
                 if (isNull(node)) continue;
                 List<PermissionVO> children = map.getOrDefault(node.getId(), emptyList())
-                        .stream().map(PermissionVO::of)
-                        .peek(queue::offer).collect(toList());
+                        .stream().map(PermissionVO::of).collect(toList());
                 node.setChildren(children);
+                children.forEach(queue::offer);
             }
         }
 

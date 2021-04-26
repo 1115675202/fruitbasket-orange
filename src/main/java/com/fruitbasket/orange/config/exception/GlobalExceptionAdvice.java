@@ -1,8 +1,6 @@
-package com.fruitbasket.orange.advice;
+package com.fruitbasket.orange.config.exception;
 
-import com.fruitbasket.orange.exception.BusinessException;
-import com.fruitbasket.orange.response.ResponseCode;
-import com.fruitbasket.orange.response.ResponseVO;
+import com.fruitbasket.orange.config.response.ResponseVO;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -12,11 +10,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
+import static com.fruitbasket.orange.config.response.ResponseCode.CLIENT_ERROR;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
@@ -52,7 +48,7 @@ public class GlobalExceptionAdvice {
     public ResponseVO<List<String>> constraintViolationException(ConstraintViolationException e) {
         List<String> errorMessages = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage).collect(toList());
-        return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessages);
+        return ResponseVO.of(CLIENT_ERROR, errorMessages);
     }
 
     /**
@@ -60,7 +56,7 @@ public class GlobalExceptionAdvice {
      **/
     @ExceptionHandler(value = BusinessException.class)
     public ResponseVO<List<String>> businessException(BusinessException e) {
-        return ResponseVO.failureOf(singletonList(e.getMessage()));
+        return ResponseVO.of(e.getResponseCode(), e.getDetailMessages());
     }
 
     /**
@@ -80,6 +76,6 @@ public class GlobalExceptionAdvice {
     private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
         List<String> errorMessages = bindingResult.getAllErrors()
                 .stream().map(ObjectError::getDefaultMessage).collect(toList());
-        return ResponseVO.of(ResponseCode.CLIENT_ERROR, errorMessages);
+        return ResponseVO.of(CLIENT_ERROR, errorMessages);
     }
 }

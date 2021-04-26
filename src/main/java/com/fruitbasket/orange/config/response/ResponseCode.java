@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.response;
+package com.fruitbasket.orange.config.response;
 
 /**
  * 响应状态

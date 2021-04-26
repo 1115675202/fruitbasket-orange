@@ -1,6 +1,5 @@
 package com.fruitbasket.orange.module.rbac.pojo.vo;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import lombok.Data;

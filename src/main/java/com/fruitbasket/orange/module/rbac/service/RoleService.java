@@ -1,7 +1,7 @@
 package com.fruitbasket.orange.module.rbac.service;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.fruitbasket.orange.exception.BusinessException;
+import com.fruitbasket.orange.config.exception.BusinessException;
 import com.fruitbasket.orange.module.common.vo.PageVO;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
@@ -41,6 +41,8 @@ import static org.springframework.util.StringUtils.hasText;
 @Slf4j
 @Service
 public class RoleService {
+
+    private static final String ROLE_NOT_FOUND = "角色信息不存在";
 
     private final RoleRep roleRep;
 
@@ -131,7 +133,7 @@ public class RoleService {
     @Transactional
     public RolePageVO updateRole(RoleUpdateQuery query) {
         Optional<RbacRole> roleOptional = roleRep.findById(query.getId());
-        if (!roleOptional.isPresent()) throw new BusinessException("角色信息不存在");
+        if (!roleOptional.isPresent()) throw new BusinessException(ROLE_NOT_FOUND);
 
         if (hasText(query.getRoleName())
                 && roleRep.count(Example.of(new RbacRole().setRoleName(query.getRoleName()))) > 0) {
@@ -162,7 +164,7 @@ public class RoleService {
     @Transactional
     public void bindingPermissions(RoleBindPermissionsQuery query) {
         RbacRole role = roleRep.findById(query.getRoleId())
-                .orElseThrow(() -> new BusinessException("角色信息不存在"));
+                .orElseThrow(() -> new BusinessException(ROLE_NOT_FOUND));
 
         Set<RbacPermission> permissions = new HashSet<>(permissionService.listPermissionsByUserId(query.getPermissionIds()));
         if (permissions.size() < query.getPermissionIds().size()) {
@@ -183,7 +185,7 @@ public class RoleService {
      */
     public RoleDetailVO getRoleDetail(Integer roleId) {
         RbacRole role = roleRep.findById(roleId)
-                .orElseThrow(() -> new BusinessException("角色信息不存在"));
+                .orElseThrow(() -> new BusinessException(ROLE_NOT_FOUND));
 
         List<RbacPermission> allPermissions = permissionService.listAllPermissions();
         return RoleDetailVO.of(role, allPermissions);

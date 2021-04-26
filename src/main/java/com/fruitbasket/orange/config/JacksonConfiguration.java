@@ -18,13 +18,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 时间序列化格式
+ * Jackson 配置
  *
  * @author LiuBing
  * @date 2020/12/2
  */
 @Configuration
-public class JacksonDateSerializerConfiguration {
+public class JacksonConfiguration {
 
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -35,7 +35,7 @@ public class JacksonDateSerializerConfiguration {
 	/**
 	 * LocalDateTime LocalDate LocalTime
 	 * 3 个 Converter 是接收时间时，String 转换 成 对应时间类型
-	 * 用 lambda 会导致泛型丢失，springMVC 添加 Convert 的时候无法识别具体的类型
+	 * 用 lambda 会导致泛型丢失，springMVC 添加 Convert 的时候无法识别具体的类型从而报错
 	 *
 	 * @return 时间转换器
 	 */

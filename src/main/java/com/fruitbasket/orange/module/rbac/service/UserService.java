@@ -2,7 +2,7 @@ package com.fruitbasket.orange.module.rbac.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.fruitbasket.orange.config.security.CustomUserDetails;
-import com.fruitbasket.orange.exception.BusinessException;
+import com.fruitbasket.orange.config.exception.BusinessException;
 import com.fruitbasket.orange.module.common.vo.PageVO;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import com.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;

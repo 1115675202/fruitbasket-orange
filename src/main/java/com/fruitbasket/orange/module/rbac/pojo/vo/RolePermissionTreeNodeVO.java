@@ -9,7 +9,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 import static com.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
-import static java.lang.Boolean.TRUE;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.*;
@@ -73,7 +72,7 @@ public class RolePermissionTreeNodeVO {
                 List<RolePermissionTreeNodeVO> children = map.getOrDefault(node.getId(), emptyList()).stream()
                         .map(permission -> {
                             RolePermissionTreeNodeVO vo = of(permission);
-                            if (boundPermissionIds.contains(vo.getId())) vo.setBound(TRUE);
+                            if (boundPermissionIds.contains(vo.getId())) vo.setBound(true);
                             return vo;
                         })
                         .peek(queue::offer).collect(toList());

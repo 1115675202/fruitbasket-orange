@@ -1,4 +1,4 @@
-package com.fruitbasket.orange.response;
+package com.fruitbasket.orange.config.response;
 
 /**
  * 统一响应

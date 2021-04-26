@@ -1,0 +1,74 @@
+{
+  "RbacUser": [
+    {
+      "username": "admin",
+      "password": "admin",
+      "sex": "WOMAN",
+      "realName": "admin",
+      "idCardNo": "430321000000000000",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    }
+  ],
+  "RbacRole": [
+    {
+      "roleName": "ADMIN",
+      "roleShowName": "管理员",
+      "sortValue": 0,
+      "description": ""
+    }
+  ],
+  "RbacPermission": [
+    {
+      "pid": 0,
+      "permissionName": "SYS",
+      "permissionShowName": "系统",
+      "permissionLink": "/",
+      "permissionType": "MENU",
+      "breadcrumbs": "",
+      "sortValue": "0",
+      "permissionLevel": 1
+    },
+    {
+      "pid": 0,
+      "permissionName": "SYS",
+      "permissionShowName": "系统",
+      "permissionLink": "/",
+      "permissionType": "MENU",
+      "breadcrumbs": "",
+      "sortValue": "0",
+      "permissionLevel": 1
+    },
+    {
+      "pid": 1,
+      "permissionName": "USER",
+      "permissionShowName": "用户",
+      "permissionLink": "/user",
+      "permissionType": "MENU",
+      "breadcrumbs": "/0",
+      "sortValue": "0",
+      "permissionLevel": 2
+    },
+    {
+      "pid": 1,
+      "permissionName": "ROLE",
+      "permissionShowName": "角色",
+      "permissionLink": "/role",
+      "permissionType": "MENU",
+      "breadcrumbs": "/0",
+      "sortValue": "0",
+      "permissionLevel": 2
+    },
+    {
+      "pid": 1,
+      "permissionName": "PERMISSION",
+      "permissionShowName": "权限",
+      "permissionLink": "/permission",
+      "permissionType": "MENU",
+      "breadcrumbs": "/0",
+      "sortValue": "0",
+      "permissionLevel": 2
+    }
+  ]
+}
+
