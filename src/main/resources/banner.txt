@@ -5,4 +5,7 @@
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
 ${AnsiColor.GREEN} :: Spring Boot ::        ${AnsiColor.WHITE}${spring-boot.formatted-version}
-druid SQL 监控： http://localhost:${server.port}${server.servlet.context-path}/druid/
+druid SQL 监控：http://localhost:${server.port}${server.servlet.context-path}/druid
+    用户名：${spring.datasource.druid.stat-view-servlet.login-username}
+    密码：${spring.datasource.druid.stat-view-servlet.login-password}
+API 文档：http://localhost:8081/v1/api/index.html

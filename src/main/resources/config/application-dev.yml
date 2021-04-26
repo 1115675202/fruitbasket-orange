@@ -13,3 +13,9 @@ spring:
     url: jdbc:p6spy:mysql://localhost:3306/orange?${custom.datasource.url-param}
     username: root
     password: pwd888888
+    druid:
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
