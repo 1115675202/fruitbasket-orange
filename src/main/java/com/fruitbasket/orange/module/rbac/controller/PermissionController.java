@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 用户
+ * 权限
  *
  * @author LiuBing
  * @date 2020/12/9

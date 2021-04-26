@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
- * 用户
+ * 角色
  *
  * @author LiuBing
  * @date 2020/12/9
