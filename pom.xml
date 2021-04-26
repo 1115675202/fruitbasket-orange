@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.fruitbasket</groupId>
+    <groupId>cn.fruitbasket</groupId>
     <artifactId>fruitbasket-orange</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>fruitbasket-orange</name>
