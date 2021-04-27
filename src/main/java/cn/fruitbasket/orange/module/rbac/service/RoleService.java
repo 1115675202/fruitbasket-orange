@@ -1,7 +1,5 @@
 package cn.fruitbasket.orange.module.rbac.service;
 
-import cn.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
-import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
@@ -9,10 +7,12 @@ import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleBindPermissionsQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleDetailVO;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleVO;
 import cn.fruitbasket.orange.module.rbac.repository.RoleRep;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
@@ -30,6 +30,7 @@ import java.util.Set;
 
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.DEFAULT_SORT_VALUE;
 import static cn.fruitbasket.orange.util.CustomBeanUtils.IGNORE_NULL_COPY_OPTION;
+import static java.util.stream.Collectors.toSet;
 import static org.springframework.util.StringUtils.hasText;
 
 /**
@@ -80,9 +81,8 @@ public class RoleService {
      * @return 能访问该地址的角色
      */
     public Set<String> listBeAuthorizedRoleNamesOf(String requestUrl) {
-        return new HashSet<String>() {{
-            add("ADMIN");
-        }};
+        List<RbacPermission> permissions = permissionService.listPermissionsBy(requestUrl);
+        return permissions.stream().flatMap(p -> p.getRoles().stream()).map(RbacRole::getRoleName).collect(toSet());
     }
 
     /**

@@ -10,6 +10,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -61,6 +62,16 @@ public class PermissionService {
      */
     public List<RbacPermission> listAllPermissions() {
         return permissionRep.findAll();
+    }
+
+    /**
+     * 根据权限链接查询权限
+     *
+     * @param permissionLink -
+     * @return -
+     */
+    public List<RbacPermission> listPermissionsBy(String permissionLink) {
+        return permissionRep.findAll(Example.of(new RbacPermission().setPermissionLink(permissionLink)));
     }
 
     /**
