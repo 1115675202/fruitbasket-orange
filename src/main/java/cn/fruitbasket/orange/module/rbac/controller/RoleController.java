@@ -1,14 +1,13 @@
 package cn.fruitbasket.orange.module.rbac.controller;
 
+import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleBindPermissionsQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleDetailVO;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleVO;
 import cn.fruitbasket.orange.module.rbac.service.RoleService;
-import cn.fruitbasket.orange.module.common.vo.PageVO;
-import com.fruitbasket.orange.module.rbac.pojo.query.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +23,8 @@ import java.util.Set;
  * @date 2020/12/9
  */
 @Validated
-@RequestMapping("role")
 @RestController
+@RequestMapping("role")
 public class RoleController {
 
     private final RoleService roleService;
@@ -34,7 +33,7 @@ public class RoleController {
      * @return 一页信息
      */
     @GetMapping("multi")
-    public PageVO<RolePageVO> listPageRoles(@Valid RolePageableQuery query) {
+    public PageVO<RoleVO> listPageRoles(@Valid RolePageableQuery query) {
         return roleService.listPageRoles(query);
     }
 
@@ -45,7 +44,7 @@ public class RoleController {
      * @return 生成的角色信息
      */
     @PostMapping
-    public RolePageVO addRole(@RequestBody @Valid RoleAddQuery query) {
+    public RoleVO addRole(@RequestBody @Valid RoleAddQuery query) {
         return roleService.save(query);
     }
 
@@ -67,7 +66,7 @@ public class RoleController {
      * @return 修改后的角色信息
      */
     @PutMapping
-    public RolePageVO updateRole(@RequestBody @Valid RoleUpdateQuery query) {
+    public RoleVO updateRole(@RequestBody @Valid RoleUpdateQuery query) {
         return roleService.updateRole(query);
     }
 

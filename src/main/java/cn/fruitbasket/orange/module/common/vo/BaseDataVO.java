@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class DataBaseVO {
+public class BaseDataVO {
 
     /**
      * 唯一 ID

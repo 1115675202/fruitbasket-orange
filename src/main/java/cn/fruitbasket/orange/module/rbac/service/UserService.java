@@ -4,7 +4,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.UserPageVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.util.CustomBeanUtils;
 import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.config.security.CustomUserDetails;
@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -59,7 +60,8 @@ public class UserService {
      * @return 账户及用户信息
      */
     public RbacUser getUserBy(String username) {
-        return userRep.getRbacUserByUsernameIs(username);
+        return userRep.getRbacUserByUsernameIs(username)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found."));
     }
 
     /**
@@ -84,12 +86,12 @@ public class UserService {
      * @return 生成的用户信息
      */
     @Transactional
-    public UserPageVO save(UserAddQuery query) {
+    public UserVO save(UserAddQuery query) {
         RbacUser user = new RbacUser().setUsername(query.getUsername());
         if (userRep.count(Example.of(user)) > 0) throw new BusinessException("账号[username]已被使用");
         BeanUtil.copyProperties(query, user);
         userRep.save(user);
-        return UserPageVO.of(user);
+        return UserVO.of(user);
     }
 
     /**
@@ -110,7 +112,7 @@ public class UserService {
      * @return 修改后的用户信息
      */
     @Transactional
-    public UserPageVO updateUser(UserUpdateQuery query) {
+    public UserVO updateUser(UserUpdateQuery query) {
         RbacUser user = userRep.findById(query.getId())
                 .orElseThrow(() -> new BusinessException("用户信息不存在"));
 
@@ -121,7 +123,7 @@ public class UserService {
 
         BeanUtil.copyProperties(query, user, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
         userRep.save(user);
-        return UserPageVO.of(user);
+        return UserVO.of(user);
     }
 
     /**
@@ -130,10 +132,10 @@ public class UserService {
      * @param query 分页以及检索参数
      * @return 分页信息
      */
-    public PageVO<UserPageVO> listPageUsers(UserPageableQuery query) {
+    public PageVO<UserVO> listPageUsers(UserPageableQuery query) {
         Pageable pageable = PageRequest.of(query.getPageNumber(), query.getPageSize());
         Page<RbacUser> page = userRep.findAllByRealNameContains(query.getRealName(), pageable);
-        return PageVO.of(page, UserPageVO::of);
+        return PageVO.of(page, UserVO::of);
     }
 
     /**

@@ -19,8 +19,8 @@ import java.util.Set;
  * @date 2020/12/9
  */
 @Validated
-@RequestMapping("permission")
 @RestController
+@RequestMapping("permission")
 public class PermissionController {
 
     private final PermissionService permissionService;

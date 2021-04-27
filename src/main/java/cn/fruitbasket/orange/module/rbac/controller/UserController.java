@@ -6,7 +6,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.UserPageVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.module.rbac.service.UserService;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import org.springframework.validation.annotation.Validated;
@@ -24,8 +24,8 @@ import java.util.Set;
  * @date 2020/12/9
  */
 @Validated
-@RequestMapping("user")
 @RestController
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
@@ -55,7 +55,7 @@ public class UserController {
      * @return 生成的用户信息
      */
     @PostMapping
-    public UserPageVO addUser(@RequestBody @Valid UserAddQuery query) {
+    public UserVO addUser(@RequestBody @Valid UserAddQuery query) {
         return userService.save(query);
     }
 
@@ -77,7 +77,7 @@ public class UserController {
      * @return 修改后的用户信息
      */
     @PutMapping
-    public UserPageVO updateUser(@RequestBody @Valid UserUpdateQuery query) {
+    public UserVO updateUser(@RequestBody @Valid UserUpdateQuery query) {
         return userService.updateUser(query);
     }
 
@@ -85,7 +85,7 @@ public class UserController {
      * @return 一页信息
      */
     @GetMapping("multi")
-    public PageVO<UserPageVO> listPageUsers(@Valid UserPageableQuery query) {
+    public PageVO<UserVO> listPageUsers(@Valid UserPageableQuery query) {
         return userService.listPageUsers(query);
     }
 

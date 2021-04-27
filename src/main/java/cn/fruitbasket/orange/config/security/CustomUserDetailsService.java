@@ -1,18 +1,15 @@
 package cn.fruitbasket.orange.config.security;
 
+import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import cn.fruitbasket.orange.module.rbac.service.RoleService;
 import cn.fruitbasket.orange.module.rbac.service.UserService;
-import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 /**
  * 自定义用户登陆信息处理
@@ -40,7 +37,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) {
         RbacUser user = userService.getUserBy(s);
-        if (isNull(user)) throw new UsernameNotFoundException("user not found.");
         List<RbacRole> roles = roleService.listRolesOf(user.getId());
         return new CustomUserDetails()
                 .setUserId(user.getId())

@@ -1,6 +1,6 @@
 package cn.fruitbasket.orange.module.rbac.pojo.vo;
 
-import cn.fruitbasket.orange.module.common.vo.DataBaseVO;
+import cn.fruitbasket.orange.module.common.vo.BaseDataVO;
 import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.dict.PermissionType;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Data
 @Accessors(chain = true)
-public class PermissionVO extends DataBaseVO {
+public class PermissionVO extends BaseDataVO {
 
     /**
      * 父节点ID，0-无父节点

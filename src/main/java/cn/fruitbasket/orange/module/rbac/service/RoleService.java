@@ -11,7 +11,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.RoleAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleBindPermissionsQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.RoleUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleDetailVO;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.RolePageVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleVO;
 import cn.fruitbasket.orange.module.rbac.repository.RoleRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -91,11 +91,11 @@ public class RoleService {
      * @param query 分页以及检索参数
      * @return 分页信息
      */
-    public PageVO<RolePageVO> listPageRoles(RolePageableQuery query) {
+    public PageVO<RoleVO> listPageRoles(RolePageableQuery query) {
         Pageable pageable = PageRequest.of(query.getPageNumber(), query.getPageSize());
         Page<RbacRole> page = roleRep.findAllByRoleNameContainingOrRoleShowNameContainingOrderBySortValueDesc(
                 query.getRoleName(), query.getRoleShowName(), pageable);
-        return PageVO.of(page, RolePageVO::of);
+        return PageVO.of(page, RoleVO::of);
     }
 
     /**
@@ -105,12 +105,12 @@ public class RoleService {
      * @return 完整角色信息
      */
     @Transactional
-    public RolePageVO save(RoleAddQuery query) {
+    public RoleVO save(RoleAddQuery query) {
         RbacRole role = new RbacRole().setRoleName(query.getRoleName());
         if (roleRep.count(Example.of(role)) > 0) throw new BusinessException("角色名称[roleName]已存在");
         BeanUtil.copyProperties(query, role, IGNORE_NULL_COPY_OPTION);
         roleRep.save(role.setSortValue(DEFAULT_SORT_VALUE));
-        return RolePageVO.of(role);
+        return RoleVO.of(role);
     }
 
     /**
@@ -131,7 +131,7 @@ public class RoleService {
      * @return 修改后的角色信息
      */
     @Transactional
-    public RolePageVO updateRole(RoleUpdateQuery query) {
+    public RoleVO updateRole(RoleUpdateQuery query) {
         Optional<RbacRole> roleOptional = roleRep.findById(query.getId());
         if (!roleOptional.isPresent()) throw new BusinessException(ROLE_NOT_FOUND);
 
@@ -143,7 +143,7 @@ public class RoleService {
         RbacRole role = roleOptional.get();
         BeanUtil.copyProperties(query, role, IGNORE_NULL_COPY_OPTION);
         roleRep.save(role);
-        return RolePageVO.of(role);
+        return RoleVO.of(role);
     }
 
     /**

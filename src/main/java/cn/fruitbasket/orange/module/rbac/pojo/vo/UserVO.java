@@ -2,7 +2,7 @@ package cn.fruitbasket.orange.module.rbac.pojo.vo;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.dict.SexEnum;
-import cn.fruitbasket.orange.module.common.vo.DataBaseVO;
+import cn.fruitbasket.orange.module.common.vo.BaseDataVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @Accessors(chain = true)
-public class UserPageVO extends DataBaseVO {
+public class UserVO extends BaseDataVO {
 
     /**
      * 账号
@@ -54,7 +54,7 @@ public class UserPageVO extends DataBaseVO {
      */
     private String avatarLink;
 
-    public static UserPageVO of(RbacUser user) {
-        return BeanUtil.copyProperties(user, UserPageVO.class);
+    public static UserVO of(RbacUser user) {
+        return BeanUtil.copyProperties(user, UserVO.class);
     }
 }
