@@ -2,7 +2,7 @@ package cn.fruitbasket.orange.module.rbac.service;
 
 import cn.fruitbasket.orange.module.rbac.pojo.query.RolePageableQuery;
 import cn.hutool.core.bean.BeanUtil;
-import cn.fruitbasket.orange.config.exception.BusinessException;
+import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
@@ -107,7 +107,7 @@ public class RoleService {
     @Transactional
     public RoleVO save(RoleAddQuery query) {
         RbacRole role = new RbacRole().setRoleName(query.getRoleName());
-        if (roleRep.count(Example.of(role)) > 0) throw new BusinessException("角色名称[roleName]已存在");
+        if (roleRep.count(Example.of(role)) > 0) throw new ShowToClientException("角色名称[roleName]已存在");
         BeanUtil.copyProperties(query, role, IGNORE_NULL_COPY_OPTION);
         roleRep.save(role.setSortValue(DEFAULT_SORT_VALUE));
         return RoleVO.of(role);
@@ -133,11 +133,11 @@ public class RoleService {
     @Transactional
     public RoleVO updateRole(RoleUpdateQuery query) {
         Optional<RbacRole> roleOptional = roleRep.findById(query.getId());
-        if (!roleOptional.isPresent()) throw new BusinessException(ROLE_NOT_FOUND);
+        if (!roleOptional.isPresent()) throw new ShowToClientException(ROLE_NOT_FOUND);
 
         if (hasText(query.getRoleName())
                 && roleRep.count(Example.of(new RbacRole().setRoleName(query.getRoleName()))) > 0) {
-            throw new BusinessException("角色名称[roleName]已存在");
+            throw new ShowToClientException("角色名称[roleName]已存在");
         }
 
         RbacRole role = roleOptional.get();
@@ -164,13 +164,13 @@ public class RoleService {
     @Transactional
     public void bindingPermissions(RoleBindPermissionsQuery query) {
         RbacRole role = roleRep.findById(query.getRoleId())
-                .orElseThrow(() -> new BusinessException(ROLE_NOT_FOUND));
+                .orElseThrow(() -> new ShowToClientException(ROLE_NOT_FOUND));
 
         Set<RbacPermission> permissions = new HashSet<>(permissionService.listPermissionsByUserId(query.getPermissionIds()));
         if (permissions.size() < query.getPermissionIds().size()) {
             permissions.forEach(permission ->
                     query.getPermissionIds().remove(permission.getId()));
-            throw new BusinessException("权限信息不存在：permissionIds" + query.getPermissionIds());
+            throw new ShowToClientException("权限信息不存在：permissionIds" + query.getPermissionIds());
         }
 
         role.setPermissions(permissions);
@@ -185,7 +185,7 @@ public class RoleService {
      */
     public RoleDetailVO getRoleDetail(Integer roleId) {
         RbacRole role = roleRep.findById(roleId)
-                .orElseThrow(() -> new BusinessException(ROLE_NOT_FOUND));
+                .orElseThrow(() -> new ShowToClientException(ROLE_NOT_FOUND));
 
         List<RbacPermission> allPermissions = permissionService.listAllPermissions();
         return RoleDetailVO.of(role, allPermissions);

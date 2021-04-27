@@ -54,8 +54,8 @@ public class GlobalExceptionAdvice {
     /**
      * 业务处理异常
      **/
-    @ExceptionHandler(value = BusinessException.class)
-    public ResponseVO<List<String>> businessException(BusinessException e) {
+    @ExceptionHandler(value = ShowToClientException.class)
+    public ResponseVO<List<String>> businessException(ShowToClientException e) {
         return ResponseVO.of(e.getResponseCode(), e.getDetailMessages());
     }
 

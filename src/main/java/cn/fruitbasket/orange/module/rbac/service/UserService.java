@@ -8,7 +8,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.util.CustomBeanUtils;
 import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.config.security.CustomUserDetails;
-import cn.fruitbasket.orange.config.exception.BusinessException;
+import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
@@ -88,7 +88,7 @@ public class UserService {
     @Transactional
     public UserVO save(UserAddQuery query) {
         RbacUser user = new RbacUser().setUsername(query.getUsername());
-        if (userRep.count(Example.of(user)) > 0) throw new BusinessException("账号[username]已被使用");
+        if (userRep.count(Example.of(user)) > 0) throw new ShowToClientException("账号[username]已被使用");
         BeanUtil.copyProperties(query, user);
         userRep.save(user);
         return UserVO.of(user);
@@ -114,11 +114,11 @@ public class UserService {
     @Transactional
     public UserVO updateUser(UserUpdateQuery query) {
         RbacUser user = userRep.findById(query.getId())
-                .orElseThrow(() -> new BusinessException("用户信息不存在"));
+                .orElseThrow(() -> new ShowToClientException("用户信息不存在"));
 
         if (hasText(query.getUsername())
                 && userRep.countByUsernameIs(query.getUsername()) > 0) {
-            throw new BusinessException("用户名[username]已存在");
+            throw new ShowToClientException("用户名[username]已存在");
         }
 
         BeanUtil.copyProperties(query, user, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
@@ -146,13 +146,13 @@ public class UserService {
     @Transactional
     public void bindingRoles(UserBindRolesQuery query) {
         RbacUser user = userRep.findById(query.getUserId())
-                .orElseThrow(() -> new BusinessException("用户信息不存在"));
+                .orElseThrow(() -> new ShowToClientException("用户信息不存在"));
 
         Set<RbacRole> roles = new HashSet<>(roleService.listRolesOf(query.getRoleIds()));
         if (roles.size() < query.getRoleIds().size()) {
             roles.forEach(role ->
                     query.getRoleIds().remove(role.getId()));
-            throw new BusinessException("角色信息不存在：roleIds" + query.getRoleIds());
+            throw new ShowToClientException("角色信息不存在：roleIds" + query.getRoleIds());
         }
 
         user.setRoles(roles);

@@ -1,6 +1,6 @@
 package cn.fruitbasket.orange.config.response;
 
-import cn.fruitbasket.orange.config.exception.BusinessException;
+import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
@@ -59,7 +59,7 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
         try {
             return objectMapper.writeValueAsString(ResponseVO.successOf(data));
         } catch (JsonProcessingException e) {
-            throw new BusinessException("");
+            throw new ShowToClientException("");
         }
     }
 

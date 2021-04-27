@@ -4,7 +4,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.repository.PermissionRep;
 import cn.fruitbasket.orange.util.CustomBeanUtils;
 import cn.hutool.core.bean.BeanUtil;
-import cn.fruitbasket.orange.config.exception.BusinessException;
+import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionAddQuery;
@@ -74,13 +74,13 @@ public class PermissionService {
         RbacPermission parent;
         if (ROOT_ID.equals(query.getPid())) parent = ROOT_PERMISSION;
         else parent = permissionRep.findById(query.getPid())
-                .orElseThrow(() -> new BusinessException("上级权限不存在"));
+                .orElseThrow(() -> new ShowToClientException("上级权限不存在"));
 
         if (parent.getPermissionType() != MENU)
-            throw new BusinessException("上级权限必须是菜单类型");
+            throw new ShowToClientException("上级权限必须是菜单类型");
 
         if (permissionRep.countByPermissionName(query.getPermissionName()) > 0)
-            throw new BusinessException("权限名称[permissionName]已存在");
+            throw new ShowToClientException("权限名称[permissionName]已存在");
 
         RbacPermission permission = new RbacPermission()
                 .setBreadcrumbs(breadcrumbsBy(parent))
@@ -110,11 +110,11 @@ public class PermissionService {
     @Transactional
     public PermissionVO updatePermission(PermissionUpdateQuery query) {
         RbacPermission permission = permissionRep.findById(query.getId())
-                .orElseThrow(() -> new BusinessException("权限信息不存在"));
+                .orElseThrow(() -> new ShowToClientException("权限信息不存在"));
 
         if (hasText(query.getPermissionName())
                 && permissionRep.countByPermissionName(query.getPermissionName()) > 0) {
-            throw new BusinessException("权限名称[permissionName]已存在");
+            throw new ShowToClientException("权限名称[permissionName]已存在");
         }
 
         BeanUtil.copyProperties(query, permission, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);

@@ -1,6 +1,6 @@
 package cn.fruitbasket.orange.module.sys.service;
 
-import cn.fruitbasket.orange.config.exception.BusinessException;
+import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.sys.pojo.entity.SysConfig;
 import cn.fruitbasket.orange.module.sys.pojo.query.ConfigAddQuery;
@@ -58,7 +58,7 @@ public class ConfigService {
 	@Transactional
 	public ConfigVO saveConfig(ConfigAddQuery query) {
 		SysConfig config = new SysConfig().setConfigKey(query.getConfigKey());
-		if (sysConfigRep.count(Example.of(config)) > 0) throw new BusinessException("配置键已存在");
+		if (sysConfigRep.count(Example.of(config)) > 0) throw new ShowToClientException("配置键已存在");
 		BeanUtil.copyProperties(query, config, IGNORE_NULL_COPY_OPTION);
 		sysConfigRep.save(config);
 		return ConfigVO.of(config);
@@ -73,7 +73,7 @@ public class ConfigService {
 	@Transactional
 	public ConfigVO updateConfig(ConfigUpdateQuery query) {
 		SysConfig config = sysConfigRep.findById(query.getId())
-				.orElseThrow(() -> new BusinessException("配置信息不存在"));
+				.orElseThrow(() -> new ShowToClientException("配置信息不存在"));
 		BeanUtil.copyProperties(query, config, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
 		sysConfigRep.save(config);
 		return ConfigVO.of(config);
@@ -96,13 +96,14 @@ public class ConfigService {
 	 * @param configKey    键
 	 * @param defaultValue 默认值
 	 * @param <R>          返回类型
-	 * @return -
+	 * @return - null-不支持的类型
 	 */
 	@SuppressWarnings("unchecked")
 	public <R> R configValueOrDefault(String configKey, R defaultValue) {
 		requireNonNull(defaultValue);
 		String configValue = configValue(configKey);
 		if (isNull(configValue)) return defaultValue;
+		else if (defaultValue instanceof String) return (R) configValue;
 		else if (defaultValue instanceof Integer) return (R) Integer.valueOf(configValue);
 		else if (defaultValue instanceof Long) return (R) Long.valueOf(configValue);
 		else if (defaultValue instanceof BigDecimal) return (R) new BigDecimal(configValue);
