@@ -37,7 +37,7 @@ public class PermissionTreeNodeVO {
     /**
      * 菜单/权限地址
      */
-    private String permissionUrl;
+    private String permissionLink;
 
     /**
      * 子权限

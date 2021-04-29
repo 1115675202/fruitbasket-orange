@@ -77,9 +77,13 @@ public class RoleService {
     }
 
     /**
+     * 这个方法是给 CustomRoleSecurityFilter 调用的，因为它不是走的 controller 接口，所以 open-in-view = true 在这里无效
+     * 无法保持与数据库的 session 链接，方法中获取权限信息的那一段会报错 no session。所以通过加 @Transactional 保持 session
+     *
      * @param requestUrl 请求地址
      * @return 能访问该地址的角色
      */
+    @Transactional
     public Set<String> listBeAuthorizedRoleNamesOf(String requestUrl) {
         List<RbacPermission> permissions = permissionService.listPermissionsBy(requestUrl);
         return permissions.stream().flatMap(p -> p.getRoles().stream()).map(RbacRole::getRoleName).collect(toSet());

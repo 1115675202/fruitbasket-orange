@@ -30,40 +30,30 @@
       "permissionLevel": 1
     },
     {
-      "pid": 0,
-      "permissionName": "SYS",
-      "permissionShowName": "系统",
-      "permissionLink": "/",
-      "permissionType": "MENU",
-      "breadcrumbs": "",
-      "sortValue": "0",
-      "permissionLevel": 1
-    },
-    {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "USER",
       "permissionShowName": "用户",
-      "permissionLink": "/user",
+      "permissionLink": "user",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
       "sortValue": "0",
       "permissionLevel": 2
     },
     {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "ROLE",
       "permissionShowName": "角色",
-      "permissionLink": "/role",
+      "permissionLink": "role",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
       "sortValue": "0",
       "permissionLevel": 2
     },
     {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "PERMISSION",
       "permissionShowName": "权限",
-      "permissionLink": "/permission",
+      "permissionLink": "permission",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
       "sortValue": "0",
