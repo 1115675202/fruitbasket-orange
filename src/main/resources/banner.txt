@@ -9,3 +9,4 @@ druid SQL 监控：http://localhost:${server.port}${server.servlet.context-path}
     用户名：${spring.datasource.druid.stat-view-servlet.login-username}
     密码：${spring.datasource.druid.stat-view-servlet.login-password}
 API 文档：http://localhost:8081/v1/api/index.html
+    需要先调用 JApiDocsGenerator.main() 生成
