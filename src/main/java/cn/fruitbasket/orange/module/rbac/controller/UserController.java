@@ -1,6 +1,7 @@
 package cn.fruitbasket.orange.module.rbac.controller;
 
 import cn.fruitbasket.orange.config.security.CustomUserDetails;
+import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
@@ -8,7 +9,6 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.module.rbac.service.UserService;
-import cn.fruitbasket.orange.module.common.vo.PageVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,5 +1,6 @@
 package cn.fruitbasket.orange.module.rbac.pojo.vo;
 
+import cn.fruitbasket.orange.dict.PermissionType;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
@@ -45,6 +46,11 @@ public class PermissionTreeNodeVO {
     private String icon;
 
     /**
+     * 权限类型，用来区分菜单、接口、按钮等
+     */
+    private PermissionType permissionType;
+
+    /**
      * 子权限
      */
     private List<PermissionTreeNodeVO> children;
@@ -81,6 +87,7 @@ public class PermissionTreeNodeVO {
     }
 
     public static PermissionTreeNodeVO of(RbacPermission permission) {
-        return BeanUtil.copyProperties(permission, PermissionTreeNodeVO.class);
+        return BeanUtil.copyProperties(permission, PermissionTreeNodeVO.class)
+                .setPermissionType(permission.getPermissionType());
     }
 }

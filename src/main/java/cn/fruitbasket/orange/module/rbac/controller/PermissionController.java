@@ -1,7 +1,7 @@
 package cn.fruitbasket.orange.module.rbac.controller;
 
-import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionAddQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionVO;
 import cn.fruitbasket.orange.module.rbac.service.PermissionService;
 import org.springframework.validation.annotation.Validated;
