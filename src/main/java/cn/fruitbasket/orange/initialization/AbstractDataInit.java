@@ -9,8 +9,8 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 系统配置、字典、菜单等基础数据初始化
@@ -53,15 +53,15 @@ public abstract class AbstractDataInit implements ApplicationRunner {
      * @param <T>       -
      * @return -
      */
-    protected <T> Set<T> getObjects(String fieldName, Class<T> clazz) {
-        Set<T> set = new HashSet<>();
+    protected <T> List<T> getObjects(String fieldName, Class<T> clazz) {
+        List<T> data = new LinkedList<>();
         try {
             for (JsonNode node : dataNode.get(fieldName))
-                set.add(objectMapper.treeToValue(node, clazz));
+                data.add(objectMapper.treeToValue(node, clazz));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return set;
+        return data;
     }
 
     /**

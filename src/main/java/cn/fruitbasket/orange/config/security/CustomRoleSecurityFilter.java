@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 验证请求访问权限
@@ -48,7 +48,7 @@ public class CustomRoleSecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         FilterInvocation filterInvocation = new FilterInvocation(request, response, filterChain);
 
-        Set<String> roles = roleService.listBeAuthorizedRoleNamesOf(filterInvocation.getRequestUrl());
+        List<String> roles = roleService.listBeAuthorizedRoleNamesOf(filterInvocation.getRequestUrl());
         if (!roles.isEmpty()) {
             CustomUserDetails authentication = userService.getLoginInfo();
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

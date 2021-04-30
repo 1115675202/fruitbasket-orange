@@ -1,9 +1,9 @@
 package cn.fruitbasket.orange.module.rbac.pojo.vo;
 
-import cn.fruitbasket.orange.module.common.vo.BaseDataVO;
-import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.dict.PermissionType;
+import cn.fruitbasket.orange.module.common.vo.BaseDataVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.CollectionUtils;
@@ -37,11 +37,6 @@ public class PermissionVO extends BaseDataVO {
     private String permissionName;
 
     /**
-     * 权限显示名称
-     */
-    private String permissionShowName;
-
-    /**
      * 接口/地址
      */
     private String permissionLink;
@@ -50,6 +45,11 @@ public class PermissionVO extends BaseDataVO {
      * 权限类型，用来区分菜单、接口、按钮等
      */
     private PermissionType permissionType;
+
+    /**
+     * 图标
+     */
+    private String icon;
 
     /**
      * 排序值

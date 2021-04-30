@@ -1,7 +1,7 @@
 package cn.fruitbasket.orange.module.rbac.pojo.vo;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +38,11 @@ public class PermissionTreeNodeVO {
      * 菜单/权限地址
      */
     private String permissionLink;
+
+    /**
+     * 图标
+     */
+    private String icon;
 
     /**
      * 子权限

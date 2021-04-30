@@ -23,14 +23,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.DEFAULT_SORT_VALUE;
 import static cn.fruitbasket.orange.util.CustomBeanUtils.IGNORE_NULL_COPY_OPTION;
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.toList;
 import static org.springframework.util.StringUtils.hasText;
 
 /**
@@ -84,9 +84,9 @@ public class RoleService {
      * @return 能访问该地址的角色
      */
     @Transactional
-    public Set<String> listBeAuthorizedRoleNamesOf(String requestUrl) {
+    public List<String> listBeAuthorizedRoleNamesOf(String requestUrl) {
         List<RbacPermission> permissions = permissionService.listPermissionsBy(requestUrl);
-        return permissions.stream().flatMap(p -> p.getRoles().stream()).map(RbacRole::getRoleName).collect(toSet());
+        return permissions.stream().flatMap(p -> p.getRoles().stream()).map(RbacRole::getRoleName).collect(toList());
     }
 
     /**
@@ -170,7 +170,8 @@ public class RoleService {
         RbacRole role = roleRep.findById(query.getRoleId())
                 .orElseThrow(() -> new ShowToClientException(ROLE_NOT_FOUND));
 
-        Set<RbacPermission> permissions = new HashSet<>(permissionService.listPermissionsByUserId(query.getPermissionIds()));
+        List<RbacPermission> permissions =
+                new ArrayList<>(permissionService.listPermissionsByUserId(query.getPermissionIds()));
         if (permissions.size() < query.getPermissionIds().size()) {
             permissions.forEach(permission ->
                     query.getPermissionIds().remove(permission.getId()));

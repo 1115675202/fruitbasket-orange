@@ -11,7 +11,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.Set;
+
+import java.util.List;
 
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
 import static javax.persistence.CascadeType.ALL;
@@ -63,8 +64,8 @@ public class RbacRole extends BaseDO {
     private String description;
 
     @ManyToMany(mappedBy = "roles", cascade = ALL)
-    private Set<RbacUser> users;
+    private List<RbacUser> users;
 
     @ManyToMany(cascade = ALL)
-    private Set<RbacPermission> permissions;
+    private List<RbacPermission> permissions;
 }

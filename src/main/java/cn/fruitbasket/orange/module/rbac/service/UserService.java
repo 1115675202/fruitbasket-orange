@@ -1,20 +1,20 @@
 package cn.fruitbasket.orange.module.rbac.service;
 
-import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
-import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
-import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
-import cn.fruitbasket.orange.util.CustomBeanUtils;
-import cn.hutool.core.bean.BeanUtil;
-import cn.fruitbasket.orange.config.security.CustomUserDetails;
 import cn.fruitbasket.orange.config.exception.ShowToClientException;
+import cn.fruitbasket.orange.config.security.CustomUserDetails;
 import cn.fruitbasket.orange.module.common.vo.PageVO;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacUser;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.module.rbac.repository.UserRep;
+import cn.fruitbasket.orange.util.CustomBeanUtils;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -148,7 +148,7 @@ public class UserService {
         RbacUser user = userRep.findById(query.getUserId())
                 .orElseThrow(() -> new ShowToClientException("用户信息不存在"));
 
-        Set<RbacRole> roles = new HashSet<>(roleService.listRolesOf(query.getRoleIds()));
+        List<RbacRole> roles = new ArrayList<>(roleService.listRolesOf(query.getRoleIds()));
         if (roles.size() < query.getRoleIds().size()) {
             roles.forEach(role ->
                     query.getRoleIds().remove(role.getId()));

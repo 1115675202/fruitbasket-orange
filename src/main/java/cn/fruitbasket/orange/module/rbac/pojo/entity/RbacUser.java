@@ -13,7 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import static cn.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
@@ -82,5 +82,5 @@ public class RbacUser extends BaseDO {
      * 权限列表
      */
     @ManyToMany(cascade = ALL)
-    private Set<RbacRole> roles;
+    private List<RbacRole> roles;
 }

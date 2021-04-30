@@ -12,7 +12,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.Set;
+
+import java.util.List;
 
 import static cn.fruitbasket.orange.dict.PermissionType.MENU;
 import static cn.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
@@ -70,12 +71,6 @@ public class RbacPermission extends BaseDO {
     private String permissionName;
 
     /**
-     * 权限显示名称
-     */
-    @Column(nullable = false)
-    private String permissionShowName;
-
-    /**
      * 接口/地址
      */
     @Column(length = 100, nullable = false)
@@ -86,6 +81,12 @@ public class RbacPermission extends BaseDO {
      */
     @Column(nullable = false)
     private PermissionType permissionType;
+
+    /**
+     * 图标
+     */
+    @Column(length = 50)
+    private String icon;
 
     /**
      * 排序值
@@ -112,7 +113,7 @@ public class RbacPermission extends BaseDO {
     private String breadcrumbs;
 
     @ManyToMany(mappedBy = "permissions",cascade = ALL)
-    private Set<RbacRole> roles;
+    private List<RbacRole> roles;
 
     /**
      * 根据父权限生成面包屑

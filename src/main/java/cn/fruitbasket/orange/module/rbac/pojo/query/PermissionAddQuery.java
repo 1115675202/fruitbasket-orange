@@ -4,6 +4,7 @@ import cn.fruitbasket.orange.dict.PermissionType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,15 +33,9 @@ public class PermissionAddQuery {
     private String permissionName;
 
     /**
-     * 权限显示名称
-     */
-    @NotBlank(message = "权限显示名称[permissionShowName]：不能为空")
-    @Size(min = 1, max = 50, message = "权限显示名称[permissionShowName]：长度为 1 ~ 50")
-    private String permissionShowName;
-
-    /**
      * 接口/地址
      */
+    @Size(min = 1, max = 100, message = "接口/地址[permissionLink]：长度为 1 ~ 100")
     private String permissionLink;
 
     /**
@@ -48,6 +43,12 @@ public class PermissionAddQuery {
      */
     @NotNull(message = "权限类型[permissionType]：不能为空")
     private PermissionType permissionType;
+
+    /**
+     * 图标
+     */
+    @Size(min = 1, max = 50, message = "图标[icon]：长度为 1 ~ 50")
+    private String icon;
 
     /**
      * 排序值

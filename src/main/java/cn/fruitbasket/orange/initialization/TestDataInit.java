@@ -7,7 +7,7 @@ import cn.fruitbasket.orange.module.rbac.repository.UserRep;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author LiuBing
@@ -30,9 +30,9 @@ public class TestDataInit extends AbstractDataInit {
 
     @Override
     protected void finalRun(ApplicationArguments args) {
-        Set<RbacUser> users = super.getObjects("RbacUser", RbacUser.class);
-        Set<RbacRole> roles = super.getObjects("RbacRole", RbacRole.class);
-        Set<RbacPermission> permissions = super.getObjects("RbacPermission", RbacPermission.class);
+        List<RbacUser> users = super.getObjects("RbacUser", RbacUser.class);
+        List<RbacRole> roles = super.getObjects("RbacRole", RbacRole.class);
+        List<RbacPermission> permissions = super.getObjects("RbacPermission", RbacPermission.class);
         users.forEach(user -> user.setRoles(roles));
         permissions.forEach(permission -> permission.setRoles(roles));
         roles.forEach(role -> {

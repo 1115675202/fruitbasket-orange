@@ -21,18 +21,17 @@
   "RbacPermission": [
     {
       "pid": 0,
-      "permissionName": "SYS",
-      "permissionShowName": "系统",
+      "permissionName": "RBAC",
       "permissionLink": "/",
       "permissionType": "MENU",
+      "icon": "el-icon-s-check",
       "breadcrumbs": "",
       "sortValue": "0",
       "permissionLevel": 1
     },
     {
-      "pid": 2,
-      "permissionName": "USER",
-      "permissionShowName": "用户",
+      "pid": 1,
+      "permissionName": "用户",
       "permissionLink": "user",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
@@ -40,9 +39,8 @@
       "permissionLevel": 2
     },
     {
-      "pid": 2,
-      "permissionName": "ROLE",
-      "permissionShowName": "角色",
+      "pid": 1,
+      "permissionName": "角色",
       "permissionLink": "role",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
@@ -50,9 +48,8 @@
       "permissionLevel": 2
     },
     {
-      "pid": 2,
-      "permissionName": "PERMISSION",
-      "permissionShowName": "权限",
+      "pid": 1,
+      "permissionName": "权限",
       "permissionLink": "permission",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
