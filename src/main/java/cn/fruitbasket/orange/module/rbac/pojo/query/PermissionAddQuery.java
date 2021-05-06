@@ -4,7 +4,6 @@ import cn.fruitbasket.orange.dict.PermissionType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

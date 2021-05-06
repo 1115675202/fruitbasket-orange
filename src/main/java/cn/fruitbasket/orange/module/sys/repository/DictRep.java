@@ -1,6 +1,6 @@
 package cn.fruitbasket.orange.module.sys.repository;
 
-import cn.fruitbasket.orange.module.sys.pojo.entity.SysConfig;
+import cn.fruitbasket.orange.module.sys.pojo.entity.SysDict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,21 +9,23 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * 配置
+ * 字典
  *
  * @author LiuBing
  * @date 2020/12/15
  */
-public interface SysConfigRep extends JpaRepository<SysConfig, Integer> {
+public interface DictRep extends JpaRepository<SysDict, Integer> {
 
     /**
      * 分页查询配置
      *
-     * @param configKey 配置键
-     * @param pageable  分页参数
+     * @param dictName     字典名称
+     * @param dictShowName 字典显示名称
+     * @param pageable     分页参数
      * @return 一页数据
      */
-    Page<SysConfig> findAllByConfigKey(String configKey, Pageable pageable);
+    Page<SysDict> findAllByDictNameContainingOrAndDictShowNameContainingOrderByGmtCreateDesc
+    (String dictName, String dictShowName, Pageable pageable);
 
     /**
      * 根据 ID 删除
@@ -34,10 +36,10 @@ public interface SysConfigRep extends JpaRepository<SysConfig, Integer> {
     long deleteByIdIn(Set<Integer> ids);
 
     /**
-     * 根据键查询配置信息
+     * 根据字典名称查找字典信息
      *
-     * @param configKey 键
+     * @param dictName -
      * @return -
      */
-    Optional<SysConfig> findByConfigKey(String configKey);
+    Optional<SysDict> findByDictName(String dictName);
 }

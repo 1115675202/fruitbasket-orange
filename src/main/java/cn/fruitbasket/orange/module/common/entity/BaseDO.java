@@ -21,30 +21,38 @@ import java.time.LocalDateTime;
 @EntityListeners({AuditingEntityListener.class, CustomJpaEntityListener.class})
 public class BaseDO {
 
-	public static final String NOT_DELETE_CONDITION  = "deleted = false";
+    /**
+     * 查询默认未删除条件
+     */
+    public static final String NOT_DELETE_CONDITION = "deleted = false";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NaturalId
-	private Integer id;
+    /**
+     * 默认排序值
+     */
+    public static final Integer DEFAULT_SORT_VALUE = 0;
 
-	/**
-	 * true-已删除
-	 */
-	@Column(nullable = false)
-	private Boolean deleted;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NaturalId
+    private Integer id;
 
-	/**
-	 * 创建时间
-	 */
-	@CreatedDate
-	@Column(nullable = false)
-	private LocalDateTime gmtCreate;
+    /**
+     * true-已删除
+     */
+    @Column(nullable = false)
+    private Boolean deleted;
 
-	/**
-	 * 最后修改时间
-	 */
-	@LastModifiedDate
-	@Column(nullable = false)
-	private LocalDateTime gmtModified;
+    /**
+     * 创建时间
+     */
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 最后修改时间
+     */
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime gmtModified;
 }

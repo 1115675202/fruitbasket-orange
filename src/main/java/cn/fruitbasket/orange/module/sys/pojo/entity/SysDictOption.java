@@ -9,12 +9,10 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.persistence.ManyToOne;
 
 import static cn.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static cn.fruitbasket.orange.module.sys.pojo.entity.SysDict.TABLE_NAME;
-import static javax.persistence.CascadeType.ALL;
 
 /**
  * 字典
@@ -28,22 +26,28 @@ import static javax.persistence.CascadeType.ALL;
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class SysDict extends BaseDO {
+public class SysDictOption extends BaseDO {
 
-    static final String TABLE_NAME = "sys_dict";
-
-    /**
-     * 字典名称
-     */
-    @Column(length = 20, nullable = false)
-    private String dictName;
+    static final String TABLE_NAME = "sys_dict_option";
 
     /**
-     * 字典显示名称
+     * 字典选项值
      */
     @Column(length = 20, nullable = false)
-    private String dictShowName;
+    private String optionValue;
 
-    @OneToMany(mappedBy = "dict", cascade = ALL)
-    private List<SysDictOption> dictOptions;
+    /**
+     * 字典选项名称
+     */
+    @Column(length = 20, nullable = false)
+    private String optionName;
+
+    /**
+     * 排序值
+     */
+    @Column(nullable = false)
+    private Integer sortValue;
+
+    @ManyToOne
+    private SysDict dict;
 }

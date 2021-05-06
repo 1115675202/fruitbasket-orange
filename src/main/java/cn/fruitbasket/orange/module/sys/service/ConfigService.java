@@ -7,7 +7,7 @@ import cn.fruitbasket.orange.module.sys.pojo.query.ConfigAddQuery;
 import cn.fruitbasket.orange.module.sys.pojo.query.ConfigPageableQuery;
 import cn.fruitbasket.orange.module.sys.pojo.query.ConfigUpdateQuery;
 import cn.fruitbasket.orange.module.sys.pojo.vo.ConfigVO;
-import cn.fruitbasket.orange.module.sys.repository.SysConfigRep;
+import cn.fruitbasket.orange.module.sys.repository.ConfigRep;
 import cn.fruitbasket.orange.util.CustomBeanUtils;
 import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ import static java.util.Objects.requireNonNull;
 @Service
 public class ConfigService {
 
-	private final SysConfigRep sysConfigRep;
+	private final ConfigRep configRep;
 
 	/**
 	 * 分页查询配置
@@ -45,7 +45,8 @@ public class ConfigService {
 	 */
 	public PageVO<ConfigVO> listPageConfig(ConfigPageableQuery query) {
 		Pageable pageable = PageRequest.of(query.getPageNumber(), query.getPageSize());
-		Page<SysConfig> page = sysConfigRep.findAllByConfigKey(query.getConfigKey(), pageable);
+		Page<SysConfig> page = configRep
+				.findAllByConfigKeyContainingOrderByGmtCreateDesc(query.getConfigKey(), pageable);
 		return PageVO.of(page, ConfigVO::of);
 	}
 
@@ -58,9 +59,9 @@ public class ConfigService {
 	@Transactional
 	public ConfigVO saveConfig(ConfigAddQuery query) {
 		SysConfig config = new SysConfig().setConfigKey(query.getConfigKey());
-		if (sysConfigRep.count(Example.of(config)) > 0) throw new ShowToClientException("配置键已存在");
+		if (configRep.count(Example.of(config)) > 0) throw new ShowToClientException("配置键已存在");
 		BeanUtil.copyProperties(query, config, IGNORE_NULL_COPY_OPTION);
-		sysConfigRep.save(config);
+		configRep.save(config);
 		return ConfigVO.of(config);
 	}
 
@@ -72,10 +73,10 @@ public class ConfigService {
 	 */
 	@Transactional
 	public ConfigVO updateConfig(ConfigUpdateQuery query) {
-		SysConfig config = sysConfigRep.findById(query.getId())
+		SysConfig config = configRep.findById(query.getId())
 				.orElseThrow(() -> new ShowToClientException("配置信息不存在"));
 		BeanUtil.copyProperties(query, config, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
-		sysConfigRep.save(config);
+		configRep.save(config);
 		return ConfigVO.of(config);
 	}
 
@@ -87,7 +88,7 @@ public class ConfigService {
 	 */
 	@Transactional
 	public long deleteConfigIdIn(Set<Integer> ids) {
-		return sysConfigRep.deleteByIdIn(ids);
+		return configRep.deleteByIdIn(ids);
 	}
 
 	/**
@@ -95,27 +96,27 @@ public class ConfigService {
 	 *
 	 * @param configKey    键
 	 * @param defaultValue 默认值
-	 * @param <R>          返回类型
+	 * @param <T>          返回类型
 	 * @return - null-不支持的类型
 	 */
 	@SuppressWarnings("unchecked")
-	public <R> R configValueOrDefault(String configKey, R defaultValue) {
+	public <T> T getConfigValueOrDefault(String configKey, T defaultValue) {
 		requireNonNull(defaultValue);
 		String configValue = configValue(configKey);
 		if (isNull(configValue)) return defaultValue;
-		else if (defaultValue instanceof String) return (R) configValue;
-		else if (defaultValue instanceof Integer) return (R) Integer.valueOf(configValue);
-		else if (defaultValue instanceof Long) return (R) Long.valueOf(configValue);
-		else if (defaultValue instanceof BigDecimal) return (R) new BigDecimal(configValue);
+		else if (defaultValue instanceof String) return (T) configValue;
+		else if (defaultValue instanceof Integer) return (T) Integer.valueOf(configValue);
+		else if (defaultValue instanceof Long) return (T) Long.valueOf(configValue);
+		else if (defaultValue instanceof BigDecimal) return (T) new BigDecimal(configValue);
 		else return null;
 	}
 
 	private String configValue(String configKey) {
-		SysConfig config = sysConfigRep.findByConfigKey(configKey).orElse(null);
+		SysConfig config = configRep.findByConfigKey(configKey).orElse(null);
 		return isNull(config) ? null : config.getConfigValue();
 	}
 
-	public ConfigService(SysConfigRep sysConfigRep) {
-		this.sysConfigRep = sysConfigRep;
+	public ConfigService(ConfigRep configRep) {
+		this.configRep = configRep;
 	}
 }

@@ -35,11 +35,6 @@ public class RbacRole extends BaseDO {
     static final String TABLE_NAME = "rbac_role";
 
     /**
-     * 默认排序值
-     */
-    public static final Integer DEFAULT_SORT_VALUE = 0;
-
-    /**
      * 角色名称
      */
     @Column(length = 50, nullable = false, unique = true)

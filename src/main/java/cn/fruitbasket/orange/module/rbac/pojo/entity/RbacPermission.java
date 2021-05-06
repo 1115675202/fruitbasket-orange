@@ -48,11 +48,6 @@ public class RbacPermission extends BaseDO {
     public static final Integer FIRST_LEVEL = 1;
 
     /**
-     * 默认排序值
-     */
-    public static final Integer DEFAULT_SORT_VALUE = 0;
-
-    /**
      * 根权限/顶级权限，只是为了业务代码实现简单
      */
     public static final RbacPermission ROOT_PERMISSION = new RbacPermission()
