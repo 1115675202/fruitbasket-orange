@@ -10,9 +10,11 @@ import java.util.*;
 
 import static cn.fruitbasket.orange.dict.PermissionType.API;
 import static cn.fruitbasket.orange.dict.PermissionType.MENU;
+import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.PERMISSION_LEVEL_SEPARATOR;
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -48,7 +50,7 @@ public class MenuTreeNodeVO {
     /**
      * 菜单下的按钮列表
      */
-    private Set<MenuButtonNodeVO> buttons;
+    private Map<String, MenuButtonNodeVO> buttons;
 
     /**
      * 子权限
@@ -90,7 +92,10 @@ public class MenuTreeNodeVO {
                                 .getOrDefault(API, emptyList())
                                 .stream()
                                 .map(MenuButtonNodeVO::of)
-                                .collect(toSet())
+                                .collect(toMap(m -> {
+                                    int startIndex = m.getButtonName().lastIndexOf(PERMISSION_LEVEL_SEPARATOR) + 1;
+                                    return m.getButtonName().substring(startIndex);
+                                }, identity(), (old, nw) -> nw))
                 );
 
                 // 转换菜单类型权限为子节点
