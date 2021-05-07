@@ -29,6 +29,12 @@ public class PermissionUpdateQuery {
     private String permissionName;
 
     /**
+     * 权限显示名称
+     */
+    @Size(min = 1, max = 50, message = "权限显示名称[permissionShowName]：长度为 1 ~ 50")
+    private String permissionShowName;
+
+    /**
      * 接口/地址
      */
     @Size(min = 1, max = 100, message = "接口/地址[permissionLink]：长度为 1 ~ 100")

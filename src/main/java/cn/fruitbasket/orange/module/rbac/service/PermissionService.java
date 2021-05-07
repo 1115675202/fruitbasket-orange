@@ -1,14 +1,14 @@
 package cn.fruitbasket.orange.module.rbac.service;
 
-import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
-import cn.fruitbasket.orange.module.rbac.repository.PermissionRep;
-import cn.fruitbasket.orange.util.CustomBeanUtils;
-import cn.hutool.core.bean.BeanUtil;
 import cn.fruitbasket.orange.config.exception.ShowToClientException;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission;
 import cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole;
 import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionAddQuery;
+import cn.fruitbasket.orange.module.rbac.pojo.query.PermissionUpdateQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionVO;
+import cn.fruitbasket.orange.module.rbac.repository.PermissionRep;
+import cn.fruitbasket.orange.util.CustomBeanUtils;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,6 @@ import static cn.fruitbasket.orange.dict.PermissionType.MENU;
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.*;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
-import static org.springframework.util.StringUtils.hasText;
 
 /**
  * 权限
@@ -91,12 +90,14 @@ public class PermissionService {
             throw new ShowToClientException("上级权限必须是菜单类型");
 
         if (permissionRep.countByPermissionName(query.getPermissionName()) > 0)
-            throw new ShowToClientException("权限名称[permissionName]已存在");
+            throw new ShowToClientException("权限代号[permissionCode]已存在");
 
-        RbacPermission permission = new RbacPermission()
-                .setBreadcrumbs(breadcrumbsBy(parent))
-                .setPermissionLevel(permissionLevelBy(parent.getPermissionLevel()));
-        BeanUtil.copyProperties(query, permission, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
+        RbacPermission permission = BeanUtil.copyProperties(query, RbacPermission.class);
+        permission
+                .breadcrumbsBy(parent.getPid(), parent.getBreadcrumbs())
+                .permissionLevelBy(parent.getPermissionLevel())
+                .permissionNameBy(parent.getPermissionName());
+
         permissionRep.save(permission.setSortValue(DEFAULT_SORT_VALUE));
         return BeanUtil.copyProperties(permission, PermissionVO.class);
     }
@@ -123,10 +124,8 @@ public class PermissionService {
         RbacPermission permission = permissionRep.findById(query.getId())
                 .orElseThrow(() -> new ShowToClientException("权限信息不存在"));
 
-        if (hasText(query.getPermissionName())
-                && permissionRep.countByPermissionName(query.getPermissionName()) > 0) {
-            throw new ShowToClientException("权限名称[permissionName]已存在");
-        }
+        if (permissionRep.countByPermissionName(query.getPermissionName()) > 0)
+            throw new ShowToClientException("权限代号[permissionCode]已存在");
 
         BeanUtil.copyProperties(query, permission, CustomBeanUtils.IGNORE_NULL_COPY_OPTION);
         permissionRep.save(permission);

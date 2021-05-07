@@ -37,6 +37,11 @@ public class PermissionVO extends BaseDataVO {
     private String permissionName;
 
     /**
+     * 权限显示名称
+     */
+    private String permissionShowName;
+
+    /**
      * 接口/地址
      */
     private String permissionLink;

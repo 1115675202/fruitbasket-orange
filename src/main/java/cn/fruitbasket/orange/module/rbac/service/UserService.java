@@ -10,7 +10,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.module.rbac.repository.UserRep;
 import cn.fruitbasket.orange.util.CustomBeanUtils;
@@ -67,9 +67,9 @@ public class UserService {
     /**
      * @return 菜单树形数据
      */
-    public List<PermissionTreeNodeVO> getMenuTrees() {
+    public List<MenuTreeNodeVO> getMenuTrees() {
         List<RbacPermission> permissions = permissionService.listPermissionsByUserId(getLoginInfo().getUserId());
-        return PermissionTreeNodeVO.treeOf(permissions).getChildren();
+        return MenuTreeNodeVO.treeOf(permissions).getChildren();
     }
 
     /**

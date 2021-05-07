@@ -6,7 +6,7 @@ import cn.fruitbasket.orange.module.rbac.pojo.query.UserAddQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserBindRolesQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserPageableQuery;
 import cn.fruitbasket.orange.module.rbac.pojo.query.UserUpdateQuery;
-import cn.fruitbasket.orange.module.rbac.pojo.vo.PermissionTreeNodeVO;
+import cn.fruitbasket.orange.module.rbac.pojo.vo.MenuTreeNodeVO;
 import cn.fruitbasket.orange.module.rbac.pojo.vo.UserVO;
 import cn.fruitbasket.orange.module.rbac.service.UserService;
 import org.springframework.validation.annotation.Validated;
@@ -44,7 +44,7 @@ public class UserController {
      * @return 包含菜单、api等权限信息
      */
     @GetMapping("menu/trees")
-    public List<PermissionTreeNodeVO> getMenuTrees() {
+    public List<MenuTreeNodeVO> getMenuTrees() {
         return userService.getMenuTrees();
     }
 

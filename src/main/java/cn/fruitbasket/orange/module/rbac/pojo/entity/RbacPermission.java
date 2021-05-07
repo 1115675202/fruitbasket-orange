@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 
 import java.util.List;
 
+import static cn.fruitbasket.orange.dict.PermissionType.API;
 import static cn.fruitbasket.orange.dict.PermissionType.MENU;
 import static cn.fruitbasket.orange.module.common.entity.BaseDO.NOT_DELETE_CONDITION;
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacRole.TABLE_NAME;
@@ -48,6 +49,11 @@ public class RbacPermission extends BaseDO {
     public static final Integer FIRST_LEVEL = 1;
 
     /**
+     * 权限层次分隔符号
+     */
+    public static final Character PERMISSION_LEVEL_SEPARATOR = '/';
+
+    /**
      * 根权限/顶级权限，只是为了业务代码实现简单
      */
     public static final RbacPermission ROOT_PERMISSION = new RbacPermission()
@@ -64,6 +70,12 @@ public class RbacPermission extends BaseDO {
      */
     @Column(nullable = false)
     private String permissionName;
+
+    /**
+     * 权限显示名称
+     */
+    @Column(nullable = false)
+    private String permissionShowName;
 
     /**
      * 接口/地址
@@ -107,26 +119,42 @@ public class RbacPermission extends BaseDO {
     @Column(length = 100, nullable = false)
     private String breadcrumbs;
 
-    @ManyToMany(mappedBy = "permissions",cascade = ALL)
+    @ManyToMany(mappedBy = "permissions", cascade = ALL)
     private List<RbacRole> roles;
 
     /**
-     * 根据父权限生成面包屑
+     * API 类型的权限名称需要根据父权限名称拼接生成
+     * 因为可能很多模块有删除按钮，含义一样，加上父权限名称方便作唯一索引
      *
-     * @param parent -
-     * @return 面包屑
+     * @param parentPermissionName 父权限名称
+     * @return this
      */
-    public static String breadcrumbsBy(RbacPermission parent) {
-        return parent.getBreadcrumbs() + "/" + parent.getPid();
+    public RbacPermission permissionNameBy(String parentPermissionName) {
+        if (this.permissionType == API)
+            this.permissionName = parentPermissionName + PERMISSION_LEVEL_SEPARATOR + this.permissionName;
+        return this;
+    }
+
+    /**
+     * 生成面包屑
+     *
+     * @param pid               - 父ID
+     * @param parentBreadcrumbs - 父面包屑
+     * @return this
+     */
+    public RbacPermission breadcrumbsBy(Integer pid, String parentBreadcrumbs) {
+        this.breadcrumbs = parentBreadcrumbs + PERMISSION_LEVEL_SEPARATOR + pid;
+        return this;
     }
 
     /**
      * 根据父层级生成自己的层级
      *
      * @param parentLevel -
-     * @return 层级
+     * @return this
      */
-    public static Integer permissionLevelBy(Integer parentLevel) {
-        return ++parentLevel;
+    public RbacPermission permissionLevelBy(Integer parentLevel) {
+        this.permissionLevel = ++parentLevel;
+        return this;
     }
 }

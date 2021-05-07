@@ -10,6 +10,7 @@
       "avatarLink": "/"
     }
   ],
+
   "RbacRole": [
     {
       "roleName": "ADMIN",
@@ -18,10 +19,12 @@
       "description": ""
     }
   ],
+
   "RbacPermission": [
     {
       "pid": 0,
-      "permissionName": "RBAC",
+      "permissionName": "rbac",
+      "permissionShowName": "RBAC",
       "permissionLink": "/",
       "permissionType": "MENU",
       "icon": "el-icon-s-check",
@@ -31,7 +34,8 @@
     },
     {
       "pid": 1,
-      "permissionName": "用户",
+      "permissionName": "user",
+      "permissionShowName": "用户",
       "permissionLink": "user",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
@@ -40,7 +44,8 @@
     },
     {
       "pid": 1,
-      "permissionName": "角色",
+      "permissionName": "role",
+      "permissionShowName": "角色",
       "permissionLink": "role",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
@@ -49,12 +54,33 @@
     },
     {
       "pid": 1,
-      "permissionName": "权限",
+      "permissionName": "permission",
+      "permissionShowName": "权限",
       "permissionLink": "permission",
       "permissionType": "MENU",
       "breadcrumbs": "/0",
       "sortValue": "0",
       "permissionLevel": 2
+    },
+    {
+      "pid": 2,
+      "permissionName": "user/delete",
+      "permissionShowName": "删除",
+      "permissionLink": "permission",
+      "permissionType": "API",
+      "breadcrumbs": "/0",
+      "sortValue": "0",
+      "permissionLevel": 3
+    },
+    {
+      "pid": 2,
+      "permissionName": "user/add",
+      "permissionShowName": "添加",
+      "permissionLink": "permission",
+      "permissionType": "API",
+      "breadcrumbs": "/0",
+      "sortValue": "0",
+      "permissionLevel": 3
     }
   ]
 }
