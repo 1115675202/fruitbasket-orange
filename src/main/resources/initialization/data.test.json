@@ -5,6 +5,15 @@
       "password": "admin",
       "sex": "WOMAN",
       "realName": "admin",
+      "idCardNo": "400000000000000000",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    },
+    {
+      "username": "admin1",
+      "password": "admin1",
+      "sex": "WOMAN",
+      "realName": "admin1",
       "idCardNo": "430321000000000000",
       "birthday": "2021-04-19",
       "avatarLink": "/"
