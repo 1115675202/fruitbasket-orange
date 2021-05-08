@@ -8,6 +8,51 @@
       "idCardNo": "430321000000000000",
       "birthday": "2021-04-19",
       "avatarLink": "/"
+    },
+    {
+      "username": "admin2",
+      "password": "admin2",
+      "sex": "MAN",
+      "realName": "admin2",
+      "idCardNo": "430321000000000001",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    },
+    {
+      "username": "admin3",
+      "password": "admin3",
+      "sex": "MAN",
+      "realName": "admin3",
+      "idCardNo": "430321000000000002",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    },
+    {
+      "username": "admin4",
+      "password": "admin4",
+      "sex": "MAN",
+      "realName": "admin4",
+      "idCardNo": "430321000000000003",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    },
+    {
+      "username": "admin5",
+      "password": "admin5",
+      "sex": "MAN",
+      "realName": "admin5",
+      "idCardNo": "430321000000000004",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
+    },
+    {
+      "username": "admin6",
+      "password": "admin6",
+      "sex": "MAN",
+      "realName": "admin6",
+      "idCardNo": "430321000000000005",
+      "birthday": "2021-04-19",
+      "avatarLink": "/"
     }
   ],
 
@@ -38,7 +83,7 @@
       "permissionShowName": "用户",
       "permissionLink": "user",
       "permissionType": "MENU",
-      "breadcrumbs": "/0",
+      "breadcrumbs": "/1",
       "sortValue": "0",
       "permissionLevel": 2
     },
@@ -48,7 +93,7 @@
       "permissionShowName": "角色",
       "permissionLink": "role",
       "permissionType": "MENU",
-      "breadcrumbs": "/0",
+      "breadcrumbs": "/1",
       "sortValue": "0",
       "permissionLevel": 2
     },
@@ -58,7 +103,7 @@
       "permissionShowName": "权限",
       "permissionLink": "permission",
       "permissionType": "MENU",
-      "breadcrumbs": "/0",
+      "breadcrumbs": "/1",
       "sortValue": "0",
       "permissionLevel": 2
     },
@@ -68,7 +113,7 @@
       "permissionShowName": "删除",
       "permissionLink": "permission",
       "permissionType": "API",
-      "breadcrumbs": "/0",
+      "breadcrumbs": "/2",
       "sortValue": "0",
       "permissionLevel": 3
     },
@@ -78,7 +123,17 @@
       "permissionShowName": "添加",
       "permissionLink": "permission",
       "permissionType": "API",
-      "breadcrumbs": "/0",
+      "breadcrumbs": "/2",
+      "sortValue": "0",
+      "permissionLevel": 3
+    },
+    {
+      "pid": 2,
+      "permissionName": "user/edit",
+      "permissionShowName": "修改",
+      "permissionLink": "permission",
+      "permissionType": "API",
+      "breadcrumbs": "/2",
       "sortValue": "0",
       "permissionLevel": 3
     }

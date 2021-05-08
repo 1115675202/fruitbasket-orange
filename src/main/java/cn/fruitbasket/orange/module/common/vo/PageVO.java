@@ -20,11 +20,6 @@ import static java.util.stream.Collectors.toList;
 public class PageVO<T> {
 
     /**
-     * 实际个数
-     */
-    private Integer elementCount;
-
-    /**
      * 一页个数
      */
     private Integer pageSize;
@@ -37,7 +32,17 @@ public class PageVO<T> {
     /**
      * 总页数
      */
-    private Integer totalPages;
+    private Integer pageCountTotal;
+
+    /**
+     * 实际个数
+     */
+    private Integer elementCount;
+
+    /**
+     * 总个数
+     */
+    private Long elementCountTotal;
 
     /**
      * 数据
@@ -45,18 +50,19 @@ public class PageVO<T> {
     private List<T> data;
 
     /**
-     *
-     * @param page 源分页数据
+     * @param page      源分页数据
      * @param converter 源-页面展示类型转换器
-     * @param <S> 源类型
-     * @param <T> 页面展示类型
+     * @param <S>       源类型
+     * @param <T>       页面展示类型
      * @return 分页数据
      */
-    public static <S,T> PageVO<T> of(Page<S> page, Function<S, T> converter) {
-        return new PageVO<T>().setElementCount(page.getNumberOfElements())
+    public static <S, T> PageVO<T> of(Page<S> page, Function<S, T> converter) {
+        return new PageVO<T>()
                 .setPageSize(page.getSize())
                 .setPageNumber(page.getNumber())
-                .setTotalPages(page.getTotalPages())
+                .setPageCountTotal(page.getTotalPages())
+                .setElementCount(page.getNumberOfElements())
+                .setElementCountTotal(page.getTotalElements())
                 .setData(page.get().map(converter).collect(toList()));
     }
 }

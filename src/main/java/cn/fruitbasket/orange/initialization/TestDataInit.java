@@ -33,7 +33,7 @@ public class TestDataInit extends AbstractDataInit {
         List<RbacUser> users = super.getObjects("RbacUser", RbacUser.class);
         List<RbacRole> roles = super.getObjects("RbacRole", RbacRole.class);
         List<RbacPermission> permissions = super.getObjects("RbacPermission", RbacPermission.class);
-        users.forEach(user -> user.setRoles(roles));
+        users.get(0).setRoles(roles);
         permissions.forEach(permission -> permission.setRoles(roles));
         roles.forEach(role -> {
             role.setPermissions(permissions);
