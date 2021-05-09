@@ -81,7 +81,7 @@
       "permissionShowName": "首页",
       "permissionLink": "/",
       "permissionType": "MENU",
-      "icon": "el-icon-s-check",
+      "icon": "el-icon-s-home",
       "breadcrumbs": "",
       "sortValue": "0",
       "permissionLevel": 1
