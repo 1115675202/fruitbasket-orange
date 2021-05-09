@@ -14,7 +14,6 @@ import cn.fruitbasket.orange.module.rbac.pojo.vo.RoleVO;
 import cn.fruitbasket.orange.module.rbac.repository.RoleRep;
 import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -69,7 +68,6 @@ public class RoleService {
      * @param userId 用户ID
      * @return 用户所有角色
      */
-    @Cacheable(cacheNames = "role")
     public List<RbacRole> listRolesOf(Integer userId) {
         RbacUser user = new RbacUser();
         user.setId(userId);

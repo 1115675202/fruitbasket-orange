@@ -77,6 +77,17 @@
   "RbacPermission": [
     {
       "pid": 0,
+      "permissionName": "home",
+      "permissionShowName": "首页",
+      "permissionLink": "/",
+      "permissionType": "MENU",
+      "icon": "el-icon-s-check",
+      "breadcrumbs": "",
+      "sortValue": "0",
+      "permissionLevel": 1
+    },
+    {
+      "pid": 0,
       "permissionName": "rbac",
       "permissionShowName": "RBAC",
       "permissionLink": "/",
@@ -87,62 +98,62 @@
       "permissionLevel": 1
     },
     {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "user",
       "permissionShowName": "用户",
       "permissionLink": "user",
       "permissionType": "MENU",
-      "breadcrumbs": "/1",
+      "breadcrumbs": "/2",
       "sortValue": "0",
       "permissionLevel": 2
     },
     {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "role",
       "permissionShowName": "角色",
       "permissionLink": "role",
       "permissionType": "MENU",
-      "breadcrumbs": "/1",
+      "breadcrumbs": "/2",
       "sortValue": "0",
       "permissionLevel": 2
     },
     {
-      "pid": 1,
+      "pid": 2,
       "permissionName": "permission",
       "permissionShowName": "权限",
       "permissionLink": "permission",
       "permissionType": "MENU",
-      "breadcrumbs": "/1",
+      "breadcrumbs": "/2",
       "sortValue": "0",
       "permissionLevel": 2
     },
     {
-      "pid": 2,
+      "pid": 3,
       "permissionName": "user/delete",
       "permissionShowName": "删除",
       "permissionLink": "permission",
       "permissionType": "API",
-      "breadcrumbs": "/2",
+      "breadcrumbs": "/3",
       "sortValue": "0",
       "permissionLevel": 3
     },
     {
-      "pid": 2,
+      "pid": 3,
       "permissionName": "user/add",
       "permissionShowName": "添加",
       "permissionLink": "permission",
       "permissionType": "API",
-      "breadcrumbs": "/2",
+      "breadcrumbs": "/3",
       "sortValue": "0",
       "permissionLevel": 3
     },
     {
-      "pid": 2,
+      "pid": 3,
       "permissionName": "user/edit",
       "permissionShowName": "修改",
       "permissionLink": "permission",
       "permissionType": "API",
-      "breadcrumbs": "/2",
+      "breadcrumbs": "/3",
       "sortValue": "0",
       "permissionLevel": 3
     }
