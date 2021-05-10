@@ -1,8 +1,8 @@
 # 难题及解决方案
 
 #### JPA LAZY 级联查询 报错 no session
->默认情况下，服务与数据库的 session 连接会在执行完 JPA 方法后断掉。使用 LAZY 级联查询方式时，是在调用实体 get级连对象() 方法时才会再
->次使用 session 向数据库发送 SQL 语句查询关联信息，而此时 session 已经断掉了，这就导致报错 no session。<br/>
+>默认情况下，服务与数据库的 session 连接会在执行完 JPA 方法后关闭。使用 LAZY 级联查询方式时，是在调用实体 get级连对象() 方法时才会再
+>次使用 session 向数据库发送 SQL 语句查询关联信息，而此时 session 已经关闭了，这就导致报错 no session。<br/>
 >**解决办法**：在配置文件中配置 spring.jpa.open-in-view: true，此属性将注册一个 OpenEntityManagerInViewInterceptor, 它将
 >EntityManager 注册到当前线程，因此在请求完成之前,您将拥有相同的EntityManager。
 >
