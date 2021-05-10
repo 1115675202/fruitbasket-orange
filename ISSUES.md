@@ -25,7 +25,7 @@
 
 #### JPA LAZY 级联查询 报错 no session
 >lombok @EqualsAndHashCode 自动生成了 equals() hashCode() ，如果两个对象各有属性包含了彼此，则 equals() 内会调用到对方的
->equals()，从而导致死循环，栈内存溢出。比如：jpa 在多对多查询时 双方使用 Set 容器保存对方对象，从而调用 equals() 造成问题。<br/>
+>equals()，从而导致死循环，栈内存溢出。比如：JPA 在多对多查询时 双方使用 Set 容器保存对方对象，从而调用 equals() 造成问题。<br/>
 >**解决办法**：
 >1、@EqualsAndHashCode(exclude = {}) 但是 exclude 排除掉本对象中的对方属性，equals() 则不会调用对方的 equals()<br/>
 >2、自行重写 equals() 和 hashCode()<br/>
