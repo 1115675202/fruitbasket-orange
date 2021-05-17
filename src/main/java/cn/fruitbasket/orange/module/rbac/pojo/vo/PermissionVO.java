@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Data
 @Accessors(chain = true)
-public class PermissionVO extends BaseDataVO {
+public class PermissionVO extends BaseDataVO<PermissionVO> {
 
     /**
      * 父节点ID，0-无父节点
@@ -78,8 +78,7 @@ public class PermissionVO extends BaseDataVO {
      * @return 权限树形
      */
     public static PermissionVO treeOf(Collection<RbacPermission> permissions) {
-        PermissionVO root = new PermissionVO().setChildren(emptyList());
-        root.setId(ROOT_ID);
+        PermissionVO root = new PermissionVO().setChildren(emptyList()).setId(ROOT_ID);
 
         if (CollectionUtils.isEmpty(permissions)) return root;
 

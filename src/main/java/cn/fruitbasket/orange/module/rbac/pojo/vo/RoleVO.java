@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class RoleVO extends BaseDataVO {
+public class RoleVO extends BaseDataVO<RoleVO> {
 
     /**
      * 角色名称

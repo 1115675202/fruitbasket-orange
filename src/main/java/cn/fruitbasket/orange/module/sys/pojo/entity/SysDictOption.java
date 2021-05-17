@@ -26,7 +26,7 @@ import static cn.fruitbasket.orange.module.sys.pojo.entity.SysDict.TABLE_NAME;
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class SysDictOption extends BaseDO {
+public class SysDictOption extends BaseDO<SysDictOption> {
 
     static final String TABLE_NAME = "sys_dict_option";
 

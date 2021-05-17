@@ -30,7 +30,7 @@ import static javax.persistence.CascadeType.ALL;
 @Where(clause = BaseDO.NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class RbacRole extends BaseDO {
+public class RbacRole extends BaseDO<RbacRole> {
 
     static final String TABLE_NAME = "rbac_role";
 

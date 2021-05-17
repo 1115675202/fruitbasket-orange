@@ -12,7 +12,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-
 import java.util.List;
 
 import static cn.fruitbasket.orange.dict.PermissionType.API;
@@ -34,7 +33,7 @@ import static javax.persistence.CascadeType.ALL;
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class RbacPermission extends BaseDO {
+public class RbacPermission extends BaseDO<RbacPermission> {
 
     static final String TABLE_NAME = "rbac_permission";
 

@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class DictOptionVO extends BaseDataVO {
+public class DictOptionVO extends BaseDataVO<DictOptionVO> {
 
     /**
      * 字典选项值

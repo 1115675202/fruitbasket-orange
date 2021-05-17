@@ -25,7 +25,7 @@ import static cn.fruitbasket.orange.module.sys.pojo.entity.SysConfig.TABLE_NAME;
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class SysConfig extends BaseDO {
+public class SysConfig extends BaseDO<SysConfig> {
 
     static final String TABLE_NAME = "sys_config";
 

@@ -11,7 +11,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static org.springframework.data.util.CastUtils.cast;
+
 /**
+ * @param <CHILD> 子类型调用本类中的set()方法后返回子类型，实现 set() 链式调用
  * @author LiuBing
  * @date 2020/12/15
  */
@@ -19,7 +22,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class, CustomJpaEntityListener.class})
-public class BaseDO {
+public class BaseDO<CHILD extends BaseDO<?>> {
 
     /**
      * 查询默认未删除条件
@@ -55,4 +58,24 @@ public class BaseDO {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime gmtModified;
+
+    public CHILD setId(Integer id) {
+        this.id = id;
+        return cast(this);
+    }
+
+    public CHILD setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+        return cast(this);
+    }
+
+    public CHILD setGmtCreate(LocalDateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
+        return cast(this);
+    }
+
+    public CHILD setGmtModified(LocalDateTime gmtModified) {
+        this.gmtModified = gmtModified;
+        return cast(this);
+    }
 }

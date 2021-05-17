@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @Accessors(chain = true)
-public class UserVO extends BaseDataVO {
+public class UserVO extends BaseDataVO<UserVO> {
 
     /**
      * 账号

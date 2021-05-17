@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Data
 @Accessors(chain = true)
-public class DictVO extends BaseDataVO {
+public class DictVO extends BaseDataVO<DictVO> {
 
     /**
      * 字典名称

@@ -28,7 +28,7 @@ import static javax.persistence.CascadeType.ALL;
 @Where(clause = NOT_DELETE_CONDITION)
 @SQLDelete(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
 @SQLDeleteAll(sql = "UPDATE " + TABLE_NAME + " SET deleted = true WHERE id = ?")
-public class SysDict extends BaseDO {
+public class SysDict extends BaseDO<SysDict> {
 
     static final String TABLE_NAME = "sys_dict";
 

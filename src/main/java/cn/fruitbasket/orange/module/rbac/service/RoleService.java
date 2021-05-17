@@ -69,8 +69,7 @@ public class RoleService {
      * @return 用户所有角色
      */
     public List<RbacRole> listRolesOf(Integer userId) {
-        RbacUser user = new RbacUser();
-        user.setId(userId);
+        RbacUser user = new RbacUser().setId(userId);
         return roleRep.findAllByUsersIsOrderBySortValueDesc(user);
     }
 

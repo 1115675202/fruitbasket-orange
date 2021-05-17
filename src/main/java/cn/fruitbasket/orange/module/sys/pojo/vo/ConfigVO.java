@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class ConfigVO extends BaseDataVO {
+public class ConfigVO extends BaseDataVO<ConfigVO> {
 
     /**
      * 配置键
