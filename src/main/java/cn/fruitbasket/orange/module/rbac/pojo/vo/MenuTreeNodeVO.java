@@ -10,7 +10,6 @@ import java.util.*;
 
 import static cn.fruitbasket.orange.dict.PermissionType.API;
 import static cn.fruitbasket.orange.dict.PermissionType.MENU;
-import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.PERMISSION_LEVEL_SEPARATOR;
 import static cn.fruitbasket.orange.module.rbac.pojo.entity.RbacPermission.ROOT_ID;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
@@ -93,7 +92,8 @@ public class MenuTreeNodeVO {
                                 .stream()
                                 .map(MenuButtonNodeVO::of)
                                 .collect(toMap(m -> {
-                                    int startIndex = m.getButtonName().lastIndexOf(PERMISSION_LEVEL_SEPARATOR) + 1;
+                                    int startIndex = m.getButtonName()
+                                            .lastIndexOf(RbacPermission.PERMISSION_LEVEL_SEPARATOR) + 1;
                                     return m.getButtonName().substring(startIndex);
                                 }, identity(), (old, nw) -> nw))
                 );

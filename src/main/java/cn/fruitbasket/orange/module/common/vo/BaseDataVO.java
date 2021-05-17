@@ -12,11 +12,11 @@ import static org.springframework.data.util.CastUtils.cast;
  *
  * @author LiuBing
  * @date 2021/4/21
- * @param <CHILD> 子类型调用本类中的set()方法后返回子类型，实现 set() 链式调用
+ * @param <C> 子类型调用本类中的set()方法后返回子类型，实现 set() 链式调用
  */
 @Data
 @Accessors(chain = true)
-public class BaseDataVO<CHILD extends BaseDataVO<?>> {
+public class BaseDataVO<C extends BaseDataVO<?>> {
 
     /**
      * 唯一 ID
@@ -38,22 +38,22 @@ public class BaseDataVO<CHILD extends BaseDataVO<?>> {
      */
     private LocalDateTime gmtModified;
 
-    public CHILD setId(Integer id) {
+    public C setId(Integer id) {
         this.id = id;
         return cast(this);
     }
 
-    public CHILD setDeleted(Boolean deleted) {
+    public C setDeleted(Boolean deleted) {
         this.deleted = deleted;
         return cast(this);
     }
 
-    public CHILD setGmtCreate(LocalDateTime gmtCreate) {
+    public C setGmtCreate(LocalDateTime gmtCreate) {
         this.gmtCreate = gmtCreate;
         return cast(this);
     }
 
-    public CHILD setGmtModified(LocalDateTime gmtModified) {
+    public C setGmtModified(LocalDateTime gmtModified) {
         this.gmtModified = gmtModified;
         return cast(this);
     }
