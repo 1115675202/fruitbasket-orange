@@ -29,8 +29,8 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
     /**
      * 判断是否拦截处理
      *
-     * @param methodParameter
-     * @param aClass
+     * @param methodParameter -
+     * @param aClass -
      * @return true/false-执行/不执行 beforeBodyWrite
      */
     @Override
@@ -46,18 +46,18 @@ public class UnifyResponseAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object data, MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> aClass,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        return data instanceof String ? stringResponseConvert(data) : ResponseVO.successOf(data);
+        return data instanceof String ? stringResponseConvert(data) : Responses.successOf(data);
     }
 
     /**
      * String 类型需要特殊处理，否则会抛出异常 java.lang.ClassCastException
      *
-     * @param data
+     * @param data -
      * @return 包装后的 JSON 数据
      */
     private String stringResponseConvert(Object data) {
         try {
-            return objectMapper.writeValueAsString(ResponseVO.successOf(data));
+            return objectMapper.writeValueAsString(Responses.successOf(data));
         } catch (JsonProcessingException e) {
             throw new ShowToClientException("");
         }

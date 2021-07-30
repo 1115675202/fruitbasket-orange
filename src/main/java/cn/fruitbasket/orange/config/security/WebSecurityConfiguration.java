@@ -1,5 +1,6 @@
 package cn.fruitbasket.orange.config.security;
 
+import cn.fruitbasket.orange.config.response.Responses;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cn.fruitbasket.orange.config.response.ResponseVO;
 import org.springframework.context.annotation.Bean;
@@ -88,7 +89,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return (request, response, e) -> {
             response.setContentType(APPLICATION_JSON_VALUE);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
+            out.write(objectMapper.writeValueAsString(Responses.SUCCESS));
             out.close();
         };
     }
@@ -102,7 +103,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.of(ACCESS_DENIED)));
+            out.write(objectMapper.writeValueAsString(Responses.of(ACCESS_DENIED)));
             out.close();
         };
     }
@@ -115,7 +116,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return (request, response, authentication) -> {
             response.setContentType(APPLICATION_JSON_VALUE);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.SUCCESS));
+            out.write(objectMapper.writeValueAsString(Responses.SUCCESS));
             out.close();
         };
     }
@@ -129,7 +130,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, e.getMessage())));
+            out.write(objectMapper.writeValueAsString(Responses.of(LOGIN_ERROR, e.getMessage())));
             out.close();
         };
     }
@@ -143,7 +144,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
-            out.write(objectMapper.writeValueAsString(ResponseVO.of(LOGIN_ERROR, "未登录")));
+            out.write(objectMapper.writeValueAsString(Responses.of(LOGIN_ERROR, "未登录")));
             out.close();
         };
     }

@@ -1,6 +1,7 @@
 package cn.fruitbasket.orange.config.exception;
 
 import cn.fruitbasket.orange.config.response.ResponseVO;
+import cn.fruitbasket.orange.config.response.Responses;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -48,7 +49,7 @@ public class GlobalExceptionAdvice {
     public ResponseVO<List<String>> constraintViolationException(ConstraintViolationException e) {
         List<String> errorMessages = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage).collect(toList());
-        return ResponseVO.of(CLIENT_ERROR, errorMessages);
+        return Responses.of(CLIENT_ERROR, errorMessages);
     }
 
     /**
@@ -56,7 +57,7 @@ public class GlobalExceptionAdvice {
      **/
     @ExceptionHandler(value = ShowToClientException.class)
     public ResponseVO<List<String>> businessException(ShowToClientException e) {
-        return ResponseVO.of(e.getResponseCode(), e.getDetailMessages());
+        return Responses.of(e.getResponseCode(), e.getDetailMessages());
     }
 
     /**
@@ -64,7 +65,7 @@ public class GlobalExceptionAdvice {
      **/
     @ExceptionHandler(value = Exception.class)
     public ResponseVO<List<String>> otherException(Exception e) {
-        return ResponseVO.failureOf(singletonList(e.getMessage()));
+        return Responses.failureOf(singletonList(e.getMessage()));
     }
 
     /**
@@ -76,6 +77,6 @@ public class GlobalExceptionAdvice {
     private ResponseVO<List<String>> convertFrom(BindingResult bindingResult) {
         List<String> errorMessages = bindingResult.getAllErrors()
                 .stream().map(ObjectError::getDefaultMessage).collect(toList());
-        return ResponseVO.of(CLIENT_ERROR, errorMessages);
+        return Responses.of(CLIENT_ERROR, errorMessages);
     }
 }
