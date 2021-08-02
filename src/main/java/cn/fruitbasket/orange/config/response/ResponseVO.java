@@ -16,7 +16,7 @@ public class ResponseVO<T> {
     /**
      * 响应信息，用来说明响应情况
      */
-    private String message;
+    private final String message;
 
     /**
      * 响应的具体数据
@@ -25,11 +25,6 @@ public class ResponseVO<T> {
 
     public ResponseVO<T> setData(T data) {
         this.data = data;
-        return this;
-    }
-
-    public ResponseVO<T> setMessage(String message) {
-        this.message = message;
         return this;
     }
 
