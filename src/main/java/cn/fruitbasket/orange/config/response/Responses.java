@@ -46,11 +46,6 @@ public class Responses {
             throw new UnsupportedOperationException();
         }
 
-        @Override
-        public ResponseVO<T> setMessage(String message) {
-            throw new UnsupportedOperationException();
-        }
-
         protected UnmodifiableResponseVO(ResponseCode responseCode) {
             super(responseCode, null);
         }
